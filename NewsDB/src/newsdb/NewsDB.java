@@ -10,12 +10,13 @@ package newsdb;
  * @author stanislaw
  */
 public class NewsDB {
-
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Controller controller = new Controller();
+        controller.show_general_frame();
     }
     
 }
