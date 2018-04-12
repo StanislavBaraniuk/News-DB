@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Апр 12 2018 г., 19:37
+-- Время создания: Апр 12 2018 г., 20:15
 -- Версия сервера: 5.6.37
 -- Версия PHP: 5.6.31
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- База данных: `newsDB`
 --
+CREATE DATABASE IF NOT EXISTS `newsDB` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `newsDB`;
 
 -- --------------------------------------------------------
 
@@ -26,6 +28,7 @@ SET time_zone = "+00:00";
 -- Структура таблицы `autors`
 --
 
+DROP TABLE IF EXISTS `autors`;
 CREATE TABLE IF NOT EXISTS `autors` (
   `id_autors` int(11) NOT NULL,
   `name_autors` varchar(50) NOT NULL,
@@ -45,6 +48,7 @@ CREATE TABLE IF NOT EXISTS `autors` (
 -- Структура таблицы `coments`
 --
 
+DROP TABLE IF EXISTS `coments`;
 CREATE TABLE IF NOT EXISTS `coments` (
   `id_coments` int(11) NOT NULL,
   `text_coments` varchar(2000) NOT NULL,
@@ -62,6 +66,7 @@ CREATE TABLE IF NOT EXISTS `coments` (
 -- Структура таблицы `news`
 --
 
+DROP TABLE IF EXISTS `news`;
 CREATE TABLE IF NOT EXISTS `news` (
   `id_news` int(11) NOT NULL,
   `title_news` varchar(100) NOT NULL,
@@ -86,6 +91,7 @@ INSERT INTO `news` (`id_news`, `title_news`, `data_news`, `time_news`, `text_new
 -- Структура таблицы `tegs`
 --
 
+DROP TABLE IF EXISTS `tegs`;
 CREATE TABLE IF NOT EXISTS `tegs` (
   `id_tegs` int(11) NOT NULL,
   `text_tegs` varchar(50) NOT NULL
