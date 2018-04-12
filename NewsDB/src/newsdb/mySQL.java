@@ -89,9 +89,9 @@ class mySQL{
         ArrayList rez = new ArrayList();
         int i;//кількість колонок
         try{
-            if (s==null) {
-                s = (Statement) conn.createStatement();
-            }
+            
+            s = (Statement) conn.createStatement();
+            
             // запит до БД
             ResultSet r =null;
                   //r=s.executeQuery("SET NAMES utf8");
@@ -137,7 +137,7 @@ class mySQL{
             return Xrez;
         }
     }
-    public void insert(String id1, String id2){
+    public PreparedStatement insert(ArrayList<String> columnArr, ArrayList valueArr){
         try{
             String mySQLquery="";
             /*
@@ -149,31 +149,41 @@ class mySQL{
             ;
             PreparedStatement X=(PreparedStatement) conn.prepareStatement(mySQLquery);      
             */
-                  mySQLquery=
-                    "INSERT INTO `"+ tbl +"` " +
-                    "(`FirstName`, `LastName`) " +
-                    "VALUES (?, ?);"
-                  ;                  
-                PreparedStatement X=(PreparedStatement) conn.prepareStatement(mySQLquery);
-                X.setString(1, id1);
-                X.setString(2, id2);
-            
-            
-            X.execute();
+            mySQLquery = "INSERT INTO " + tbl + " " + "(";
+            for (int i = 0; i < columnArr.size(); i++) {
+                if (i != columnArr.size()-1) {
+                    mySQLquery = mySQLquery + "" + columnArr.get(i) + ", ";
+                } else {
+                    mySQLquery = mySQLquery + "" + columnArr.get(i) + "";
+                }
+            }
+            mySQLquery = mySQLquery + ")" + "VALUES (";
+            for (int i = 0; i < valueArr.size(); i++) {
+                if (i != valueArr.size()-1) {
+                    mySQLquery = mySQLquery + "?, ";
+                } else {
+                    mySQLquery = mySQLquery + "?";
+                }
+            }
+            mySQLquery = mySQLquery + ");";
+            System.out.println(mySQLquery);
+            PreparedStatement X=(PreparedStatement) conn.prepareStatement(mySQLquery);
+            return X;
         }
         catch (Exception e){
             System.out.println(e.fillInStackTrace());
+            return null;
         }
     }
     
-    public void del(int id){
+    public void del(int id, String idN){
         String mySQLquery="";
         try{
             
             //Statement X=(Statement) conn.createStatement();                    
                   mySQLquery=
                     "DELETE FROM `"+ tbl +"` " +
-                    "WHERE `id`= "+ id +";"
+                    "WHERE `"+ idN + "`= "+ id +";"
                   ;
             //X.executeQuery(mySQLquery);
             conn.prepareStatement(mySQLquery);                     
@@ -182,6 +192,16 @@ class mySQL{
         }
         catch (Exception e){
             System.out.println(e.fillInStackTrace()+"\n"+mySQLquery);
+        }
+    }
+    
+    public void close_conections() {
+        if (conn != null){
+            try
+            {
+                conn.close ();
+            }
+            catch (Exception e) { }
         }
     }
     
