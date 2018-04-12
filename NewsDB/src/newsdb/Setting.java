@@ -23,6 +23,8 @@ public class Setting extends javax.swing.JFrame {
         initComponents();
         Dimension sSize = Toolkit.getDefaultToolkit ().getScreenSize ();
         this.setLocation(sSize.width/2-this.getWidth()/2, sSize.height/2-this.getHeight()/2);
+        
+       
     }
 
     /**
@@ -48,9 +50,6 @@ public class Setting extends javax.swing.JFrame {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
         });
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -64,6 +63,11 @@ public class Setting extends javax.swing.JFrame {
         jLabel4.setText("PASSWORD");
 
         jButton1.setText("SET");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -120,13 +124,14 @@ public class Setting extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        
-    }//GEN-LAST:event_formWindowClosed
-
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         controller.hide_setting_frame();
     }//GEN-LAST:event_formWindowClosing
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        controller.set_connect_info(jTextField3.getText(), jTextField4.getText(), jTextField1.getText(), jTextField2.getText());
+        controller.hide_setting_frame();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -169,9 +174,9 @@ public class Setting extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    public javax.swing.JTextField jTextField1;
+    public javax.swing.JTextField jTextField2;
+    public javax.swing.JTextField jTextField3;
+    public javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 }
