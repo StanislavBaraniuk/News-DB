@@ -39,9 +39,12 @@ class mySQL{
         
     }
     
+    public void set_table(String TBL) {
+        tbl = TBL;
+        System.out.println(tbl);
+    }
+    
     public ArrayList get_available_table(){
-        //    "jdbc:mysql://СЕРВЕР:ПОРТ/БД";
-//        System.out.println(dbUrl + "user = " + user + " pass = " + password );'
         ArrayList s = new ArrayList();
         System.out.println(Conect());
         try {
@@ -62,14 +65,8 @@ class mySQL{
     }
 
     public String Conect(){
-        
-//        System.out.println(dbUrl + " user = " + user + " pass = " + password );
         try {
-            
-            // !!!! ІНІЦІАЛІЗУЄМО ДРАЙВЕР !!!! має бути обов’язково
             Class.forName ("com.mysql.jdbc.Driver").newInstance ();
-//            System.out.println("work");
-            //підключаємось
             conn = DriverManager.getConnection (dbUrl, user,password);
             
             return "Ok";
@@ -86,9 +83,10 @@ class mySQL{
         }
         return null;
     }
-    public String GetData() {// метод повертає всі записи з таблиці у вигляді
+    public ArrayList GetData() {// метод повертає всі записи з таблиці у вигляді
                              // великого рядка
-        String rez="Помилка!!!";
+//        String rez="Помилка!!!";
+        ArrayList rez = new ArrayList();
         int i;//кількість колонок
         try{
             if (s==null) {
@@ -106,17 +104,15 @@ class mySQL{
             //таблиць
             ResultSetMetaData colonki =r.getMetaData();
             i=colonki.getColumnCount();//к-ть колонок
-
-            rez="";
-            /*
+            rez.add(i);
+            
             for (int j=1;j<=i;j++){
-                rez+=colonki.getCatalogName(j)+" || ";
-            }*/
+                rez.add(colonki.getColumnName(j));
+            }
             
             while(r.next()) {
-                rez+="\n";
                 for (int j=1;j<=i;j++){
-                    rez+=r.getString(j)+" || ";
+                    rez.add(r.getString(j));
                 }
             }
         }

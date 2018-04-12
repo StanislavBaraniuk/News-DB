@@ -7,6 +7,7 @@ package newsdb;
 
 import java.util.ArrayList;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,7 +17,7 @@ public class Controller {
     private General gFrame = new General(this);
     private Setting sFrame = new Setting(this);
     private mySQL SQL = new mySQL();
-    private String user = "root", password, DBName, SERVER = "127.0.0.1";
+    private String user = "rootor", password="root", DBName, SERVER = "127.0.0.1";
     private String PORT = "3306";
     
     public void show_general_frame() {
@@ -34,8 +35,46 @@ public class Controller {
     }
     
     public void connect_db() {
+        SQL.set_table(gFrame.jComboBox1.getSelectedItem().toString());
         SQL.set_connect_info(SERVER, PORT, DBName, user, password);
         System.out.println(SQL.Conect());
+        write_to_table();
+    }
+    
+    public void write_to_table() {
+        ArrayList list = SQL.GetData();
+        System.out.println(list);
+        String[] columns = new String[(int)list.get(0)];
+
+        list.remove(0);
+        
+        for (int i = 0; i < columns.length; i++) { 
+            columns[i] = (String) list.get(i);
+            System.out.println(columns[i]);
+        }
+        
+        System.out.println(list);
+        
+        for (int i = 0; i < columns.length; i++) { 
+            list.remove(0);
+        }
+        
+        System.out.println(list);
+        
+        String[][] data = new String[][]{};
+        
+        gFrame.jTable1.setModel(new DefaultTableModel(data,columns));
+        
+        for (int i = 0; i < list.size(); i++) {
+            DefaultTableModel model = (DefaultTableModel) gFrame.jTable1.getModel();
+            model.addRow(new String[columns.length]);
+//            UDBObject ob = (UDBObject) udb.getObject(i);
+            gFrame.jTable1.setValueAt(list.get(i), i, 0);
+            for (int l = 1; l <= list.size(); l++) {
+//                UDBObjectProperty p = (UDBObjectProperty) arP.get(l-1);
+                gFrame.jTable1.setValueAt(list.get(l), i, l);
+            }
+        }
     }
     
     public void check_available_table() {
