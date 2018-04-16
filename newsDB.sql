@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Апр 12 2018 г., 20:15
+-- Время создания: Апр 16 2018 г., 20:36
 -- Версия сервера: 5.6.37
 -- Версия PHP: 5.6.31
 
@@ -56,8 +56,9 @@ CREATE TABLE IF NOT EXISTS `coments` (
   `data_coments` date NOT NULL,
   `time_coments` time NOT NULL,
   `like_coments` int(11) NOT NULL,
-  `answer_coments` int(11) NOT NULL,
-  `country_coments` varchar(50) NOT NULL
+  `answer_coments` int(11) DEFAULT NULL,
+  `country_coments` varchar(50) NOT NULL,
+  `news_comments` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -74,16 +75,21 @@ CREATE TABLE IF NOT EXISTS `news` (
   `time_news` time NOT NULL,
   `text_news` mediumtext NOT NULL,
   `autor_news` varchar(50) NOT NULL,
-  `tegs_news` mediumtext NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  `tegs_news` mediumtext NOT NULL,
+  `photo_news` varchar(200) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `news`
 --
 
-INSERT INTO `news` (`id_news`, `title_news`, `data_news`, `time_news`, `text_news`, `autor_news`, `tegs_news`) VALUES
-(1, 'jjasljd', '2023-03-20', '14:45:00', 'jdlafad', 'Lol', 'LOL'),
-(3, 'hkjhlk', '2020-05-20', '21:45:00', 'kghjfghvbnkhgjftghvjbkghjbklkvgh', 'kaxa', 'kaxa');
+INSERT INTO `news` (`id_news`, `title_news`, `data_news`, `time_news`, `text_news`, `autor_news`, `tegs_news`, `photo_news`) VALUES
+(13, 'The good of war', '2018-04-15', '09:20:41', 'All die tooday...', 'die good war Stanis', 'Stanis', 'http:\\\\link.com\\'),
+(14, 'Russsha parsha - Ukruiana xoxlayna', '2018-04-15', '09:22:36', 'La-la-la-la PTN', 'russia ukraina', 'Korespondent', 'http:\\\\link.com\\ddd'),
+(15, '13', '2018-04-15', '10:25:53', '13-th Friday', 'friday 13 13-th Stanis', 'Stanis', 'http://link.com/link'),
+(16, 'dtfhgjkn', '2018-04-16', '12:13:04', 'nkhgg', 'kljkhhgjh', 'fhdgnfhg', 'drtfhgjk'),
+(17, 'df', '2024-02-20', '14:45:00', 'pisa', 'Pipisa', 'Pisa Pipisa', 'thdgfsdvfg'),
+(18, 'Pipisa', '2018-04-16', '02:47:09', 'pipipipisa', 'pisasa', 'Pisa', 'Pipipisa');
 
 -- --------------------------------------------------------
 
@@ -95,15 +101,7 @@ DROP TABLE IF EXISTS `tegs`;
 CREATE TABLE IF NOT EXISTS `tegs` (
   `id_tegs` int(11) NOT NULL,
   `text_tegs` varchar(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `tegs`
---
-
-INSERT INTO `tegs` (`id_tegs`, `text_tegs`) VALUES
-(1, '2'),
-(2, 'LOL');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Индексы сохранённых таблиц
@@ -151,12 +149,12 @@ ALTER TABLE `coments`
 -- AUTO_INCREMENT для таблицы `news`
 --
 ALTER TABLE `news`
-  MODIFY `id_news` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id_news` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT для таблицы `tegs`
 --
 ALTER TABLE `tegs`
-  MODIFY `id_tegs` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id_tegs` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
