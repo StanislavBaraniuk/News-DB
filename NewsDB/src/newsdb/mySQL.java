@@ -137,7 +137,7 @@ class mySQL{
             return Xrez;
         }
     }
-    public PreparedStatement insert(ArrayList<String> columnArr, ArrayList valueArr){
+    public PreparedStatement insert(ArrayList<String> columnArr){
         try{
             String mySQLquery="";
             /*
@@ -158,8 +158,8 @@ class mySQL{
                 }
             }
             mySQLquery = mySQLquery + ")" + "VALUES (";
-            for (int i = 0; i < valueArr.size(); i++) {
-                if (i != valueArr.size()-1) {
+            for (int i = 0; i < columnArr.size(); i++) {
+                if (i != columnArr.size()-1) {
                     mySQLquery = mySQLquery + "?, ";
                 } else {
                     mySQLquery = mySQLquery + "?";

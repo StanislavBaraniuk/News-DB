@@ -10,8 +10,13 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,6 +29,9 @@ public class Controller {
     private General gFrame = new General(this);
     private Setting sFrame = new Setting(this);
     private Functions fFrame = new Functions(this);
+    private AddNewsFrame anFrame = new AddNewsFrame(this);
+    private OpenNewsFrame onFrame = new OpenNewsFrame(this);
+    private SelectOpenNewsFrame seFrame = new SelectOpenNewsFrame(this);
     private mySQL SQL = new mySQL();
     private String user = "rootor", password="root", DBName, SERVER = "127.0.0.1";
     private String PORT = "3306";
@@ -62,11 +70,32 @@ public class Controller {
                 add_element();
                 break;
             case 1: 
+//                search_elements();
                 break;
             case 2: 
                 delete_element();
                 break;    
         }
+    }
+    
+    public void show_add_news_frame() {
+        anFrame.setVisible(true);
+        gFrame.setVisible(false);
+    }
+    
+    public void hide_add_news_frame() {
+        anFrame.setVisible(false);
+        gFrame.setVisible(true);
+    }
+    
+    public void show_open_news_frame() {
+        onFrame.setVisible(true);
+        gFrame.setVisible(false);
+    }
+    
+    public void hide_open_news_frame() {
+        onFrame.setVisible(false);
+        gFrame.setVisible(true);
     }
     
     public void delete_element() {
@@ -77,16 +106,164 @@ public class Controller {
         connect_db();
     }
     
-    public void add_element() {
+    public void search_news(String search){
+        DefaultListModel listModelNumber = new DefaultListModel();
+        listModelNumber.removeAllElements();
+        onFrame.jList1.setModel(listModelNumber);
+        Map<Integer, String> newses = new HashMap<Integer, String>();
+        ArrayList newsString = SQL.GetData();
+//        System.out.println(newsString.get(0));
+        int col = (int) newsString.get(0);
+        
+        for (int i =0; i < col+1; i++) {
+            newsString.remove(0);
+        }
+        
+        ArrayList<News> news = new ArrayList<News>();
+        
+        for (int l = 0; l < newsString.size(); l++) {
+            News newsN = new News((String)newsString.get(l),
+                        (String)newsString.get(l+1),
+                        (String)newsString.get(l+2),
+                        (String)newsString.get(l+3),
+                        (String)newsString.get(l+4),
+                        (String)newsString.get(l+5),
+                        (String)newsString.get(l+6),
+                        (String)newsString.get(l+7));
+            news.add(newsN);
+            l+=7;
+        }
+        
+        ArrayList<News> newsSorted = new ArrayList<News>();
+        search = search.replaceAll("\\W", " ");
+        String searchAr[] = search.split(" ");
+        
+        ArrayList<String> searchSorted = new ArrayList<String>();
+        searchSorted.addAll(Arrays.asList(searchAr));
+        
+        for (int l = 0; l < news.size(); l++) {
+            for (String searchSorted1 : searchSorted) {
+//                try {
+                String index = searchSorted1;
+//                } catch (NumberFormatException e) {
+//                    
+//                }
+                if (searchSorted1.equals(news.get(l).autor) || searchSorted1.equals(news.get(l).date) || searchSorted1.equals(news.get(l).time) || searchSorted1.equals(news.get(l).photo) || searchSorted1.equals(news.get(l).index)) {
+                    newsSorted.add(news.get(l));
+                } else {
+                    String[] textes;
+                    textes = news.get(l).title.split(" ");
+                    for (String texte : textes) {
+                        if (searchSorted1.equals(texte)) {
+                            newsSorted.add(news.get(l));
+                            break;
+                        }
+                    }
+                    
+                    textes = news.get(l).txt.split(" ");
+                    for (String texte : textes) {
+                        if (searchSorted1.equals(texte)) {
+                            newsSorted.add(news.get(l));
+                            break;
+                        }
+                    }
+                    
+                    textes = news.get(l).tegs.split(" ");
+                    for (String texte : textes) {
+                        if (searchSorted1.equals(texte)) {
+                            newsSorted.add(news.get(l));
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        
+        System.out.println();
+
+        for (int i = 0; i < newsSorted.size(); i++) {
+            String txt = "Title: '" + newsSorted.get(i).title + "' by '" + newsSorted.get(i).autor + "' at '" + newsSorted.get(i).date + "' in '" + newsSorted.get(i).time + "' tegs: '" + newsSorted.get(i).tegs + "'";
+            newses.put(Integer.parseInt(newsSorted.get(i).index), txt);
+        }
+
+        for (Map.Entry<Integer, String> entry : newses.entrySet()) {
+            listModelNumber.addElement("index: " + entry.getKey() + ", " + entry.getValue());
+        }
+    }
+    
+    public void load_news(){
+        DefaultListModel listModelNumber = new DefaultListModel();
+        listModelNumber.removeAllElements();
+        onFrame.jList1.setModel(listModelNumber);
+        Map<Integer, String> newses = new HashMap<Integer, String>();
+        ArrayList newsString = SQL.GetData();
+        int col = (int) newsString.get(0);
+        for (int i =0; i < col+1; i++) {
+            newsString.remove(0);
+        }
+        ArrayList<News> news = new ArrayList<News>();
+        for (int l = 0; l < newsString.size(); l++) {
+
+            News newsN = new News((String)newsString.get(l),
+                        (String)newsString.get(l+1),
+                        (String)newsString.get(l+2),
+                        (String)newsString.get(l+3),
+                        (String)newsString.get(l+4),
+                        (String)newsString.get(l+5),
+                        (String)newsString.get(l+6),
+                        (String)newsString.get(l+7));
+            news.add(newsN);
+            l+=7;
+        }
+        
+        for (int i = 0; i < newsString.size()/col; i++) {
+            String txt = "Title: '" + news.get(i).title + "' by '" + news.get(i).autor + "' at '" + news.get(i).date + "' in '" + news.get(i).time + "' tegs: '" + news.get(i).tegs + "'";
+            newses.put(Integer.parseInt(news.get(i).index), txt);
+        }
+
+        for (Map.Entry<Integer, String> entry : newses.entrySet()) {
+            listModelNumber.addElement("index: " + entry.getKey() + ", " + entry.getValue());
+        }
+    }
+    
+    public void add_news(String title, String autor, String txt, String tegs, String photo, String date, String time) {
         ArrayList columnArr = new ArrayList(), valueArr = new ArrayList();
         for (int i = 0; i < gFrame.jTable2.getModel().getColumnCount(); i++) {
             columnArr.add(gFrame.jTable2.getModel().getColumnName(i));
         }
+        
+        String value[] = new String[columnArr.size()];
+        value[0] = "0";
+        value[1] = title;
+        value[2] = date;
+        value[3] = time;
+        value[4] = txt;
+        value[5] = autor;
+        value[6] = tegs;
+        value[7] = photo;
+        
+        System.out.println("sdfsdfsdgsdg" + columnArr.size());
+        try {
+            
+            PreparedStatement X = SQL.insert(columnArr);
+
+            for (int i = 0; i < columnArr.size(); i++) {
+                X.setString(i+1, value[i]);
+            }
+
+            X.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+    }
+    
+    public void add_element() {
+        ArrayList columnArr = new ArrayList();
         for (int i = 0; i < gFrame.jTable2.getModel().getColumnCount(); i++) {
-            valueArr.add(gFrame.jTable2.getModel().getValueAt(0, i));
+            columnArr.add(gFrame.jTable2.getModel().getColumnName(i));
         }
-//        System.err.println(arr);
-        PreparedStatement X = SQL.insert(columnArr, valueArr);
+
+        PreparedStatement X = SQL.insert(columnArr);
         try {
             int l = 1;
             for (int i = 0; i < gFrame.jTable2.getModel().getColumnCount(); i++) {
