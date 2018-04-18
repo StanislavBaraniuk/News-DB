@@ -13,7 +13,9 @@ import java.awt.Toolkit;
  * @author stanislaw
  */
 public class General extends javax.swing.JFrame {
+    static public String hom;
     private static Controller controller;
+    private int w1, w2;
     /**
      * Creates new form General
      * @param controller
@@ -23,7 +25,7 @@ public class General extends javax.swing.JFrame {
         initComponents();
         Dimension sSize = Toolkit.getDefaultToolkit ().getScreenSize ();
         this.setLocation(sSize.width/2-this.getWidth()/2, sSize.height/2-this.getHeight()/2);
-       
+
     }
 
     /**
@@ -76,7 +78,25 @@ public class General extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Table");
 
-        jButton1.setText("CONNECT");
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
+        jComboBox1.addHierarchyListener(new java.awt.event.HierarchyListener() {
+            public void hierarchyChanged(java.awt.event.HierarchyEvent evt) {
+                jComboBox1HierarchyChanged(evt);
+            }
+        });
+        jComboBox1.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                jComboBox1CaretPositionChanged(evt);
+            }
+        });
+
+        jButton1.setText("Приховати таблицю");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -91,11 +111,11 @@ public class General extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, 0, 201, Short.MAX_VALUE)
+                .addComponent(jComboBox1, 0, 166, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -249,9 +269,30 @@ public class General extends javax.swing.JFrame {
         controller.check_available_table();
     }//GEN-LAST:event_jTextField1KeyReleased
 
+    public void standartize_pozition () {
+        
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        controller.connect_db();
-        controller.load_fanctions();
+        
+        if (jScrollPane1.isVisible()) {
+            jScrollPane1.setVisible(false);
+            jScrollPane2.setVisible(false);
+            jButton1.setText("Показати таблицю");
+            w1 = jScrollPane1.getHeight();
+            w2 = jScrollPane2.getHeight();
+            this.setSize(641, 440);
+            this.setSize(641, this.getHeight()-jScrollPane1.getHeight()-jScrollPane2.getHeight());
+            this.setResizable(false);
+            jButton3.setEnabled(false);
+        } else {
+            jScrollPane1.setVisible(true);
+            jScrollPane2.setVisible(true);
+            jButton1.setText("Приховати таблицю");
+            this.setSize(641, 440);
+            this.setResizable(true);
+            jButton3.setEnabled(true);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -259,7 +300,6 @@ public class General extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTable1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyReleased
-
         if (evt.getKeyCode()==127) {
             controller.do_functions(2);
         }
@@ -273,6 +313,19 @@ public class General extends javax.swing.JFrame {
         controller.show_open_news_frame();
         controller.load_news();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jComboBox1HierarchyChanged(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_jComboBox1HierarchyChanged
+        
+    }//GEN-LAST:event_jComboBox1HierarchyChanged
+
+    private void jComboBox1CaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jComboBox1CaretPositionChanged
+        
+    }//GEN-LAST:event_jComboBox1CaretPositionChanged
+
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        controller.connect_db();
+        controller.load_fanctions();
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -326,6 +379,6 @@ public class General extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JTable jTable1;
     public javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
+    public javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

@@ -130,7 +130,7 @@ public class Setting extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         controller.set_connect_info(jTextField3.getText(), jTextField4.getText(), jTextField1.getText(), jTextField2.getText());
-        controller.hide_setting_frame();
+        controller.hide_setting_frame();       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

@@ -7,6 +7,7 @@ package newsdb;
 
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -25,12 +26,17 @@ class mySQL{
     
     //jdbc:mysql://ТУТ ПОТРІБНО ВКАЗАТИ АДРЕСУ СЕРВЕРА:ПОРТ/ІМ’Я_БАЗИ_ДАНИХ?кодировка
     private String dbUrl = "jdbc:mysql://127.0.0.1:3306/test?characterEncoding=Cp1251";//рядок для зв’язку з БД
-
+    private General gFrame;
     private String user ="root";//КОРИСТУВАЧ
     private String password="";//ПАРОЛЬ
     private Connection conn = null;
     private String tbl="test";//ТАБЛИЦЯ З ЯКОЮ БУДЕМО ПРАЦЮВАТИ
     private Statement s=null;
+    
+    public mySQL(General gFrame) {
+        this.gFrame = gFrame;
+    }
+    
     public void set_connect_info(String SERVER, String PORT, String DB, String USR, String PAS){
         //    "jdbc:mysql://СЕРВЕР:ПОРТ/БД";
         dbUrl="jdbc:mysql://"  + SERVER + ":" + PORT +"/" +DB+"?characterEncoding=Cp1251";
@@ -68,10 +74,11 @@ class mySQL{
         try {
             Class.forName ("com.mysql.jdbc.Driver").newInstance ();
             conn = DriverManager.getConnection (dbUrl, user,password);
-            
+            gFrame.jTextField1.setBackground(Color.green);
             return "Ok";
         } catch (Exception e) {
-            System.err.println ("Cannot connect to database server");
+            gFrame.jTextField1.setBackground(Color.white);
+//            System.err.println ("Cannot connect to database server");
             return e.getLocalizedMessage();
         }
     }
@@ -184,6 +191,24 @@ class mySQL{
                   mySQLquery=
                     "DELETE FROM `"+ tbl +"` " +
                     "WHERE `"+ idN + "`= "+ id +";"
+                  ;
+            //X.executeQuery(mySQLquery);
+            conn.prepareStatement(mySQLquery);                     
+            PreparedStatement X=(PreparedStatement) conn.prepareStatement(mySQLquery);
+            X.execute();
+        }
+        catch (Exception e){
+            System.out.println(e.fillInStackTrace()+"\n"+mySQLquery);
+        }
+    }
+    
+    public void delAll(){
+        String mySQLquery="";
+        try{
+            
+            //Statement X=(Statement) conn.createStatement();                    
+                  mySQLquery=
+                    "TRUNCATE `"+ tbl +"`;"
                   ;
             //X.executeQuery(mySQLquery);
             conn.prepareStatement(mySQLquery);                     

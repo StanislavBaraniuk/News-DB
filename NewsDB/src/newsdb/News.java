@@ -10,9 +10,9 @@ package newsdb;
  * @author stanislaw
  */
 public class News {
-    String txt, date, time, autor, title, tegs, photo, index;
+    String txt, date, time, autor, title, tegs, photo, index, photoTitle;
    
-    public News(String index, String title, String date, String time, String txt, String autor, String tegs, String photo) {
+    public News(String index, String title, String date, String time, String txt, String autor, String tegs, String photo, String photoTitle) {
         this.index = index;
         this.txt = txt;
         this.date = date;
@@ -21,5 +21,6 @@ public class News {
         this.title = title;
         this.tegs = tegs;
         this.photo = photo;
+        this.photoTitle = photoTitle;
     }
 }
