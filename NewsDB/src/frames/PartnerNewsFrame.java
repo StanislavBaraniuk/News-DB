@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package newsdb;
+package frames;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-
+import newsdb.*;
 /**
  *
  * @author stanislaw
@@ -22,7 +22,7 @@ public class PartnerNewsFrame extends javax.swing.JFrame {
         PartnerNewsFrame.controller = controller;
         Dimension sSize = Toolkit.getDefaultToolkit ().getScreenSize ();
         this.setLocation(sSize.width/2-this.getWidth()/2, sSize.height/2-this.getHeight()/2);
-        jLabel4.setIcon(controller.createIcon("/res/img/ok_standart.png"));
+//        jLabel4.setIcon(controller.frameController.createIcon("/res/img/ok_standart.png"));
     }
 
     /**
@@ -110,10 +110,10 @@ public class PartnerNewsFrame extends javax.swing.JFrame {
         if (jTextField1.getText().length() > 0 &&
             jTextField2.getText().length() > 0 &&
             jTextField3.getText().length() > 0) {
-            jLabel4.setIcon(controller.createIcon("/res/img/ok_work.png"));
+//            jLabel4.setIcon(controller.frameController.createIcon("/res/img/ok_work.png"));
             
         } else {
-            jLabel4.setIcon(controller.createIcon("/res/img/ok_dontwork.png"));
+//            jLabel4.setIcon(controller.frameController.createIcon("/res/img/ok_dontwork.png"));
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

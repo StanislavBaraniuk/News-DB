@@ -12,7 +12,9 @@ import java.util.ArrayList;
  * @author stanislaw
  */
 public class Category {
-
+    private String id;
+    private String title;
+    private ArrayList<Integer> news = new ArrayList<Integer>();
     /**
      * @return the id
      */
@@ -51,10 +53,11 @@ public class Category {
     /**
      * @param news the news to set
      */
-    public void setNews(ArrayList<Integer> news) {
-        this.news = news;
+    public void setNews(String cat) {
+        String n[] = cat.split(",");
+        for (int i = 0; i < n.length; i++) {
+            this.news.add(Integer.parseInt(n[i]));
+        }
     }
-    private String id;
-    private String title;
-    private ArrayList<Integer> news = new ArrayList<Integer>();
+    
 }

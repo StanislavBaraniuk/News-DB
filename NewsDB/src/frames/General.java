@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package newsdb;
+package frames;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-
+import newsdb.*;
 /**
  *
  * @author stanislaw
@@ -281,7 +281,7 @@ public class General extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseReleased
-        controller.show_setting_frame();
+        controller.frameController.show_setting_frame();
         controller.load_setting_info();
     }//GEN-LAST:event_jLabel1MouseReleased
 
@@ -327,11 +327,11 @@ public class General extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1KeyReleased
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        controller.show_add_news_frame();
+        controller.frameController.show_add_news_frame();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        controller.show_open_news_frame();
+        controller.frameController.show_open_news_frame();
         controller.load_news();
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -349,11 +349,11 @@ public class General extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        controller.show_category_frame();
+        controller.frameController.show_category_frame();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        controller.show_other_information_frame();
+        controller.frameController.show_other_information_frame();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     /**

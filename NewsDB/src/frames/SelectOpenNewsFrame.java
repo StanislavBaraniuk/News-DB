@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package newsdb;
+package frames;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import newsdb.*;
 
 /**
  *
@@ -30,7 +31,7 @@ public class SelectOpenNewsFrame extends javax.swing.JFrame {
         Dimension sSize = Toolkit.getDefaultToolkit ().getScreenSize ();
         this.setLocation(sSize.width/2-this.getWidth()/2, sSize.height/2-this.getHeight()/2);
         
-        jLabel3.setIcon(controller.createIcon("/res/img/ok_standart.png"));
+//        jLabel3.setIcon(controller.frameController.createIcon("/res/img/ok_standart.png"));
     }
 
     /**
@@ -238,15 +239,15 @@ public class SelectOpenNewsFrame extends javax.swing.JFrame {
         {
             controller.add_news_auto(news, selectedIndex);
             jButton1.setForeground(Color.green);
-            jLabel3.setIcon(controller.createIcon("/res/img/ok_work.png"));
+//            jLabel3.setIcon(controller.frameController.createIcon("/res/img/ok_work.png"));
         } else {
             jButton1.setForeground(Color.red);
-            jLabel3.setIcon(controller.createIcon("/res/img/ok_dontwork.png"));
+//            jLabel3.setIcon(controller.frameController.createIcon("/res/img/ok_dontwork.png"));
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        controller.show_coments_view_frame();
+        controller.frameController.show_coments_view_frame();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseMoved

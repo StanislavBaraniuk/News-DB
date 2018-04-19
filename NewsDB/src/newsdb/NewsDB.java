@@ -16,7 +16,7 @@ public class NewsDB {
      */
     public static void main(String[] args) {
         Controller controller = new Controller();
-        controller.show_general_frame();
+        controller.frameController.show_general_frame();
     }
     
 }

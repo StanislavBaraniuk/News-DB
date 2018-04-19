@@ -6,6 +6,9 @@
 package newsdb;
 
 
+import frames.FrameController;
+import classes.*;
+
 import com.mysql.jdbc.PreparedStatement;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -29,103 +32,104 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Controller {
     private String func[] = {"add element", "search element", "delete element", "sample element"};
-    private General gFrame = new General(this);
-    private Setting sFrame = new Setting(this);
-    private Functions fFrame = new Functions(this);
-    private AddNewsFrame anFrame = new AddNewsFrame(this);
-    private OpenNewsFrame onFrame = new OpenNewsFrame(this);
-    private SelectOpenNewsFrame soFrame = new SelectOpenNewsFrame(this);
-    private ComentsViewFrame cvFrame = new ComentsViewFrame(this);
-    private CategoryFrame cFrame = new CategoryFrame(this);
-    private PartnerNewsFrame pnFrame = new PartnerNewsFrame(this);
-    private OtherInformationFrame oiFrame = new OtherInformationFrame(this);
-    private OprosFrame oFrame = new OprosFrame(this);
-    private mySQL SQL = new mySQL(gFrame);
+//    private General gFrame = new General(this);
+//    private Setting sFrame = new Setting(this);
+//    private Functions fFrame = new Functions(this);
+//    private AddNewsFrame anFrame = new AddNewsFrame(this);
+//    private OpenNewsFrame onFrame = new OpenNewsFrame(this);
+//    private SelectOpenNewsFrame soFrame = new SelectOpenNewsFrame(this);
+//    private ComentsViewFrame cvFrame = new ComentsViewFrame(this);
+//    private CategoryFrame cFrame = new CategoryFrame(this);
+//    private PartnerNewsFrame pnFrame = new PartnerNewsFrame(this);
+//    private OtherInformationFrame oiFrame = new OtherInformationFrame(this);
+//    private OprosFrame oFrame = new OprosFrame(this);
+    
+    public FrameController frameController = new FrameController(this);
+    
+    private mySQL SQL = new mySQL(frameController.gFrame);
     private String user = "rootor", password="root", DBName, SERVER = "127.0.0.1";
     private String PORT = "3306";
     
-    public void show_general_frame() {
-        gFrame.setVisible(true);
-    }
-       
-    public void show_opros_frame() {
-//        gFrame.setVisible(false);
-        oFrame.setVisible(true);
-    }
-    
-    public void hide_opros_frame() {
+//    public void show_general_frame() {
 //        gFrame.setVisible(true);
-        oFrame.setVisible(false);
-    }
+//    }
+//       
+//    public void show_opros_frame() {
+//        oFrame.setVisible(true);
+//    }
+//    
+//    public void hide_opros_frame() {
+//        oFrame.setVisible(false);
+//    }
+//    
+//    public void show_other_information_frame() {
+//        gFrame.setVisible(false);
+//        oiFrame.setVisible(true);
+//    }
+//    
+//    public void hide_other_information_frame() {
+//        gFrame.setVisible(true);
+//        oiFrame.setVisible(false);
+//    }
+//    
+//    public void show_partner_news_frame() {
+//        pnFrame.setVisible(true);
+//    }
+//    
+//    public void hide_cpartner_news_frame() {
+//        pnFrame.setVisible(false);
+//    }
+//    
+//    public void show_category_frame() {
+//        gFrame.setVisible(false);
+//        cFrame.setVisible(true);
+//    }
+//    
+//    public void hide_category_frame() {
+//        gFrame.setVisible(true);
+//        cFrame.setVisible(false);
+//    }
+//    
+//    public void show_setting_frame() {
+//        gFrame.setEnabled(false);
+//        sFrame.setVisible(true);
+//    }
+//    
+//    public void hide_setting_frame() {
+//        gFrame.setEnabled(true);
+//        sFrame.setVisible(false);
+//    }
     
-    public void show_other_information_frame() {
-        gFrame.setVisible(false);
-        oiFrame.setVisible(true);
-    }
+//    public ImageIcon createIcon(String path) {
+//        URL imgURL = SelectOpenNewsFrame.class.getResource(path);     
+//        if (imgURL != null) {
+//            return new ImageIcon(imgURL);
+//        } else {
+//            System.err.println("File not found " + path);
+//            return null;
+//        }
+//    }
     
-    public void hide_other_information_frame() {
-        gFrame.setVisible(true);
-        oiFrame.setVisible(false);
-    }
-    
-    public void show_partner_news_frame() {
-        pnFrame.setVisible(true);
-    }
-    
-    public void hide_cpartner_news_frame() {
-        pnFrame.setVisible(false);
-    }
-    
-    public void show_category_frame() {
-        gFrame.setVisible(false);
-        cFrame.setVisible(true);
-    }
-    
-    public void hide_category_frame() {
-        gFrame.setVisible(true);
-        cFrame.setVisible(false);
-    }
-    
-    public void show_setting_frame() {
-        gFrame.setEnabled(false);
-        sFrame.setVisible(true);
-    }
-    
-    public void hide_setting_frame() {
-        gFrame.setEnabled(true);
-        sFrame.setVisible(false);
-    }
-    
-    public ImageIcon createIcon(String path) {
-        URL imgURL = SelectOpenNewsFrame.class.getResource(path);     
-        if (imgURL != null) {
-            return new ImageIcon(imgURL);
-        } else {
-            System.err.println("File not found " + path);
-            return null;
-        }
-    }
-    
-    public void show_coments_view_frame() {
-
-        cvFrame.setVisible(true);
-    }
-    
-    public void hide_coments_view_frame() {
-        cvFrame.setVisible(false);
-    }
-    
+//    public void show_coments_view_frame() {
+//
+//        cvFrame.setVisible(true);
+//    }
+//    
+//    public void hide_coments_view_frame() {
+//        cvFrame.setVisible(false);
+//    }
+//    
     public void connect_db() {
-        SQL.set_table(gFrame.jComboBox1.getSelectedItem().toString());
+        SQL.set_table(frameController.gFrame.jComboBox1.getSelectedItem().toString());
         SQL.set_connect_info(SERVER, PORT, DBName, user, password);
         System.out.println(SQL.Conect());
         write_to_table();
     }
     
     public void load_fanctions() {
-        gFrame.jComboBox2.removeAllItems();
+        frameController.gFrame.jComboBox2.removeAllItems();
         for (String s : func) {
-            gFrame.jComboBox2.addItem(s);
+            frameController.gFrame.jComboBox2.addItem(s);
         }
     }
     
@@ -138,41 +142,41 @@ public class Controller {
 //                search_elements();
                 break;
             case 2: 
-                delete_element(gFrame.jTable1.getSelectedRow());
+                delete_element(frameController.gFrame.jTable1.getSelectedRow());
                 break;    
         }
     }
     
-    public void show_add_news_frame() {
-        anFrame.setVisible(true);
-        gFrame.setVisible(false);
-    }
-    
-    public void hide_add_news_frame() {
-        anFrame.setVisible(false);
-        gFrame.setVisible(true);
-    }
-    
-    public void show_open_news_frame() {
-        onFrame.setVisible(true);
-        gFrame.setVisible(false);
-    }
-    
-    public void hide_open_news_frame() {
-        onFrame.setVisible(false);
-        gFrame.setVisible(true);
-    }
+//    public void show_add_news_frame() {
+//        anFrame.setVisible(true);
+//        gFrame.setVisible(false);
+//    }
+//    
+//    public void hide_add_news_frame() {
+//        anFrame.setVisible(false);
+//        gFrame.setVisible(true);
+//    }
+//    
+//    public void show_open_news_frame() {
+//        onFrame.setVisible(true);
+//        gFrame.setVisible(false);
+//    }
+//    
+//    public void hide_open_news_frame() {
+//        onFrame.setVisible(false);
+//        gFrame.setVisible(true);
+//    }
     
     public void delete_element(int selected) {
-        int X=(int) Integer.valueOf((String)gFrame.jTable1.getValueAt(selected, 0));
-        SQL.del(X, gFrame.jTable1.getColumnName(0));
+        int X=(int) Integer.valueOf((String)frameController.gFrame.jTable1.getValueAt(selected, 0));
+        SQL.del(X, frameController.gFrame.jTable1.getColumnName(0));
         connect_db();
     }
     
     public void search_news(String search){
         DefaultListModel listModelNumber = new DefaultListModel();
         listModelNumber.removeAllElements();
-        onFrame.jList1.setModel(listModelNumber);
+        frameController.onFrame.jList1.setModel(listModelNumber);
         Map<Integer, String> newses = new HashMap<Integer, String>();
         ArrayList<News> news = load_news_from_db();
         
@@ -239,13 +243,13 @@ public class Controller {
         
         for (int i = 0; i < news.size(); i++) {
             if(index.equals(news.get(i).index)) {
-                news.get(i).autor = soFrame.autorTextPane.getText();
-                news.get(i).title = soFrame.titleTextPane.getText();
-                news.get(i).photo = soFrame.photoTextPane.getText();
-                news.get(i).title = soFrame.titleTextPane.getText();
-                news.get(i).txt = soFrame.contentTextPane.getText();
-                news.get(i).tegs = soFrame.tegsTextPane.getText();
-                news.get(i).photoTitle = soFrame.photoTitleTextPane.getText();
+                news.get(i).autor = frameController.soFrame.autorTextPane.getText();
+                news.get(i).title = frameController.soFrame.titleTextPane.getText();
+                news.get(i).photo = frameController.soFrame.photoTextPane.getText();
+                news.get(i).title = frameController.soFrame.titleTextPane.getText();
+                news.get(i).txt = frameController.soFrame.contentTextPane.getText();
+                news.get(i).tegs = frameController.soFrame.tegsTextPane.getText();
+                news.get(i).photoTitle = frameController.soFrame.photoTitleTextPane.getText();
             }
         }
 
@@ -254,9 +258,9 @@ public class Controller {
         }
     }
     
-    public void show_select_news_frame() {
-        soFrame.setVisible(true);
-    }
+//    public void show_select_news_frame() {
+//        soFrame.setVisible(true);
+//    }
     
     public ArrayList<News> load_news_from_db() {
         ArrayList newsString = SQL.GetData();
@@ -289,20 +293,20 @@ public class Controller {
     
     public void load_frame_info(int selected) {
         ArrayList<News> news = load_news_from_db();
-        String s[] = onFrame.jList1.getSelectedValue().replaceAll("\\W", " ").split(" ");
+        String s[] = frameController.onFrame.jList1.getSelectedValue().replaceAll("\\W", " ").split(" ");
         String index = s[2];
-        soFrame.selectedIndex = index;
+        frameController.soFrame.selectedIndex = index;
         System.err.println("i: " + index);
         for (int i = 0; i < news.size(); i++) {
             if(index.equals(news.get(i).index)) {
-                soFrame.titleTextPane.setText(news.get(i).title);
-                soFrame.contentTextPane.setText(news.get(i).txt);
-                soFrame.tegsTextPane.setText(news.get(i).tegs);
-                soFrame.dataLabel.setText(news.get(i).date);
-                soFrame.timeLabel.setText(news.get(i).time);
-                soFrame.autorTextPane.setText(news.get(i).autor);
-                soFrame.photoTextPane.setText(news.get(i).photo);
-                soFrame.photoTitleTextPane.setText(news.get(i).photoTitle);
+                frameController.soFrame.titleTextPane.setText(news.get(i).title);
+                frameController.soFrame.contentTextPane.setText(news.get(i).txt);
+                frameController.soFrame.tegsTextPane.setText(news.get(i).tegs);
+                frameController.soFrame.dataLabel.setText(news.get(i).date);
+                frameController.soFrame.timeLabel.setText(news.get(i).time);
+                frameController.soFrame.autorTextPane.setText(news.get(i).autor);
+                frameController.soFrame.photoTextPane.setText(news.get(i).photo);
+                frameController.soFrame.photoTitleTextPane.setText(news.get(i).photoTitle);
             }
         }
     }
@@ -310,20 +314,20 @@ public class Controller {
     public void load_news(){
         DefaultListModel listModelNumber = new DefaultListModel();
         listModelNumber.removeAllElements();
-        onFrame.jList1.setModel(listModelNumber);
+        frameController.onFrame.jList1.setModel(listModelNumber);
         ArrayList<News> news = load_news_from_db();
         
         for (int i = 0; i < news.size(); i++) {
             listModelNumber.addElement("index: " + news.get(i).index + ", " + "Title: | " + news.get(i).title + " | by '" + news.get(i).autor + " | at | " + news.get(i).date + " |  in | " + news.get(i).time + " | tegs: | " + news.get(i).tegs + " | ");
         }
         
-        soFrame.news = news;
+        frameController.soFrame.news = news;
     }
     
     public void add_news(String title, String date, String time, String txt, String autor, String tegs, String photo, String photoTitle) {
         ArrayList columnArr = new ArrayList();
-        for (int i = 0; i < gFrame.jTable2.getModel().getColumnCount(); i++) {
-            columnArr.add(gFrame.jTable2.getModel().getColumnName(i));
+        for (int i = 0; i < frameController.gFrame.jTable2.getModel().getColumnCount(); i++) {
+            columnArr.add(frameController.gFrame.jTable2.getModel().getColumnName(i));
         }
         
         News news = new News("0", title, date, time, txt, autor, tegs, photo, photoTitle);
@@ -357,15 +361,15 @@ public class Controller {
     
     public void add_element() {
         ArrayList columnArr = new ArrayList();
-        for (int i = 0; i < gFrame.jTable2.getModel().getColumnCount(); i++) {
-            columnArr.add(gFrame.jTable2.getModel().getColumnName(i));
+        for (int i = 0; i < frameController.gFrame.jTable2.getModel().getColumnCount(); i++) {
+            columnArr.add(frameController.gFrame.jTable2.getModel().getColumnName(i));
         }
 
         PreparedStatement X = SQL.insert(columnArr);
         try {
             int l = 1;
-            for (int i = 0; i < gFrame.jTable2.getModel().getColumnCount(); i++) {
-                X.setString(l, (String) gFrame.jTable2.getModel().getValueAt(0, i));
+            for (int i = 0; i < frameController.gFrame.jTable2.getModel().getColumnCount(); i++) {
+                X.setString(l, (String) frameController.gFrame.jTable2.getModel().getValueAt(0, i));
                 l++;
             }
             X.execute();
@@ -375,12 +379,12 @@ public class Controller {
         connect_db();
     }
     
-    public void show_functions_frame() {
-        fFrame.setVisible(true);
-        for (String s : func) {
-            fFrame.jComboBox2.addItem(s);
-        }
-    }
+//    public void show_functions_frame() {
+//        fFrame.setVisible(true);
+//        for (String s : func) {
+//            fFrame.jComboBox2.addItem(s);
+//        }
+//    }
     
     public void write_to_table() {
         ArrayList list = SQL.GetData();
@@ -403,9 +407,9 @@ public class Controller {
         String[][] data = new String[][]{};
         String[][] data2 = new String[1][1];
         
-        gFrame.jTable1.setModel(new DefaultTableModel(data,columns));
-        gFrame.jTable2.setModel(new DefaultTableModel(data2,columns));
-        DefaultTableModel model = (DefaultTableModel) gFrame.jTable1.getModel();
+        frameController.gFrame.jTable1.setModel(new DefaultTableModel(data,columns));
+        frameController.gFrame.jTable2.setModel(new DefaultTableModel(data2,columns));
+        DefaultTableModel model = (DefaultTableModel) frameController.gFrame.jTable1.getModel();
         System.out.println("tupo pizda - " + list.size()/columns.length);
         ArrayList s = new ArrayList();
         for (Object strings : list) {
@@ -414,7 +418,7 @@ public class Controller {
         for (int i = 0; i < list.size()/columns.length; i++) {
             model.addRow(new String[columns.length]);
             for (int j = 0; j < columns.length; j++) {
-                gFrame.jTable1.setValueAt(s.get(j), i, j);
+                frameController.gFrame.jTable1.setValueAt(s.get(j), i, j);
             }
             for (int k = 0; k < columns.length; k++) { 
                 s.remove(0);
@@ -427,12 +431,12 @@ public class Controller {
         SQL.set_connect_info(SERVER, PORT, DBName, user, password);
         ArrayList<String> tables = SQL.get_available_table();
         try {
-            gFrame.jComboBox1.removeAllItems();
+            frameController.gFrame.jComboBox1.removeAllItems();
             tables.forEach((a) -> {
-                gFrame.jComboBox1.addItem(a);
+                frameController.gFrame.jComboBox1.addItem(a);
             });
             for (int i = tables.size(); i < (tables.size()*2); i++) {
-                gFrame.jComboBox1.removeItemAt(i);
+                frameController.gFrame.jComboBox1.removeItemAt(i);
             }
         } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
         
@@ -440,10 +444,10 @@ public class Controller {
     }
     
     public void load_setting_info() {
-        sFrame.jTextField1.setText(SERVER);
-        sFrame.jTextField2.setText(PORT);
-        sFrame.jTextField3.setText(this.user);
-        sFrame.jTextField4.setText(this.password);
+        frameController.sFrame.jTextField1.setText(SERVER);
+        frameController.sFrame.jTextField2.setText(PORT);
+        frameController.sFrame.jTextField3.setText(this.user);
+            frameController.sFrame.jTextField4.setText(this.password);
     }
     
     public void set_connect_info(String user, String password, String SERVER, String PORT) {

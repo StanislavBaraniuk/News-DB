@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package newsdb;
+package frames;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-
+import newsdb.*;
 /**
  *
  * @author stanislaw

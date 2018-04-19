@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package newsdb;
+package frames;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-
+import newsdb.*;
 /**
  *
  * @author stanislaw
@@ -136,7 +136,7 @@ public class OpenNewsFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        controller.hide_open_news_frame();
+        controller.frameController.hide_open_news_frame();
     }//GEN-LAST:event_formWindowClosing
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -150,13 +150,13 @@ public class OpenNewsFrame extends javax.swing.JFrame {
     
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         if (evt.getClickCount() == 2) {
-            controller.show_select_news_frame();
+            controller.frameController.show_select_news_frame();
             controller.load_frame_info(jList1.getSelectedIndex());
         }
     }//GEN-LAST:event_jList1MouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        controller.show_select_news_frame();
+        controller.frameController.show_select_news_frame();
         controller.load_frame_info(jList1.getSelectedIndex());
     }//GEN-LAST:event_jButton2ActionPerformed
 

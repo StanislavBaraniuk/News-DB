@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package newsdb;
+package frames;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-
+import newsdb.*;
 /**
  *
  * @author stanislaw
@@ -125,12 +125,12 @@ public class Setting extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        controller.hide_setting_frame();
+        controller.frameController.hide_setting_frame();
     }//GEN-LAST:event_formWindowClosing
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         controller.set_connect_info(jTextField3.getText(), jTextField4.getText(), jTextField1.getText(), jTextField2.getText());
-        controller.hide_setting_frame();       
+        controller.frameController.hide_setting_frame();       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
