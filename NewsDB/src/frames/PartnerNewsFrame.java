@@ -59,6 +59,8 @@ public class PartnerNewsFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/ok_standart.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -110,10 +112,10 @@ public class PartnerNewsFrame extends javax.swing.JFrame {
         if (jTextField1.getText().length() > 0 &&
             jTextField2.getText().length() > 0 &&
             jTextField3.getText().length() > 0) {
-//            jLabel4.setIcon(controller.frameController.createIcon("/res/img/ok_work.png"));
+            jLabel4.setIcon(controller.frameController.createIcon("/res/img/ok_work.png"));
             
         } else {
-//            jLabel4.setIcon(controller.frameController.createIcon("/res/img/ok_dontwork.png"));
+            jLabel4.setIcon(controller.frameController.createIcon("/res/img/ok_dontwork.png"));
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

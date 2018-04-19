@@ -141,6 +141,8 @@ public class SelectOpenNewsFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/ok_standart.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -227,9 +229,7 @@ public class SelectOpenNewsFrame extends javax.swing.JFrame {
     
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        String path = "icon1.png";
-//        
-//        ImageIcon icon = new ImageIcon(imgURL);
+
         if (autorTextPane.getText().length() > 0 && 
                 titleTextPane.getText().length() > 0 && 
                 contentTextPane.getText().length() > 0 && 
@@ -239,10 +239,10 @@ public class SelectOpenNewsFrame extends javax.swing.JFrame {
         {
             controller.add_news_auto(news, selectedIndex);
             jButton1.setForeground(Color.green);
-//            jLabel3.setIcon(controller.frameController.createIcon("/res/img/ok_work.png"));
+            jLabel3.setIcon(controller.frameController.createIcon("/res/img/ok_work.png"));
         } else {
             jButton1.setForeground(Color.red);
-//            jLabel3.setIcon(controller.frameController.createIcon("/res/img/ok_dontwork.png"));
+            jLabel3.setIcon(controller.frameController.createIcon("/res/img/ok_dontwork.png"));
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

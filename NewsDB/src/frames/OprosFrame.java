@@ -53,6 +53,7 @@ public class OprosFrame extends javax.swing.JFrame {
         });
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/img/ok_standart.png"))); // NOI18N
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Кількість голосів");
@@ -103,9 +104,9 @@ public class OprosFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (jTextField1.getText().length() > 0 && jTextField2.getText().length() > 0) {
-//            jLabel2.setIcon(controller.frameController.createIcon("/res/img/ok_work.png"));
+            jLabel2.setIcon(controller.frameController.createIcon("/res/img/ok_work.png"));
         } else {
-//            jLabel2.setIcon(controller.frameController.createIcon("/res/img/ok_dontwork.png"));
+            jLabel2.setIcon(controller.frameController.createIcon("/res/img/ok_dontwork.png"));
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

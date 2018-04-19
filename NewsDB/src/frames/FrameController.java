@@ -19,6 +19,18 @@ public class FrameController {
     
     private Controller controller;
     
+    public General gFrame;
+    public Setting sFrame;
+    public Functions fFrame;
+    public AddNewsFrame anFrame;
+    public OpenNewsFrame onFrame;
+    public SelectOpenNewsFrame soFrame;
+    public ComentsViewFrame cvFrame;
+    public CategoryFrame cFrame;
+    public PartnerNewsFrame pnFrame;
+    public OtherInformationFrame oiFrame;
+    public OprosFrame oFrame;
+    
     public FrameController(Controller controller) {
         this.controller = controller;
         this.gFrame = new General(controller);
@@ -34,29 +46,15 @@ public class FrameController {
         this.oFrame = new OprosFrame(controller);
     }
     
-    public General gFrame;
-    public Setting sFrame;
-    public Functions fFrame;
-    public AddNewsFrame anFrame;
-    public OpenNewsFrame onFrame;
-    public SelectOpenNewsFrame soFrame;
-    public ComentsViewFrame cvFrame;
-    public CategoryFrame cFrame;
-    public PartnerNewsFrame pnFrame;
-    public OtherInformationFrame oiFrame;
-    public OprosFrame oFrame;
-    
-    
-    
-//    public ImageIcon createIcon(String path) {
-//        URL imgURL = img.class.getResource(path);     
-//        if (imgURL != null) {
-//            return new ImageIcon(imgURL);
-//        } else {
-//            System.err.println("File not found " + path);
-//            return null;
-//        }
-//    }
+    public ImageIcon createIcon(String path) {
+        URL imgURL = SelectOpenNewsFrame.class.getResource(path);     
+        if (imgURL != null) {
+            return new ImageIcon(imgURL);
+        } else {
+            System.err.println("File not found " + path);
+            return null;
+        }
+    }
     
     public void show_general_frame() {
         gFrame.setVisible(true);
