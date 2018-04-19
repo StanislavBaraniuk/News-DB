@@ -30,7 +30,7 @@ public class SelectOpenNewsFrame extends javax.swing.JFrame {
         Dimension sSize = Toolkit.getDefaultToolkit ().getScreenSize ();
         this.setLocation(sSize.width/2-this.getWidth()/2, sSize.height/2-this.getHeight()/2);
         
-        jLabel3.setIcon(controller.createIcon("ok_standart.png"));
+        jLabel3.setIcon(controller.createIcon("/res/img/ok_standart.png"));
     }
 
     /**
@@ -238,10 +238,10 @@ public class SelectOpenNewsFrame extends javax.swing.JFrame {
         {
             controller.add_news_auto(news, selectedIndex);
             jButton1.setForeground(Color.green);
-            jLabel3.setIcon(controller.createIcon("ok_work.png"));
+            jLabel3.setIcon(controller.createIcon("/res/img/ok_work.png"));
         } else {
             jButton1.setForeground(Color.red);
-            jLabel3.setIcon(controller.createIcon("ok_dontwork.png"));
+            jLabel3.setIcon(controller.createIcon("/res/img/ok_dontwork.png"));
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -5,6 +5,7 @@
  */
 package newsdb;
 
+
 import com.mysql.jdbc.PreparedStatement;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -46,8 +47,7 @@ public class Controller {
     public void show_general_frame() {
         gFrame.setVisible(true);
     }
-    
-    
+       
     public void show_opros_frame() {
 //        gFrame.setVisible(false);
         oFrame.setVisible(true);
@@ -138,7 +138,7 @@ public class Controller {
 //                search_elements();
                 break;
             case 2: 
-                delete_element();
+                delete_element(gFrame.jTable1.getSelectedRow());
                 break;    
         }
     }
@@ -163,11 +163,8 @@ public class Controller {
         gFrame.setVisible(true);
     }
     
-    public void delete_element() {
-        int X;
-        X=gFrame.jTable1.getSelectedRow();
-        X=(int) Integer.valueOf((String)gFrame.jTable1.getValueAt(X, 0));
-      
+    public void delete_element(int selected) {
+        int X=(int) Integer.valueOf((String)gFrame.jTable1.getValueAt(selected, 0));
         SQL.del(X, gFrame.jTable1.getColumnName(0));
         connect_db();
     }
@@ -384,7 +381,6 @@ public class Controller {
             fFrame.jComboBox2.addItem(s);
         }
     }
-    
     
     public void write_to_table() {
         ArrayList list = SQL.GetData();

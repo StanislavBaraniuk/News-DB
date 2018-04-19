@@ -22,7 +22,7 @@ public class PartnerNewsFrame extends javax.swing.JFrame {
         PartnerNewsFrame.controller = controller;
         Dimension sSize = Toolkit.getDefaultToolkit ().getScreenSize ();
         this.setLocation(sSize.width/2-this.getWidth()/2, sSize.height/2-this.getHeight()/2);
-        jLabel4.setIcon(controller.createIcon("ok_standart.png"));
+        jLabel4.setIcon(controller.createIcon("/res/img/ok_standart.png"));
     }
 
     /**
@@ -110,10 +110,10 @@ public class PartnerNewsFrame extends javax.swing.JFrame {
         if (jTextField1.getText().length() > 0 &&
             jTextField2.getText().length() > 0 &&
             jTextField3.getText().length() > 0) {
-            jLabel4.setIcon(controller.createIcon("ok_work.png"));
+            jLabel4.setIcon(controller.createIcon("/res/img/ok_work.png"));
             
         } else {
-            jLabel4.setIcon(controller.createIcon("ok_dontwork.png"));
+            jLabel4.setIcon(controller.createIcon("/res/img/ok_dontwork.png"));
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

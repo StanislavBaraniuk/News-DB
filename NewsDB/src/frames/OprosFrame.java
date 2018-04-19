@@ -22,7 +22,7 @@ public class OprosFrame extends javax.swing.JFrame {
         OprosFrame.controller = controller;
         Dimension sSize = Toolkit.getDefaultToolkit ().getScreenSize ();
         this.setLocation(sSize.width/2-this.getWidth()/2, sSize.height/2-this.getHeight()/2);
-        jLabel2.setIcon(controller.createIcon("ok_standart.png"));
+        jLabel2.setIcon(controller.createIcon("/res/img/ok_standart.png"));
     }
 
     /**
@@ -102,9 +102,9 @@ public class OprosFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (jTextField1.getText().length() > 0 && jTextField2.getText().length() > 0) {
-            jLabel2.setIcon(controller.createIcon("ok_work.png"));
+            jLabel2.setIcon(controller.createIcon("/res/img/ok_work.png"));
         } else {
-            jLabel2.setIcon(controller.createIcon("ok_dontwork.png"));
+            jLabel2.setIcon(controller.createIcon("/res/img/ok_dontwork.png"));
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
