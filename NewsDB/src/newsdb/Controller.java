@@ -6,6 +6,7 @@
 package newsdb;
 
 import com.mysql.jdbc.PreparedStatement;
+import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -17,6 +18,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -33,12 +35,55 @@ public class Controller {
     private OpenNewsFrame onFrame = new OpenNewsFrame(this);
     private SelectOpenNewsFrame soFrame = new SelectOpenNewsFrame(this);
     private ComentsViewFrame cvFrame = new ComentsViewFrame(this);
+    private CategoryFrame cFrame = new CategoryFrame(this);
+    private PartnerNewsFrame pnFrame = new PartnerNewsFrame(this);
+    private OtherInformationFrame oiFrame = new OtherInformationFrame(this);
+    private OprosFrame oFrame = new OprosFrame(this);
     private mySQL SQL = new mySQL(gFrame);
     private String user = "rootor", password="root", DBName, SERVER = "127.0.0.1";
     private String PORT = "3306";
     
     public void show_general_frame() {
         gFrame.setVisible(true);
+    }
+    
+    
+    public void show_opros_frame() {
+//        gFrame.setVisible(false);
+        oFrame.setVisible(true);
+    }
+    
+    public void hide_opros_frame() {
+//        gFrame.setVisible(true);
+        oFrame.setVisible(false);
+    }
+    
+    public void show_other_information_frame() {
+        gFrame.setVisible(false);
+        oiFrame.setVisible(true);
+    }
+    
+    public void hide_other_information_frame() {
+        gFrame.setVisible(true);
+        oiFrame.setVisible(false);
+    }
+    
+    public void show_partner_news_frame() {
+        pnFrame.setVisible(true);
+    }
+    
+    public void hide_cpartner_news_frame() {
+        pnFrame.setVisible(false);
+    }
+    
+    public void show_category_frame() {
+        gFrame.setVisible(false);
+        cFrame.setVisible(true);
+    }
+    
+    public void hide_category_frame() {
+        gFrame.setVisible(true);
+        cFrame.setVisible(false);
     }
     
     public void show_setting_frame() {
@@ -49,6 +94,16 @@ public class Controller {
     public void hide_setting_frame() {
         gFrame.setEnabled(true);
         sFrame.setVisible(false);
+    }
+    
+    public ImageIcon createIcon(String path) {
+        URL imgURL = SelectOpenNewsFrame.class.getResource(path);     
+        if (imgURL != null) {
+            return new ImageIcon(imgURL);
+        } else {
+            System.err.println("File not found " + path);
+            return null;
+        }
     }
     
     public void show_coments_view_frame() {
@@ -191,7 +246,7 @@ public class Controller {
                 news.get(i).title = soFrame.titleTextPane.getText();
                 news.get(i).photo = soFrame.photoTextPane.getText();
                 news.get(i).title = soFrame.titleTextPane.getText();
-                news.get(i).txt = soFrame.ContentTextPane.getText();
+                news.get(i).txt = soFrame.contentTextPane.getText();
                 news.get(i).tegs = soFrame.tegsTextPane.getText();
                 news.get(i).photoTitle = soFrame.photoTitleTextPane.getText();
             }
@@ -244,7 +299,7 @@ public class Controller {
         for (int i = 0; i < news.size(); i++) {
             if(index.equals(news.get(i).index)) {
                 soFrame.titleTextPane.setText(news.get(i).title);
-                soFrame.ContentTextPane.setText(news.get(i).txt);
+                soFrame.contentTextPane.setText(news.get(i).txt);
                 soFrame.tegsTextPane.setText(news.get(i).tegs);
                 soFrame.dataLabel.setText(news.get(i).date);
                 soFrame.timeLabel.setText(news.get(i).time);

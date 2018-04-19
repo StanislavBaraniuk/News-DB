@@ -5,9 +5,13 @@
  */
 package newsdb;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.net.URL;
 import java.util.ArrayList;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -25,6 +29,8 @@ public class SelectOpenNewsFrame extends javax.swing.JFrame {
         SelectOpenNewsFrame.controller = controller;
         Dimension sSize = Toolkit.getDefaultToolkit ().getScreenSize ();
         this.setLocation(sSize.width/2-this.getWidth()/2, sSize.height/2-this.getHeight()/2);
+        
+        jLabel3.setIcon(controller.createIcon("ok_standart.png"));
     }
 
     /**
@@ -37,7 +43,7 @@ public class SelectOpenNewsFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        ContentTextPane = new javax.swing.JTextPane();
+        contentTextPane = new javax.swing.JTextPane();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tegsTextPane = new javax.swing.JTextPane();
@@ -58,10 +64,11 @@ public class SelectOpenNewsFrame extends javax.swing.JFrame {
         photoTitleTextPane = new javax.swing.JTextPane();
         jLabel7 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane1.setViewportView(ContentTextPane);
+        jScrollPane1.setViewportView(contentTextPane);
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -71,6 +78,11 @@ public class SelectOpenNewsFrame extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tegsTextPane);
 
         jButton1.setText("Прийняти");
+        jButton1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jButton1MouseMoved(evt);
+            }
+        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -160,11 +172,12 @@ public class SelectOpenNewsFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(photoTitileScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane2)))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -196,25 +209,49 @@ public class SelectOpenNewsFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton2)
+                            .addComponent(jButton1))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (autorTextPane.getText().length() > 0) {
+//        String path = "icon1.png";
+//        
+//        ImageIcon icon = new ImageIcon(imgURL);
+        if (autorTextPane.getText().length() > 0 && 
+                titleTextPane.getText().length() > 0 && 
+                contentTextPane.getText().length() > 0 && 
+                photoTextPane.getText().length() > 0 && 
+                photoTitleTextPane.getText().length() > 0 && 
+                tegsTextPane.getText().length() > 0) 
+        {
             controller.add_news_auto(news, selectedIndex);
-        }   
+            jButton1.setForeground(Color.green);
+            jLabel3.setIcon(controller.createIcon("ok_work.png"));
+        } else {
+            jButton1.setForeground(Color.red);
+            jLabel3.setIcon(controller.createIcon("ok_dontwork.png"));
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         controller.show_coments_view_frame();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseMoved
+        jButton1.setForeground(Color.black);
+    }//GEN-LAST:event_jButton1MouseMoved
 
     
     /**
@@ -253,13 +290,14 @@ public class SelectOpenNewsFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JTextPane ContentTextPane;
     public javax.swing.JTextPane autorTextPane;
+    public javax.swing.JTextPane contentTextPane;
     public javax.swing.JLabel dataLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
