@@ -10,20 +10,14 @@ import frames.FrameController;
 import classes.*;
 
 import com.mysql.jdbc.PreparedStatement;
-import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**

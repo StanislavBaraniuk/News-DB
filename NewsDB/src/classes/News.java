@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package newsdb;
+package classes;
 
 /**
  *
  * @author stanislaw
  */
 public class News {
-    String txt, date, time, autor, title, tegs, photo, index, photoTitle;
+    public String txt, date, time, autor, title, tegs, photo, index, photoTitle;
    
     public News(String index, String title, String date, String time, String txt, String autor, String tegs, String photo, String photoTitle) {
         this.index = index;

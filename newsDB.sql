@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Апр 19 2018 г., 14:39
+-- Время создания: Апр 19 2018 г., 21:11
 -- Версия сервера: 5.6.37
 -- Версия PHP: 5.6.31
 
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `news` (
   `tegs_news` mediumtext NOT NULL,
   `photo_news` varchar(200) NOT NULL,
   `photoTitle_news` varchar(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `news`
@@ -120,7 +120,8 @@ CREATE TABLE IF NOT EXISTS `news` (
 
 INSERT INTO `news` (`id_news`, `title_news`, `data_news`, `time_news`, `text_news`, `autor_news`, `tegs_news`, `photo_news`, `photoTitle_news`) VALUES
 (1, 'HDKJ;fsdgfhjhgfjghfjjgfjg', '2018-04-18', '02:28:55', 'Hgjhjsfd', 'Korica', 'ADA, LADA CALINA, КАПЕЦЬ', 'jk', 'Chot tam'),
-(2, 'add', '2018-04-18', '02:29:53', 'ADADADA', 'Ofo', 'ADA, NE ADA', 'link', 'nelik');
+(2, 'add', '2018-04-18', '02:29:53', 'ADADADA', 'Ofo', 'ADA, NE ADA', 'link', 'nelik'),
+(3, 'jkhj', '2018-04-20', '12:03:06', 'kjhj', 'hjg', 'bn', 'hj', 'kjhj');
 
 -- --------------------------------------------------------
 
@@ -297,7 +298,7 @@ ALTER TABLE `kurse_valute`
 -- AUTO_INCREMENT для таблицы `news`
 --
 ALTER TABLE `news`
-  MODIFY `id_news` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id_news` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT для таблицы `opros`
 --

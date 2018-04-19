@@ -10,5 +10,5 @@ package classes;
  * @author stanislaw
  */
 public class Coments {
-    
+    private String id, text, autor, data, time, like, answer, country, news;
 }

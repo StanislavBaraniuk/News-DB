@@ -5,7 +5,6 @@
  */
 package frames;
 
-import frames.SelectOpenNewsFrame;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import newsdb.*;

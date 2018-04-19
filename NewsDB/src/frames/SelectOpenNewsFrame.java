@@ -8,10 +8,7 @@ package frames;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.net.URL;
 import java.util.ArrayList;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import newsdb.*;
 import classes.*;
 
