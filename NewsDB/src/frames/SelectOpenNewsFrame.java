@@ -5,12 +5,13 @@
  */
 package frames;
 
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import newsdb.*;
-import classes.*;
+import classes.News;
 
 
 /**
@@ -19,7 +20,7 @@ import classes.*;
  */
 public class SelectOpenNewsFrame extends javax.swing.JFrame {
     private static Controller controller;
-    public ArrayList<News> news;
+    public ArrayList<classes.News> news;
     public String selectedIndex;
     /**
      * Creates new form SelectOpenNewsFrame

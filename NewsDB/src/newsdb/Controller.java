@@ -29,19 +29,19 @@ public class Controller {
 //    private General gFrame = new General(this);
 //    private Setting sFrame = new Setting(this);
 //    private Functions fFrame = new Functions(this);
-//    private AddNewsFrame anFrame = new AddNewsFrame(this);
-//    private OpenNewsFrame onFrame = new OpenNewsFrame(this);
-//    private SelectOpenNewsFrame soFrame = new SelectOpenNewsFrame(this);
+//    private Addclasses.NewsFrame anFrame = new Addclasses.NewsFrame(this);
+//    private Openclasses.NewsFrame onFrame = new Openclasses.NewsFrame(this);
+//    private SelectOpenclasses.NewsFrame soFrame = new SelectOpenclasses.NewsFrame(this);
 //    private ComentsViewFrame cvFrame = new ComentsViewFrame(this);
 //    private CategoryFrame cFrame = new CategoryFrame(this);
-//    private PartnerNewsFrame pnFrame = new PartnerNewsFrame(this);
+//    private Partnerclasses.NewsFrame pnFrame = new Partnerclasses.NewsFrame(this);
 //    private OtherInformationFrame oiFrame = new OtherInformationFrame(this);
 //    private OprosFrame oFrame = new OprosFrame(this);
     
     public FrameController frameController = new FrameController(this);
     
     private mySQL SQL = new mySQL(frameController.gFrame);
-    private String user = "rootor", password="root", DBName, SERVER = "127.0.0.1";
+    private String user = "root", password="", DBName, SERVER = "127.0.0.1";
     private String PORT = "3306";
     
 //    public void show_general_frame() {
@@ -95,7 +95,7 @@ public class Controller {
 //    }
     
 //    public ImageIcon createIcon(String path) {
-//        URL imgURL = SelectOpenNewsFrame.class.getResource(path);     
+//        URL imgURL = SelectOpenclasses.NewsFrame.class.getResource(path);     
 //        if (imgURL != null) {
 //            return new ImageIcon(imgURL);
 //        } else {
@@ -172,9 +172,9 @@ public class Controller {
         listModelNumber.removeAllElements();
         frameController.onFrame.jList1.setModel(listModelNumber);
         Map<Integer, String> newses = new HashMap<Integer, String>();
-        ArrayList<News> news = load_news_from_db();
+        ArrayList<classes.News> news = load_news_from_db();
         
-        ArrayList<News> newsSorted = new ArrayList<News>();
+        ArrayList<classes.News> newsSorted = new ArrayList<classes.News>();
         search = search.replaceAll("\\W", " ");
         String searchAr[] = search.split(" ");
         
@@ -228,11 +228,11 @@ public class Controller {
         }
     }
     
-    public void consecrate_id(ArrayList<News> news) {
+    public void consecrate_id(ArrayList<classes.News> news) {
         
     }
     
-    public void add_news_auto(ArrayList<News> news, String index) {
+    public void add_news_auto(ArrayList<classes.News> news, String index) {
         SQL.delAll();
         
         for (int i = 0; i < news.size(); i++) {
@@ -256,7 +256,7 @@ public class Controller {
 //        soFrame.setVisible(true);
 //    }
     
-    public ArrayList<News> load_news_from_db() {
+    public ArrayList<classes.News> load_news_from_db() {
         ArrayList newsString = SQL.GetData();
 
         int col = (int) newsString.get(0);
@@ -265,10 +265,10 @@ public class Controller {
             newsString.remove(0);
         }
         
-        ArrayList<News> news = new ArrayList<News>();
+        ArrayList<classes.News> news = new ArrayList<classes.News>();
         
         for (int l = 0; l < newsString.size(); l++) {
-            News newsN = new News((String)newsString.get(l),
+            classes.News newsN = new classes.News((String)newsString.get(l),
                         (String)newsString.get(l+1),
                         (String)newsString.get(l+2),
                         (String)newsString.get(l+3),
@@ -286,7 +286,7 @@ public class Controller {
     }
     
     public void load_frame_info(int selected) {
-        ArrayList<News> news = load_news_from_db();
+        ArrayList<classes.News> news = load_news_from_db();
         String s[] = frameController.onFrame.jList1.getSelectedValue().replaceAll("\\W", " ").split(" ");
         String index = s[2];
         frameController.soFrame.selectedIndex = index;
@@ -309,7 +309,7 @@ public class Controller {
         DefaultListModel listModelNumber = new DefaultListModel();
         listModelNumber.removeAllElements();
         frameController.onFrame.jList1.setModel(listModelNumber);
-        ArrayList<News> news = load_news_from_db();
+        ArrayList<classes.News> news = load_news_from_db();
         
         for (int i = 0; i < news.size(); i++) {
             listModelNumber.addElement("index: " + news.get(i).index + ", " + "Title: | " + news.get(i).title + " | by '" + news.get(i).autor + " | at | " + news.get(i).date + " |  in | " + news.get(i).time + " | tegs: | " + news.get(i).tegs + " | ");
@@ -324,7 +324,7 @@ public class Controller {
             columnArr.add(frameController.gFrame.jTable2.getModel().getColumnName(i));
         }
         
-        News news = new News("0", title, date, time, txt, autor, tegs, photo, photoTitle);
+        classes.News news = new classes.News("0", title, date, time, txt, autor, tegs, photo, photoTitle);
         String value[] = new String[columnArr.size()];
         value[0] = "0";
         value[1] = title;
