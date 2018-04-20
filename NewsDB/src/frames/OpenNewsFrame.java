@@ -140,7 +140,9 @@ public class OpenNewsFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        String value[] = jList1.getSelectedValue().replaceAll("\\W", " ").split(" ");
+        String index = value[1];
+//        controller.delete_element(index);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased

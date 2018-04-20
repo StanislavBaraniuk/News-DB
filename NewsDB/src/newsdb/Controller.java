@@ -12,12 +12,18 @@ import com.mysql.jdbc.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JScrollPane;
+import javax.swing.JTree;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
 
 /**
  *
@@ -27,11 +33,18 @@ public class Controller {
     private String func[] = {"add element", "search element", "delete element", "sample element"};   
     public FrameController frameController = new FrameController(this);
     private mySQL SQL = new mySQL(frameController.gFrame);
-    private String user = "root", password="", DBName, SERVER = "127.0.0.1";
+    private String user = "rootor", password="root", DBName, SERVER = "127.0.0.1";
     private String PORT = "3306";
     
     public void connect_db() {
         SQL.set_table(frameController.gFrame.jComboBox1.getSelectedItem().toString());
+        SQL.set_connect_info(SERVER, PORT, DBName, user, password);
+        System.out.println(SQL.Conect());
+        write_to_table();
+    }
+    
+    public void update_conect(String table) {
+        SQL.set_table(table);
         SQL.set_connect_info(SERVER, PORT, DBName, user, password);
         System.out.println(SQL.Conect());
         write_to_table();
@@ -56,6 +69,153 @@ public class Controller {
                 delete_element(frameController.gFrame.jTable1.getSelectedRow());
                 break;    
         }
+    }
+    
+    public ArrayList<classes.Coments> load_coments_from_db() {
+        update_conect("coments");
+        ArrayList comentsString = SQL.GetData();
+        
+        int col = (int) comentsString.get(0);
+        
+        for (int i =0; i < col+1; i++) {
+            comentsString.remove(0);
+        }
+        
+        ArrayList<classes.Coments> coments = new ArrayList<classes.Coments>();
+        
+        for (int l = 0; l < comentsString.size(); l++) {
+            classes.Coments coment = new classes.Coments((String)comentsString.get(l),
+                        (String)comentsString.get(l+1),
+                        (String)comentsString.get(l+2),
+                        (String)comentsString.get(l+3),
+                        (String)comentsString.get(l+4),
+                        (String)comentsString.get(l+5),
+                        (String)comentsString.get(l+6),
+                        (String)comentsString.get(l+7),
+                        (String)comentsString.get(l+8));
+            System.out.println("answer: '" + coment.answer + 
+                               "' by '" + coment.autor + 
+                               "' country '" + coment.country + 
+                               "' in '" + coment.time + 
+                               "' data: '" + coment.data +
+                                "' id: '" + coment.id + 
+                                "' like: '" + coment.like +
+                                "' news: '" + coment.news +
+                                "' text: '" + coment.text);
+            coments.add(coment);
+            l+=8;
+        }
+        return coments;
+    }
+    
+    public void load_coments(int index, String title) {
+        DefaultMutableTreeNode top = new DefaultMutableTreeNode(title);
+        createNodes(top);
+        JTree tree = new JTree(top);
+
+        frameController.cvFrame.jTree1 = tree;
+        
+        frameController.cvFrame.jScrollPane1.setColumnHeaderView(tree);
+        
+    
+    
+//        ArrayList<classes.News> news = load_news_from_db();
+        
+//        for (int i = 0; i < news.size(); i++) {
+//            listModelNumber.addElement("index: " + news.get(i).index + ", " + 
+//                                       "Title: | " + news.get(i).title + " | by '" + 
+//                                        news.get(i).autor + " | at | " + 
+//                                        news.get(i).date + " |  in | " + 
+//                                        news.get(i).time + " | tegs: | " + 
+//                                        news.get(i).tegs + " | ");
+//        }
+        
+//        frameController.soFrame.news = news;
+    }
+    
+    private void createNodes(DefaultMutableTreeNode top) {
+        ArrayList<DefaultMutableTreeNode> comentsArr = new ArrayList<DefaultMutableTreeNode>();
+        
+//        DefaultMutableTreeNode
+//        DefaultMutableTreeNode book = null;
+//
+//        category = new DefaultMutableTreeNode("Books for Java Programmers");
+//        top.add(category);
+//
+//        //original Tutorial
+//        book = new DefaultMutableTreeNode("The Java Tutorial: A Short Course on the Basics");
+//        category.add(book);
+//
+//        //Tutorial Continued
+//        book = new DefaultMutableTreeNode("The Java Tutorial Continued: The Rest of the JDK");
+//        category.add(book);
+//
+//        //Swing Tutorial
+//        book = new DefaultMutableTreeNode("The Swing Tutorial: A Guide to Constructing GUIs");
+//        category.add(book);
+//
+//        //...add more books for programmers...
+//
+//        category = new DefaultMutableTreeNode("Books for Java Implementers");
+//        top.add(category);
+//
+//        //VM
+//        book = new DefaultMutableTreeNode("The Java Virtual Machine Specification");
+//        category.add(book);
+//
+//        //Language Spec
+//        book = new DefaultMutableTreeNode("The Java Language Specification");
+//        category.add(book);
+        
+        ArrayList<classes.Coments> coments = load_coments_from_db();
+        
+        for (int i = 0; i < coments.size(); i++) {
+            if (!coments.get(i).answer.equals("-1")) {
+                DefaultMutableTreeNode category = new DefaultMutableTreeNode();
+                category.add(new DefaultMutableTreeNode("index: " + 
+                        coments.get(i).id + 
+                        ", " + 
+                        "     text: " + 
+                        coments.get(i).text + 
+                        "     ,by: '" + 
+                        coments.get(i).autor + 
+                        "     ,at: " + 
+                        coments.get(i).data + 
+                        "    ,in " + 
+                        coments.get(i).time + 
+                        "     ,likes: " + 
+                        coments.get(i).like + 
+                        "     ,country: " 
+                        + coments.get(i).like));
+                comentsArr.add(top);
+                
+            } else {
+                
+                DefaultMutableTreeNode category = new DefaultMutableTreeNode();
+                category.add(new DefaultMutableTreeNode("index: " + 
+                        coments.get(i).id + 
+                        ", " + 
+                        "     text: " + 
+                        coments.get(i).text + 
+                        "     ,by: '" + 
+                        coments.get(i).autor + 
+                        "     ,at: " + 
+                        coments.get(i).data + 
+                        "    ,in " + 
+                        coments.get(i).time + 
+                        "     ,likes: " + 
+                        coments.get(i).like + 
+                        "     ,country: " 
+                        + coments.get(i).like));
+                comentsArr.get(i).add(category);
+            }
+        }
+        
+        for (int i = 0; i < comentsArr.size(); i++) {
+            top.add(comentsArr.get(i));
+        }
+            
+        
     }
     
     public void delete_element(int selected) {
@@ -220,6 +380,7 @@ public class Controller {
     }
     
     public void load_news(){
+        update_conect("news");
         DefaultListModel listModelNumber = new DefaultListModel();
         listModelNumber.removeAllElements();
         frameController.onFrame.jList1.setModel(listModelNumber);
@@ -238,6 +399,7 @@ public class Controller {
     }
     
     public void add_news(String title, String date, String time, String txt, String autor, String tegs, String photo, String photoTitle) {
+        update_conect("news");
         ArrayList columnArr = new ArrayList();
         for (int i = 0; i < frameController.gFrame.jTable2.getModel().getColumnCount(); i++) {
             columnArr.add(frameController.gFrame.jTable2.getModel().getColumnName(i));
@@ -292,13 +454,6 @@ public class Controller {
         connect_db();
     }
     
-//    public void show_functions_frame() {
-//        fFrame.setVisible(true);
-//        for (String s : func) {
-//            fFrame.jComboBox2.addItem(s);
-//        }
-//    }
-    
     public void write_to_table() {
         ArrayList list = SQL.GetData();
         System.out.println(list);
@@ -323,7 +478,7 @@ public class Controller {
         frameController.gFrame.jTable1.setModel(new DefaultTableModel(data,columns));
         frameController.gFrame.jTable2.setModel(new DefaultTableModel(data2,columns));
         DefaultTableModel model = (DefaultTableModel) frameController.gFrame.jTable1.getModel();
-        System.out.println("tupo pizda - " + list.size()/columns.length);
+//        System.out.println("tupo pizda - " + list.size()/columns.length);
         ArrayList s = new ArrayList();
         for (Object strings : list) {
             s.add(strings);

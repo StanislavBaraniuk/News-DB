@@ -13,7 +13,7 @@ import newsdb.*;
  * @author stanislaw
  */
 public class General extends javax.swing.JFrame {
-    static public String hom;
+    static public String NewsTableName = "news";
     private static Controller controller;
     private int w1, w2;
     /**
@@ -83,18 +83,6 @@ public class General extends javax.swing.JFrame {
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox1ItemStateChanged(evt);
-            }
-        });
-        jComboBox1.addHierarchyListener(new java.awt.event.HierarchyListener() {
-            public void hierarchyChanged(java.awt.event.HierarchyEvent evt) {
-                jComboBox1HierarchyChanged(evt);
-            }
-        });
-        jComboBox1.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-                jComboBox1CaretPositionChanged(evt);
             }
         });
 
@@ -188,7 +176,7 @@ public class General extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 635, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -327,21 +315,15 @@ public class General extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1KeyReleased
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        controller.update_conect(NewsTableName);
         controller.frameController.show_add_news_frame();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        controller.update_conect(NewsTableName);
         controller.frameController.show_open_news_frame();
         controller.load_news();
     }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jComboBox1HierarchyChanged(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_jComboBox1HierarchyChanged
-        
-    }//GEN-LAST:event_jComboBox1HierarchyChanged
-
-    private void jComboBox1CaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jComboBox1CaretPositionChanged
-        
-    }//GEN-LAST:event_jComboBox1CaretPositionChanged
 
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
         controller.connect_db();

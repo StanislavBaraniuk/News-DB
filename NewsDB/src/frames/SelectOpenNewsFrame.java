@@ -229,7 +229,7 @@ public class SelectOpenNewsFrame extends javax.swing.JFrame {
     
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        controller.update_conect("news");
         if (autorTextPane.getText().length() > 0 && 
                 titleTextPane.getText().length() > 0 && 
                 contentTextPane.getText().length() > 0 && 
@@ -240,6 +240,7 @@ public class SelectOpenNewsFrame extends javax.swing.JFrame {
             controller.add_news_auto(news, selectedIndex);
             jButton1.setForeground(Color.green);
             jLabel3.setIcon(controller.frameController.createIcon("/res/img/ok_work.png"));
+            controller.load_news();
         } else {
             jButton1.setForeground(Color.red);
             jLabel3.setIcon(controller.frameController.createIcon("/res/img/ok_dontwork.png"));
@@ -248,6 +249,8 @@ public class SelectOpenNewsFrame extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         controller.frameController.show_coments_view_frame();
+        controller.load_coments(Integer.parseInt(selectedIndex), news.get(Integer.parseInt(selectedIndex)-1).title);
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseMoved

@@ -42,6 +42,11 @@ public class ComentsViewFrame extends javax.swing.JFrame {
 
         setTitle("Comments");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
@@ -118,6 +123,10 @@ public class ComentsViewFrame extends javax.swing.JFrame {
         if (jTextField1.getText().length()>0) controller.search_news(jTextField1.getText()); else controller.load_news();
     }//GEN-LAST:event_jTextField1KeyReleased
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        controller.update_conect("news");
+    }//GEN-LAST:event_formWindowClosing
+
     /**
      * @param args the command line arguments
      */
@@ -157,8 +166,8 @@ public class ComentsViewFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTree jTree1;
+    public javax.swing.JTree jTree1;
     // End of variables declaration//GEN-END:variables
 }

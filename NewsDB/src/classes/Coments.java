@@ -10,7 +10,7 @@ package classes;
  * @author stanislaw
  */
 public class Coments {
-    private String id, text, autor, data, time, like, answer, country, news;
+    public String id, text, autor, data, time, like, answer, country, news;
     
     public Coments(String id, String text, String autor, String data, 
                 String time, String like, String answer, String country, String news) {
