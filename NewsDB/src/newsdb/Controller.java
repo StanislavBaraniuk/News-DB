@@ -33,7 +33,7 @@ public class Controller {
     private String func[] = {"add element", "search element", "delete element", "sample element"};   
     public FrameController frameController = new FrameController(this);
     private mySQL SQL = new mySQL(frameController.gFrame);
-    private String user = "rootor", password="root", DBName, SERVER = "127.0.0.1";
+    private String user = "root", password="", DBName, SERVER = "127.0.0.1";
     private String PORT = "3306";
     
     public void connect_db() {
@@ -295,7 +295,7 @@ public class Controller {
         }
     }
     
-    public void consecrate_id(ArrayList<classes.News> news) {
+    public void consecrate_id(ArrayList<classes.Account> news) {
         
     }
     
@@ -398,7 +398,8 @@ public class Controller {
         frameController.soFrame.news = news;
     }
     
-    public void add_news(String title, String date, String time, String txt, String autor, String tegs, String photo, String photoTitle) {
+    public void add_news(String title, String date, String time, String txt, 
+                         String autor, String tegs, String photo, String photoTitle) {
         update_conect("news");
         ArrayList columnArr = new ArrayList();
         for (int i = 0; i < frameController.gFrame.jTable2.getModel().getColumnCount(); i++) {
@@ -430,8 +431,70 @@ public class Controller {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         } 
 
-        consecrate_id(load_news_from_db());
+//        consecrate_id(load_news_from_db());
         connect_db();
+    }
+    
+    public void add_autors(String name, String surname, String avatar, String burthday, String sex, 
+                           String country, String speciality, String about, String email, String password) {
+        update_conect("autors");
+        ArrayList columnArr = new ArrayList();
+        for (int i = 0; i < frameController.gFrame.jTable2.getModel().getColumnCount(); i++) {
+            columnArr.add(frameController.gFrame.jTable2.getModel().getColumnName(i));
+        }
+        
+        classes.Account account = new classes.Account("0", name, surname, avatar, burthday, sex, 
+                                                      country, speciality, about, email, password);
+        String value[] = new String[columnArr.size()];
+        value[0] = "0";
+        value[1] = name;
+        value[2] = surname;
+        value[3] = avatar;
+        value[4] = burthday;
+        value[5] = sex;
+        value[6] = country;
+        value[7] = speciality;
+        value[8] = about;
+        value[9] = email;
+        value[10] = password;
+        
+        try {
+            PreparedStatement X = SQL.insert(columnArr);
+            for (int i = 0; i < columnArr.size(); i++) {
+                X.setString(i+1, value[i]);
+            }
+            X.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+//        consecrate_id(load_autors_from_db());
+        connect_db();
+    }
+    
+    public ArrayList<classes.Account> load_autors_from_db() {
+        ArrayList newsString = SQL.GetData();
+        int col = (int) newsString.get(0);
+        for (int i =0; i < col+1; i++) {
+            newsString.remove(0);
+        }
+        ArrayList<classes.Account> acounts = new ArrayList<classes.Account>();
+        for (int l = 0; l < newsString.size(); l++) {
+            classes.Account acountsA = new classes.Account((String)newsString.get(l),
+                        (String)newsString.get(l+1),
+                        (String)newsString.get(l+2),
+                        (String)newsString.get(l+3),
+                        (String)newsString.get(l+4),
+                        (String)newsString.get(l+5),
+                        (String)newsString.get(l+6),
+                        (String)newsString.get(l+7),
+                        (String)newsString.get(l+8),
+                        (String)newsString.get(l+9),
+                        (String)newsString.get(l+10));
+            acounts.add(acountsA);
+            l+=8;
+        }
+        return acounts;
     }
     
     public void add_element() {
@@ -478,7 +541,6 @@ public class Controller {
         frameController.gFrame.jTable1.setModel(new DefaultTableModel(data,columns));
         frameController.gFrame.jTable2.setModel(new DefaultTableModel(data2,columns));
         DefaultTableModel model = (DefaultTableModel) frameController.gFrame.jTable1.getModel();
-//        System.out.println("tupo pizda - " + list.size()/columns.length);
         ArrayList s = new ArrayList();
         for (Object strings : list) {
             s.add(strings);

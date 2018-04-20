@@ -29,6 +29,7 @@ public class FrameController {
     public PartnerNewsFrame pnFrame;
     public OtherInformationFrame oiFrame;
     public OprosFrame oFrame;
+    public AutorsFrame aFrame;
     
     public FrameController(Controller controller) {
         this.controller = controller;
@@ -43,6 +44,7 @@ public class FrameController {
         this.pnFrame = new PartnerNewsFrame(controller);
         this.oiFrame = new OtherInformationFrame(controller);
         this.oFrame = new OprosFrame(controller);
+        this.aFrame = new AutorsFrame(controller);
     }
     
     public ImageIcon createIcon(String path) {
@@ -137,5 +139,14 @@ public class FrameController {
         soFrame.setVisible(true);
     }
     
+    public void show_autor_frame() {
+        aFrame.setVisible(true);
+        gFrame.setVisible(false);
+    }
     
+    public void hide_autor_frame() {
+        aFrame.setVisible(false);
+        gFrame.setVisible(true);
+    }
+
 }
