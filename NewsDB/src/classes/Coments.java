@@ -11,4 +11,17 @@ package classes;
  */
 public class Coments {
     private String id, text, autor, data, time, like, answer, country, news;
+    
+    public Coments(String id, String text, String autor, String data, 
+                String time, String like, String answer, String country, String news) {
+        this.id = id;
+        this.text = text;
+        this.autor = autor;
+        this.data = data;
+        this.time = time;
+        this.like = like;
+        this.answer = answer;
+        this.country = country;
+        this.news = news;
+    }
 }

@@ -7,7 +7,6 @@ package newsdb;
 
 
 import frames.FrameController;
-import classes.*;
 
 import com.mysql.jdbc.PreparedStatement;
 import java.sql.SQLException;
@@ -25,94 +24,12 @@ import javax.swing.table.DefaultTableModel;
  * @author stanislaw
  */
 public class Controller {
-    private String func[] = {"add element", "search element", "delete element", "sample element"};
-//    private General gFrame = new General(this);
-//    private Setting sFrame = new Setting(this);
-//    private Functions fFrame = new Functions(this);
-//    private Addclasses.NewsFrame anFrame = new Addclasses.NewsFrame(this);
-//    private Openclasses.NewsFrame onFrame = new Openclasses.NewsFrame(this);
-//    private SelectOpenclasses.NewsFrame soFrame = new SelectOpenclasses.NewsFrame(this);
-//    private ComentsViewFrame cvFrame = new ComentsViewFrame(this);
-//    private CategoryFrame cFrame = new CategoryFrame(this);
-//    private Partnerclasses.NewsFrame pnFrame = new Partnerclasses.NewsFrame(this);
-//    private OtherInformationFrame oiFrame = new OtherInformationFrame(this);
-//    private OprosFrame oFrame = new OprosFrame(this);
-    
+    private String func[] = {"add element", "search element", "delete element", "sample element"};   
     public FrameController frameController = new FrameController(this);
-    
     private mySQL SQL = new mySQL(frameController.gFrame);
     private String user = "root", password="", DBName, SERVER = "127.0.0.1";
     private String PORT = "3306";
     
-//    public void show_general_frame() {
-//        gFrame.setVisible(true);
-//    }
-//       
-//    public void show_opros_frame() {
-//        oFrame.setVisible(true);
-//    }
-//    
-//    public void hide_opros_frame() {
-//        oFrame.setVisible(false);
-//    }
-//    
-//    public void show_other_information_frame() {
-//        gFrame.setVisible(false);
-//        oiFrame.setVisible(true);
-//    }
-//    
-//    public void hide_other_information_frame() {
-//        gFrame.setVisible(true);
-//        oiFrame.setVisible(false);
-//    }
-//    
-//    public void show_partner_news_frame() {
-//        pnFrame.setVisible(true);
-//    }
-//    
-//    public void hide_cpartner_news_frame() {
-//        pnFrame.setVisible(false);
-//    }
-//    
-//    public void show_category_frame() {
-//        gFrame.setVisible(false);
-//        cFrame.setVisible(true);
-//    }
-//    
-//    public void hide_category_frame() {
-//        gFrame.setVisible(true);
-//        cFrame.setVisible(false);
-//    }
-//    
-//    public void show_setting_frame() {
-//        gFrame.setEnabled(false);
-//        sFrame.setVisible(true);
-//    }
-//    
-//    public void hide_setting_frame() {
-//        gFrame.setEnabled(true);
-//        sFrame.setVisible(false);
-//    }
-    
-//    public ImageIcon createIcon(String path) {
-//        URL imgURL = SelectOpenclasses.NewsFrame.class.getResource(path);     
-//        if (imgURL != null) {
-//            return new ImageIcon(imgURL);
-//        } else {
-//            System.err.println("File not found " + path);
-//            return null;
-//        }
-//    }
-    
-//    public void show_coments_view_frame() {
-//
-//        cvFrame.setVisible(true);
-//    }
-//    
-//    public void hide_coments_view_frame() {
-//        cvFrame.setVisible(false);
-//    }
-//    
     public void connect_db() {
         SQL.set_table(frameController.gFrame.jComboBox1.getSelectedItem().toString());
         SQL.set_connect_info(SERVER, PORT, DBName, user, password);
@@ -141,26 +58,6 @@ public class Controller {
         }
     }
     
-//    public void show_add_news_frame() {
-//        anFrame.setVisible(true);
-//        gFrame.setVisible(false);
-//    }
-//    
-//    public void hide_add_news_frame() {
-//        anFrame.setVisible(false);
-//        gFrame.setVisible(true);
-//    }
-//    
-//    public void show_open_news_frame() {
-//        onFrame.setVisible(true);
-//        gFrame.setVisible(false);
-//    }
-//    
-//    public void hide_open_news_frame() {
-//        onFrame.setVisible(false);
-//        gFrame.setVisible(true);
-//    }
-    
     public void delete_element(int selected) {
         int X=(int) Integer.valueOf((String)frameController.gFrame.jTable1.getValueAt(selected, 0));
         SQL.del(X, frameController.gFrame.jTable1.getColumnName(0));
@@ -184,7 +81,12 @@ public class Controller {
         for (int l = 0; l < news.size(); l++) {
             for (String searchSorted1 : searchSorted) {
                 String index = searchSorted1;
-                if (searchSorted1.contains(news.get(l).autor) || searchSorted1.contains(news.get(l).date) || searchSorted1.contains(news.get(l).time) || searchSorted1.contains(news.get(l).photo) || searchSorted1.equals(news.get(l).index) || searchSorted1.contains(news.get(l).photoTitle)) {
+                if (searchSorted1.contains(news.get(l).autor) || 
+                    searchSorted1.contains(news.get(l).date) || 
+                    searchSorted1.contains(news.get(l).time) || 
+                    searchSorted1.contains(news.get(l).photo) || 
+                    searchSorted1.equals(news.get(l).index) || 
+                    searchSorted1.contains(news.get(l).photoTitle)) {
                     newsSorted.add(news.get(l));
                 } else {
                     String[] textes;
@@ -224,7 +126,12 @@ public class Controller {
         }
         
         for (int i = 0; i < newsSorted.size(); i++) {
-            listModelNumber.addElement("index: " + newsSorted.get(i).index + ", " + "Title: '" + newsSorted.get(i).title + "' by '" + newsSorted.get(i).autor + "' at '" + newsSorted.get(i).date + "' in '" + newsSorted.get(i).time + "' tegs: '" + newsSorted.get(i).tegs + "'");
+            listModelNumber.addElement("index: " + newsSorted.get(i).index + ", " +
+                                       "Title: '" + newsSorted.get(i).title + "' by '" + 
+                                        newsSorted.get(i).autor + "' at '" + 
+                                        newsSorted.get(i).date + "' in '" + 
+                                        newsSorted.get(i).time + "' tegs: '" + 
+                                        newsSorted.get(i).tegs + "'");
         }
     }
     
@@ -248,13 +155,16 @@ public class Controller {
         }
 
         for (int i = 0 ; i < news.size(); i++) {
-            add_news(news.get(i).title, news.get(i).date, news.get(i).time, news.get(i).txt, news.get(i).autor, news.get(i).tegs, news.get(i).photo, news.get(i).photoTitle);
+            add_news(news.get(i).title, 
+                     news.get(i).date, 
+                     news.get(i).time, 
+                     news.get(i).txt, 
+                     news.get(i).autor, 
+                     news.get(i).tegs, 
+                     news.get(i).photo, 
+                     news.get(i).photoTitle);
         }
     }
-    
-//    public void show_select_news_frame() {
-//        soFrame.setVisible(true);
-//    }
     
     public ArrayList<classes.News> load_news_from_db() {
         ArrayList newsString = SQL.GetData();
@@ -277,7 +187,11 @@ public class Controller {
                         (String)newsString.get(l+6),
                         (String)newsString.get(l+7),
                         (String)newsString.get(l+8));
-            System.out.println("Title: '" + newsN.title + "' by '" + newsN.autor + "' at '" + newsN.date + "' in '" + newsN.time + "' tegs: '" + newsN.tegs + "'");
+            System.out.println("Title: '" + newsN.title + 
+                               "' by '" + newsN.autor + 
+                               "' at '" + newsN.date + 
+                               "' in '" + newsN.time + 
+                               "' tegs: '" + newsN.tegs + "'");
             news.add(newsN);
             l+=8;
         }
@@ -312,7 +226,12 @@ public class Controller {
         ArrayList<classes.News> news = load_news_from_db();
         
         for (int i = 0; i < news.size(); i++) {
-            listModelNumber.addElement("index: " + news.get(i).index + ", " + "Title: | " + news.get(i).title + " | by '" + news.get(i).autor + " | at | " + news.get(i).date + " |  in | " + news.get(i).time + " | tegs: | " + news.get(i).tegs + " | ");
+            listModelNumber.addElement("index: " + news.get(i).index + ", " + 
+                                       "Title: | " + news.get(i).title + " | by '" + 
+                                        news.get(i).autor + " | at | " + 
+                                        news.get(i).date + " |  in | " + 
+                                        news.get(i).time + " | tegs: | " + 
+                                        news.get(i).tegs + " | ");
         }
         
         frameController.soFrame.news = news;

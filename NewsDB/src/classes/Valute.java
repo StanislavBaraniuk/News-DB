@@ -10,5 +10,11 @@ package classes;
  * @author stanislaw
  */
 public class Valute {
-    
+    String id, cities, value;
+
+    public Valute(String id, String cities, String value) {
+        this.id = id;
+        this.cities = cities;
+        this.value = value;
+    }
 }

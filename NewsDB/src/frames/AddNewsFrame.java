@@ -190,6 +190,12 @@ public class AddNewsFrame extends javax.swing.JFrame {
                                 tegsTextField.getText(), 
                                 photoTextField.getText(),
                                 photoTitleTextField.getText());
+            titleTextField.setText("");
+            tegsTextField.setText("");
+            autorTextField.setText("");
+            txtTextArea.setText("");
+            photoTextField.setText("");
+            photoTitleTextField.setText("");
             jButton1.setForeground(Color.green);
         } else jButton1.setForeground(Color.red);
     }//GEN-LAST:event_jButton1ActionPerformed
