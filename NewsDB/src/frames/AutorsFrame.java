@@ -5,11 +5,13 @@
  */
 package frames;
 
+import classes.Account;
 import static frames.AddNewsFrame.controller;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import newsdb.Controller;
@@ -20,6 +22,8 @@ import newsdb.Controller;
  */
 public class AutorsFrame extends javax.swing.JFrame {
     static Controller controller;
+    public ArrayList<Account> autors;
+    public String SelectIndex;
     /**
      * Creates new form AddNewsFrame
      * @param controller
@@ -154,14 +158,15 @@ public class AutorsFrame extends javax.swing.JFrame {
             passwordTextField.getText().length() > 0  && 
             password2TextField.getText().length() > 0 && 
             nameTextField.getText().length() > 0      && 
-            surnameTextField.getText().length() > 0 ) {
+            surnameTextField.getText().length() > 0 ) 
+        {
             if(Arrays.equals(passwordTextField.getPassword(), password2TextField.getPassword())){
                 controller.add_autors(nameTextField.getText(), 
-                                  surnameTextField.getText(), 
-                                  null, null, null, 
-                                  null, null, null, 
-                                  emailTextField.getText(), 
-                                  passwordTextField.getText());
+                                      surnameTextField.getText(), 
+                                      null, null, null, 
+                                      null, null, null, 
+                                      emailTextField.getText(), 
+                                      passwordTextField.getText());
                 emailTextField.setText("");
                 passwordTextField.setText("");
                 password2TextField.setText("");

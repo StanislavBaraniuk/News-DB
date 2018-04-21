@@ -10,7 +10,7 @@ package classes;
  * @author stanislaw
  */
 public class Account {
-     private String id, name, surname, avatar, burthday, sex, country, speciality, about, email, password;
+    public String id, name, surname, avatar, burthday, sex, country, speciality, about, email, password;
 
     public Account(String id, String name, String surname, String avatar, String burthday, 
                    String sex, String country, String speciality, String about, String email, String password) {

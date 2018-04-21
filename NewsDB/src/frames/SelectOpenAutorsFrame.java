@@ -5,17 +5,32 @@
  */
 package frames;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.util.ArrayList;
+import newsdb.*;
+import classes.News;
+import static frames.SelectOpenNewsFrame.controller;
+
 /**
  *
  * @author Vitaly
  */
 public class SelectOpenAutorsFrame extends javax.swing.JFrame {
-
+    private static Controller controller;
+    public ArrayList<classes.Account> accounts;
+    public String selectedIndex;
     /**
-     * Creates new form SelectOpenAutorsFrame
+     * Creates new form SelectOpenNewsFrame
      */
-    public SelectOpenAutorsFrame() {
+    public SelectOpenAutorsFrame(Controller controller) {
         initComponents();
+        SelectOpenAutorsFrame.controller = controller;
+        Dimension sSize = Toolkit.getDefaultToolkit ().getScreenSize ();
+        this.setLocation(sSize.width/2-this.getWidth()/2, sSize.height/2-this.getHeight()/2);
+        
+//        jLabel3.setIcon(controller.frameController.createIcon("/res/img/ok_standart.png"));
     }
 
     /**
@@ -29,28 +44,28 @@ public class SelectOpenAutorsFrame extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        nameTextField = new javax.swing.JTextField();
+        surnameField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        fotoField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jComboBox4 = new javax.swing.JComboBox<>();
-        jComboBox5 = new javax.swing.JComboBox<>();
-        jTextField5 = new javax.swing.JTextField();
+        emailField = new javax.swing.JTextField();
+        chisloComboBox = new javax.swing.JComboBox<>();
+        monthComboBox2 = new javax.swing.JComboBox<>();
+        ricComboBox = new javax.swing.JComboBox<>();
+        sexComboBox = new javax.swing.JComboBox<>();
+        countryComboBox = new javax.swing.JComboBox<>();
+        profTextField = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextPane2 = new javax.swing.JTextPane();
+        aboutTextPane = new javax.swing.JTextPane();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Ім'я");
@@ -78,19 +93,34 @@ public class SelectOpenAutorsFrame extends javax.swing.JFrame {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel9.setText("E-mail");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        chisloComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        chisloComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chisloComboBoxActionPerformed(evt);
+            }
+        });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень", "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень" }));
+        monthComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень", "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень" }));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "1950", "1951", "1952", "1953", "1954", "1955", "1956", "1957", "1958", "1959", "1960", "1961", "1962", "1963", "1964", "1965", "1966", "1967", "1968", "1969", "1970", "1971", "1972", "1973", "1974", "1975", "1976", "1977", "1978", "1979", "1980", "1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017" }));
+        ricComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "1950", "1951", "1952", "1953", "1954", "1955", "1956", "1957", "1958", "1959", "1960", "1961", "1962", "1963", "1964", "1965", "1966", "1967", "1968", "1969", "1970", "1971", "1972", "1973", "1974", "1975", "1976", "1977", "1978", "1979", "1980", "1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017" }));
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Чоловіча", "Жіноча" }));
+        sexComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Чоловіча", "Жіноча" }));
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Австралія", "Австрія", "Азербайджан", "Албанія", "Алжир", "Ангола", "Андорра", "Аргентина", "Афганістан", "Багами", "Бангладеш", "Барбадос", "Бахрейн", "Беліз", "Білорусія", "Бельгія", "Бенін", "Болгарія", "Болівія", "Боснія і Герцеговина", "Ботсвана", "Бразилія", "Бруней", "Буркина-Фасо", "Бурунді", "Бутан", "Вануату", "Ватикан", "Вірменія", "Великобританія", "Венесуела", "В'єтнам", "Габон", "Гаїті", "Гайана", "Гамбія", "Гана", "Гватемала", "Гвінея", "Гвінея-Бісау", "Гондурас", "Гренада", "Греція", "Грузія", "Данія", "Джібуті", "Домініка", "Домініканська Республіка", "Єгипет", "Ємен", "Замбія", "Зимбабве", "Еквадор", "Екваторіальна Гвінея", "Еритрея", "Естонія", "Ефіопія", "Ізраїль", "Індія", "Індонезія", "Ірак", "Іран", "Ірландія", "Ісландія", "Іспанія", "Італія", "Йорданія", "Кабо-Верде", "Казахстан", "Камбоджа", "Камерун", "Канада", "Катар", "Кенія", "Кіпр", "Киргизія", "Кірібаті", "Китай", "Колумбія", "Коморські Острови", "Конго (Демократична республіка)", "Конго", "Коста-Рика", "Кот-д'Івуар", "Куба", "Кувейт", "Лаос", "Латвія", "Лесото", "Ліберія", "Ліван", "Лівія", "Литва", "Ліхтенштейн", "Люксембург", "Маврикій", "Мавританія", "Мадагаскар", "Македонії", "Малаві", "Малайзія", "Малі", "Мальта", "Мальдіви", "Марокко", "Маршаллові острови ", "Мексика", "Мозамбік", "Молдова", "Монако", "Монголія", "М'янма", "Намібія", "Науру", "Непал", "Нігер", "Нігерія", "Нідерланди", "Нікарагуа", "Німеччина", "Нова Зеландія", "Норвегія ", "Об'єднані Арабські Емірати", "Оман", "Пакистан", "Палау", "Панама", "Папуа", "Нова Гвінея", "Парагвай", "Перу", "Південна Корея", "Північна Корея", "Південно-Африканська Республіка", "Польща", "Португалія", "Росія", "Руанда", "Румунія", "Сальвадор", "Самоа", "Сан-Марино", "Сан-Томе і Принсипи", "Саудівська Аравія", "Свазіленд", "Сейшели", "Сенегал", "Сент-Вінсент і Гренадіни", "Сент-Китс і Невис", "Сент-Люсія", "Сербія", "Сінгапур", "Сирія", "Словаччина", "Словенія", "США", "Соломонові", "Острови", "Сомалі", "Судан", "Суринам", "Сьерра-Леоне", "Східний Тимор", "Таджикистан", "Таїланд", "Танзанія", "Того", "Тонга", "Тринидад і Тобаго", "Тувалу", "Туніс", "Туркменістан", "Туреччина", "Уганда", "Угорщина", "Узбекистан", "Україна", "Уругвай", "Фед. Штати", "Мікронезії", "Фіджі", "Філіппіни", "Фінляндія", "Франція", "Хорватія", "ЦАР", "Чад", "Чорногорія", "Чехія", "Чилі", "Швейцарія", "Швеція", "Шри-Ланка", "Ямайка", "Японія" }));
+        countryComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Австралія", "Австрія", "Азербайджан", "Албанія", "Алжир", "Ангола", "Андорра", "Аргентина", "Афганістан", "Багами", "Бангладеш", "Барбадос", "Бахрейн", "Беліз", "Білорусія", "Бельгія", "Бенін", "Болгарія", "Болівія", "Боснія і Герцеговина", "Ботсвана", "Бразилія", "Бруней", "Буркина-Фасо", "Бурунді", "Бутан", "Вануату", "Ватикан", "Вірменія", "Великобританія", "Венесуела", "В'єтнам", "Габон", "Гаїті", "Гайана", "Гамбія", "Гана", "Гватемала", "Гвінея", "Гвінея-Бісау", "Гондурас", "Гренада", "Греція", "Грузія", "Данія", "Джібуті", "Домініка", "Домініканська Республіка", "Єгипет", "Ємен", "Замбія", "Зимбабве", "Еквадор", "Екваторіальна Гвінея", "Еритрея", "Естонія", "Ефіопія", "Ізраїль", "Індія", "Індонезія", "Ірак", "Іран", "Ірландія", "Ісландія", "Іспанія", "Італія", "Йорданія", "Кабо-Верде", "Казахстан", "Камбоджа", "Камерун", "Канада", "Катар", "Кенія", "Кіпр", "Киргизія", "Кірібаті", "Китай", "Колумбія", "Коморські Острови", "Конго (Демократична республіка)", "Конго", "Коста-Рика", "Кот-д'Івуар", "Куба", "Кувейт", "Лаос", "Латвія", "Лесото", "Ліберія", "Ліван", "Лівія", "Литва", "Ліхтенштейн", "Люксембург", "Маврикій", "Мавританія", "Мадагаскар", "Македонії", "Малаві", "Малайзія", "Малі", "Мальта", "Мальдіви", "Марокко", "Маршаллові острови ", "Мексика", "Мозамбік", "Молдова", "Монако", "Монголія", "М'янма", "Намібія", "Науру", "Непал", "Нігер", "Нігерія", "Нідерланди", "Нікарагуа", "Німеччина", "Нова Зеландія", "Норвегія ", "Об'єднані Арабські Емірати", "Оман", "Пакистан", "Палау", "Панама", "Папуа", "Нова Гвінея", "Парагвай", "Перу", "Південна Корея", "Північна Корея", "Південно-Африканська Республіка", "Польща", "Португалія", "Росія", "Руанда", "Румунія", "Сальвадор", "Самоа", "Сан-Марино", "Сан-Томе і Принсипи", "Саудівська Аравія", "Свазіленд", "Сейшели", "Сенегал", "Сент-Вінсент і Гренадіни", "Сент-Китс і Невис", "Сент-Люсія", "Сербія", "Сінгапур", "Сирія", "Словаччина", "Словенія", "США", "Соломонові", "Острови", "Сомалі", "Судан", "Суринам", "Сьерра-Леоне", "Східний Тимор", "Таджикистан", "Таїланд", "Танзанія", "Того", "Тонга", "Тринидад і Тобаго", "Тувалу", "Туніс", "Туркменістан", "Туреччина", "Уганда", "Угорщина", "Узбекистан", "Україна", "Уругвай", "Фед. Штати", "Мікронезії", "Фіджі", "Філіппіни", "Фінляндія", "Франція", "Хорватія", "ЦАР", "Чад", "Чорногорія", "Чехія", "Чилі", "Швейцарія", "Швеція", "Шри-Ланка", "Ямайка", "Японія" }));
 
         jButton1.setText("Прийняти");
+        jButton1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jButton1MouseMoved(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jScrollPane2.setViewportView(jTextPane2);
+        jScrollPane2.setViewportView(aboutTextPane);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -107,8 +137,8 @@ public class SelectOpenAutorsFrame extends javax.swing.JFrame {
                                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField2)
-                                    .addComponent(jTextField1)))
+                                    .addComponent(surnameField)
+                                    .addComponent(nameTextField)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -117,14 +147,14 @@ public class SelectOpenAutorsFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(chisloComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(monthComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(ricComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGap(26, 26, 26))
-                                    .addComponent(jTextField3)
-                                    .addComponent(jTextField4)))
+                                    .addComponent(fotoField)
+                                    .addComponent(emailField)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
@@ -133,10 +163,10 @@ public class SelectOpenAutorsFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(sexComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGap(131, 131, 131))
-                                    .addComponent(jComboBox5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextField5)))))
+                                    .addComponent(countryComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(profTextField)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(131, 131, 131)
                         .addComponent(jLabel8))
@@ -153,37 +183,37 @@ public class SelectOpenAutorsFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(surnameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fotoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chisloComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(monthComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ricComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sexComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(countryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(profTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel8)
                 .addGap(5, 5, 5)
@@ -195,6 +225,26 @@ public class SelectOpenAutorsFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseMoved
+        jButton1.setForeground(Color.black);
+    }//GEN-LAST:event_jButton1MouseMoved
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        controller.update_conect("autors");
+        if (nameTextField.getText().length() > 0) 
+        {
+            controller.add_autors_auto(accounts, selectedIndex);
+            jButton1.setForeground(Color.green);
+            controller.load_autors();
+        } else {
+            jButton1.setForeground(Color.red);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void chisloComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chisloComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chisloComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -226,18 +276,18 @@ public class SelectOpenAutorsFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SelectOpenAutorsFrame().setVisible(true);
+                new SelectOpenAutorsFrame(controller).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JTextPane aboutTextPane;
+    public javax.swing.JComboBox<String> chisloComboBox;
+    public javax.swing.JComboBox<String> countryComboBox;
+    public javax.swing.JTextField emailField;
+    public javax.swing.JTextField fotoField;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -248,11 +298,11 @@ public class SelectOpenAutorsFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextPane jTextPane2;
+    public javax.swing.JComboBox<String> monthComboBox2;
+    public javax.swing.JTextField nameTextField;
+    public javax.swing.JTextField profTextField;
+    public javax.swing.JComboBox<String> ricComboBox;
+    public javax.swing.JComboBox<String> sexComboBox;
+    public javax.swing.JTextField surnameField;
     // End of variables declaration//GEN-END:variables
 }

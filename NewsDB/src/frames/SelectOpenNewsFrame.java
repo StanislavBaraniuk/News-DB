@@ -19,7 +19,7 @@ import classes.News;
  * @author stanislaw
  */
 public class SelectOpenNewsFrame extends javax.swing.JFrame {
-    private static Controller controller;
+    static Controller controller;
     public ArrayList<classes.News> news;
     public String selectedIndex;
     /**
