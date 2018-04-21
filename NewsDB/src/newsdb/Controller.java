@@ -507,7 +507,7 @@ public class Controller {
     
     public void load_autors_frame_info(int selected) {
         ArrayList<classes.Account> autors = load_autors_from_db();
-        String s[] = frameController.onFrame.jList1.getSelectedValue().replaceAll("\\W", " ").split(" ");
+        String s[] = frameController.oaFrame.jList1.getSelectedValue().replaceAll("\\W", " ").split(" ");
         String index = s[2];
         frameController.soaFrame.selectedIndex = index;
         System.err.println("i: " + index);
@@ -653,7 +653,7 @@ public class Controller {
         listModelNumber.removeAllElements();
         frameController.oaFrame.jList1.setModel(listModelNumber);
         ArrayList<classes.Account> autors = load_autors_from_db();
-        System.out.println("\t\tload_autors_from_db");
+//        System.out.println("\t\tload_autors_from_db");
         for (int i = 0; i < autors.size(); i++) {
             listModelNumber.addElement("index: " + autors.get(i).id +
                                        " name: " + autors.get(i).name  + 
@@ -661,15 +661,16 @@ public class Controller {
                                         " country: " + autors.get(i).country + 
                                         " speciality: " + autors.get(i).speciality + 
                                         " email: " + autors.get(i).email);
-            System.out.println("index: " + autors.get(i).id +
-                                       " name: " + autors.get(i).name  + 
-                                        " surname: " + autors.get(i).surname  + 
-                                        " country: " + autors.get(i).country + 
-                                        " speciality: " + autors.get(i).speciality + 
-                                        " email: " + autors.get(i).email);
+//            System.out.println("index: " + autors.get(i).id +
+//                                       " name: " + autors.get(i).name  + 
+//                                        " surname: " + autors.get(i).surname  + 
+//                                        " country: " + autors.get(i).country + 
+//                                        " speciality: " + autors.get(i).speciality + 
+//                                        " email: " + autors.get(i).email);
         }
         
         frameController.saFrame.autors = autors;
+        System.out.println("dsgsdgdfhhfghsh" + frameController.saFrame.autors );
     }
     
     public void add_element() {

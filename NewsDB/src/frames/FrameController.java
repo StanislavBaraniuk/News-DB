@@ -48,6 +48,7 @@ public class FrameController {
         this.oFrame = new OprosFrame(controller);
         this.saFrame = new AutorsFrame(controller);
         this.oaFrame = new OpenAutorsFrame(controller);
+        this.soaFrame = new SelectOpenAutorsFrame(controller);
     }
     
     public ImageIcon createIcon(String path) {
