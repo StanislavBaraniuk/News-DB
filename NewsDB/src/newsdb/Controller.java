@@ -295,6 +295,97 @@ public class Controller {
         }
     }
     
+    public void search_autors(String search){
+        DefaultListModel listModelNumber = new DefaultListModel();
+        listModelNumber.removeAllElements();
+        frameController.onFrame.jList1.setModel(listModelNumber);
+        Map<Integer, String> autores = new HashMap<Integer, String>();
+        ArrayList<classes.Account> autors = load_autors_from_db();
+        
+        ArrayList<classes.Account> autorsSorted = new ArrayList<classes.Account>();
+        search = search.replaceAll("\\W", " ");
+        String searchAr[] = search.split(" ");
+        
+        ArrayList<String> searchSorted = new ArrayList<String>();
+        searchSorted.addAll(Arrays.asList(searchAr));
+        //name, surname, avatar, burthday, sex, country, speciality, about, email, password
+        for (int l = 0; l < autors.size(); l++) {
+            for (String searchSorted1 : searchSorted) {
+                String index = searchSorted1;
+                if (searchSorted1.contains(autors.get(l).id) || 
+                    searchSorted1.contains(autors.get(l).name) || 
+                    searchSorted1.contains(autors.get(l).surname) || 
+                    searchSorted1.contains(autors.get(l).burthday) || 
+                    searchSorted1.contains(autors.get(l).sex) || 
+                    searchSorted1.equals(autors.get(l).country) || 
+                    searchSorted1.contains(autors.get(l).speciality) ||
+                    searchSorted1.contains(autors.get(l).about) ||
+                    searchSorted1.contains(autors.get(l).email) ||
+                    searchSorted1.contains(autors.get(l).password)) {
+                    autorsSorted.add(autors.get(l));
+                } else {
+                    String[] textes;
+                    textes = autors.get(l).name.split(" ");
+                    for (String texte : textes) {
+                        if (searchSorted1.equals(texte)) {
+                            autorsSorted.add(autors.get(l));
+                            break;
+                        }
+                    }
+                    
+                    textes = autors.get(l).surname.split(" ");
+                    for (String texte : textes) {
+                        if (searchSorted1.equals(texte)) {
+                            autorsSorted.add(autors.get(l));
+                            break;
+                        }
+                    }
+                    
+                    textes = autors.get(l).sex.split(",");
+                    for (String texte : textes) {
+                        if (searchSorted1.equals(texte)) {
+                            autorsSorted.add(autors.get(l));
+                            break;
+                        }
+                    }
+                    
+                    textes = autors.get(l).country.split(" ");
+                    for (String texte : textes) {
+                        if (searchSorted1.equals(texte)) {
+                            autorsSorted.add(autors.get(l));
+                            break;
+                        }
+                    }
+                    
+                    textes = autors.get(l).speciality.split(" ");
+                    for (String texte : textes) {
+                        if (searchSorted1.equals(texte)) {
+                            autorsSorted.add(autors.get(l));
+                            break;
+                        }
+                    }
+                    
+                    textes = autors.get(l).email.split(" ");
+                    for (String texte : textes) {
+                        if (searchSorted1.equals(texte)) {
+                            autorsSorted.add(autors.get(l));
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        
+        for (int i = 0; i < autorsSorted.size(); i++) {
+            listModelNumber.addElement("index: " + autorsSorted.get(i).id + ", " +
+                                       " name: " + autorsSorted.get(i).name  + 
+                                        " surname: " + autorsSorted.get(i).surname  + 
+                                        " country: " + autorsSorted.get(i).country + 
+                                        " speciality: " + autorsSorted.get(i).speciality + 
+                                        " email: " + autorsSorted.get(i).email);
+        }
+    }
+    
     public void consecrate_id(ArrayList<classes.Account> news) {
         
     }
@@ -323,6 +414,38 @@ public class Controller {
                      news.get(i).tegs, 
                      news.get(i).photo, 
                      news.get(i).photoTitle);
+        }
+    }
+    
+    public void add_autors_auto(ArrayList<classes.Account> accounts, String index) {
+        SQL.delAll();
+        //id, name, surname, avatar, burthday, sex, country, speciality, about, email, password;
+        for (int i = 0; i < accounts.size(); i++) {
+            if(index.equals(accounts.get(i).id)) {
+                accounts.get(i).name = frameController.soaFrame.nameTextField.getText();
+                accounts.get(i).surname = frameController.soaFrame.surnameField.getText();
+                accounts.get(i).avatar = null;
+                accounts.get(i).burthday = null;
+                accounts.get(i).sex = null;
+                accounts.get(i).country = null;
+                accounts.get(i).speciality = null;
+                accounts.get(i).about = null;
+                accounts.get(i).email = frameController.soaFrame.emailField.getText();
+                accounts.get(i).password = null;
+            }
+        }
+
+        for (int i = 0 ; i < accounts.size(); i++) {
+            add_autors(accounts.get(i).name, 
+                       accounts.get(i).surname, 
+                       accounts.get(i).avatar, 
+                       accounts.get(i).burthday, 
+                       accounts.get(i).sex, 
+                       accounts.get(i).country, 
+                       accounts.get(i).speciality, 
+                       accounts.get(i).about, 
+                       accounts.get(i).email, 
+                       accounts.get(i).password);
         }
     }
     
@@ -379,23 +502,28 @@ public class Controller {
         }
     }
     
-    public void load_news(){
-        update_conect("news");
-        DefaultListModel listModelNumber = new DefaultListModel();
-        listModelNumber.removeAllElements();
-        frameController.onFrame.jList1.setModel(listModelNumber);
-        ArrayList<classes.News> news = load_news_from_db();
-        
-        for (int i = 0; i < news.size(); i++) {
-            listModelNumber.addElement("index: " + news.get(i).index + ", " + 
-                                       "Title: | " + news.get(i).title + " | by '" + 
-                                        news.get(i).autor + " | at | " + 
-                                        news.get(i).date + " |  in | " + 
-                                        news.get(i).time + " | tegs: | " + 
-                                        news.get(i).tegs + " | ");
+    public void load_autors_frame_info(int selected) {
+        ArrayList<classes.Account> autors = load_autors_from_db();
+        String s[] = frameController.onFrame.jList1.getSelectedValue().replaceAll("\\W", " ").split(" ");
+        String index = s[2];
+        frameController.soaFrame.selectedIndex = index;
+        System.err.println("i: " + index);
+        //id, name, surname, avatar, burthday, sex, country, speciality, about, email, password
+        for (int i = 0; i < autors.size(); i++) {
+            if(index.equals(autors.get(i).id)) {
+                frameController.soaFrame.nameTextField.setText(autors.get(i).name);
+                frameController.soaFrame.surnameField.setText(autors.get(i).surname);
+                frameController.soaFrame.emailField.setText(autors.get(i).email);
+                frameController.soaFrame.fotoField.setText(autors.get(i).avatar);
+                frameController.soaFrame.profTextField.setText(autors.get(i).speciality);
+                frameController.soaFrame.aboutTextPane.setText(autors.get(i).about);
+//                frameController.soaFrame.dataLabel.setText(autors.get(i).date);
+//                frameController.soaFrame.timeLabel.setText(autors.get(i).time);
+//                frameController.soaFrame.autorTextPane.setText(autors.get(i).autor);
+//                frameController.soaFrame.photoTextPane.setText(autors.get(i).photo);
+//                frameController.soaFrame.photoTitleTextPane.setText(autors.get(i).photoTitle);
+            }
         }
-        
-        frameController.soFrame.news = news;
     }
     
     public void add_news(String title, String date, String time, String txt, 
@@ -473,28 +601,72 @@ public class Controller {
     }
     
     public ArrayList<classes.Account> load_autors_from_db() {
-        ArrayList newsString = SQL.GetData();
-        int col = (int) newsString.get(0);
+        ArrayList autorsString = SQL.GetData();
+        int col = (int) autorsString.get(0);
         for (int i =0; i < col+1; i++) {
-            newsString.remove(0);
+            autorsString.remove(0);
         }
         ArrayList<classes.Account> acounts = new ArrayList<classes.Account>();
-        for (int l = 0; l < newsString.size(); l++) {
-            classes.Account acountsA = new classes.Account((String)newsString.get(l),
-                        (String)newsString.get(l+1),
-                        (String)newsString.get(l+2),
-                        (String)newsString.get(l+3),
-                        (String)newsString.get(l+4),
-                        (String)newsString.get(l+5),
-                        (String)newsString.get(l+6),
-                        (String)newsString.get(l+7),
-                        (String)newsString.get(l+8),
-                        (String)newsString.get(l+9),
-                        (String)newsString.get(l+10));
+        for (int l = 0; l < autorsString.size(); l++) {
+            classes.Account acountsA = new classes.Account((String)autorsString.get(l),
+                        (String)autorsString.get(l+1),
+                        (String)autorsString.get(l+2),
+                        (String)autorsString.get(l+3),
+                        (String)autorsString.get(l+4),
+                        (String)autorsString.get(l+5),
+                        (String)autorsString.get(l+6),
+                        (String)autorsString.get(l+7),
+                        (String)autorsString.get(l+8),
+                        (String)autorsString.get(l+9),
+                        (String)autorsString.get(l+10));
             acounts.add(acountsA);
-            l+=8;
+            l+=10;
         }
         return acounts;
+    }
+    
+    public void load_news(){
+        update_conect("news");
+        DefaultListModel listModelNumber = new DefaultListModel();
+        listModelNumber.removeAllElements();
+        frameController.onFrame.jList1.setModel(listModelNumber);
+        ArrayList<classes.News> news = load_news_from_db();
+        
+        for (int i = 0; i < news.size(); i++) {
+            listModelNumber.addElement("index: " + news.get(i).index + ", " + 
+                                       "Title: | " + news.get(i).title + " | by '" + 
+                                        news.get(i).autor + " | at | " + 
+                                        news.get(i).date + " |  in | " + 
+                                        news.get(i).time + " | tegs: | " + 
+                                        news.get(i).tegs + " | ");
+        }
+        
+        frameController.soFrame.news = news;
+    }
+    
+    public void load_autors(){
+        update_conect("autors");
+        DefaultListModel listModelNumber = new DefaultListModel();
+        listModelNumber.removeAllElements();
+        frameController.oaFrame.jList1.setModel(listModelNumber);
+        ArrayList<classes.Account> autors = load_autors_from_db();
+        System.out.println("\t\tload_autors_from_db");
+        for (int i = 0; i < autors.size(); i++) {
+            listModelNumber.addElement("index: " + autors.get(i).id +
+                                       " name: " + autors.get(i).name  + 
+                                        " surname: " + autors.get(i).surname  + 
+                                        " country: " + autors.get(i).country + 
+                                        " speciality: " + autors.get(i).speciality + 
+                                        " email: " + autors.get(i).email);
+            System.out.println("index: " + autors.get(i).id +
+                                       " name: " + autors.get(i).name  + 
+                                        " surname: " + autors.get(i).surname  + 
+                                        " country: " + autors.get(i).country + 
+                                        " speciality: " + autors.get(i).speciality + 
+                                        " email: " + autors.get(i).email);
+        }
+        
+        frameController.saFrame.autors = autors;
     }
     
     public void add_element() {

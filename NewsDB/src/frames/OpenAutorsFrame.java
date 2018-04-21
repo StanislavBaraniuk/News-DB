@@ -7,20 +7,23 @@ package frames;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 import newsdb.*;
 /**
  *
  * @author stanislaw
  */
-public class OpenNewsFrame extends javax.swing.JFrame {
+public class OpenAutorsFrame extends javax.swing.JFrame {
     static Controller controller;
+    public ArrayList<classes.Account> accounts;
+    public String selectedIndex;
     /**
      * Creates new form OpenNewsFrame
      * @param controller
      */
-    public OpenNewsFrame(Controller controller) {
+    public OpenAutorsFrame(Controller controller) {
         initComponents();
-        OpenNewsFrame.controller = controller;
+        OpenAutorsFrame.controller = controller;
         Dimension sSize = Toolkit.getDefaultToolkit ().getScreenSize ();
         this.setLocation(sSize.width/2-this.getWidth()/2, sSize.height/2-this.getHeight()/2);
         
@@ -136,7 +139,7 @@ public class OpenNewsFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        controller.frameController.hide_open_news_frame();
+        controller.frameController.hide_open_autors_frame();
     }//GEN-LAST:event_formWindowClosing
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -146,20 +149,20 @@ public class OpenNewsFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
-        if (jTextField1.getText().length()>0) controller.search_news(jTextField1.getText()); else controller.load_news();
+        if (jTextField1.getText().length()>0) controller.search_autors(jTextField1.getText()); else controller.load_autors();
     }//GEN-LAST:event_jTextField1KeyReleased
 
     
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         if (evt.getClickCount() == 2) {
-            controller.frameController.show_select_news_frame();
-            controller.load_frame_info(jList1.getSelectedIndex());
+            controller.frameController.show_select_autors_frame();
+            controller.load_autors_frame_info(jList1.getSelectedIndex());
         }
     }//GEN-LAST:event_jList1MouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        controller.frameController.show_select_news_frame();
-        controller.load_frame_info(jList1.getSelectedIndex());
+        controller.frameController.show_select_autors_frame();
+        controller.load_autors_frame_info(jList1.getSelectedIndex());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     
@@ -180,19 +183,20 @@ public class OpenNewsFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(OpenNewsFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OpenAutorsFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(OpenNewsFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OpenAutorsFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(OpenNewsFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OpenAutorsFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(OpenNewsFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OpenAutorsFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new OpenNewsFrame(controller).setVisible(true);
+            new OpenAutorsFrame(controller).setVisible(true);
         });
     }
 

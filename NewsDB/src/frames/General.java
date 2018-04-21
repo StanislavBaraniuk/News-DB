@@ -14,6 +14,7 @@ import newsdb.*;
  */
 public class General extends javax.swing.JFrame {
     static public String NewsTableName = "news";
+    static public String AutorsTableName = "autors";
     private static Controller controller;
     private int w1, w2;
     /**
@@ -368,7 +369,10 @@ public class General extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        
+        controller.update_conect(AutorsTableName);
+        System.err.println("au");
+        controller.frameController.show_open_autors_frame();
+        controller.load_autors();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
