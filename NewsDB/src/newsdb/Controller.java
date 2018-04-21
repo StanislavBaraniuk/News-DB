@@ -190,7 +190,6 @@ public class Controller {
                 comentsArr.add(top);
                 
             } else {
-                
                 DefaultMutableTreeNode category = new DefaultMutableTreeNode();
                 category.add(new DefaultMutableTreeNode("index: " + 
                         coments.get(i).id + 
