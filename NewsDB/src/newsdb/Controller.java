@@ -33,7 +33,7 @@ public class Controller {
     private String func[] = {"add element", "search element", "delete element", "sample element"};   
     public FrameController frameController = new FrameController(this);
     private mySQL SQL = new mySQL(frameController.gFrame);
-    private String user = "root", password="", DBName, SERVER = "127.0.0.1";
+    private String user = "rootor", password="root", DBName, SERVER = "127.0.0.1";
     private String PORT = "3306";
     
     public void connect_db() {
@@ -109,32 +109,34 @@ public class Controller {
     }
     
     public void load_coments(int index, String title) {
-        DefaultMutableTreeNode top = new DefaultMutableTreeNode(title);
-        createNodes(top);
-        JTree tree = new JTree(top);
-
-        frameController.cvFrame.jTree1 = tree;
+        DefaultListModel listModelNumber = new DefaultListModel();
+        listModelNumber.removeAllElements();
+        frameController.cvFrame.jList1.setModel(listModelNumber);
+        ArrayList<classes.Coments> coments = load_coments_from_db();
         
-        frameController.cvFrame.jScrollPane1.setColumnHeaderView(tree);
-        
-    
-    
-//        ArrayList<classes.News> news = load_news_from_db();
-        
-//        for (int i = 0; i < news.size(); i++) {
-//            listModelNumber.addElement("index: " + news.get(i).index + ", " + 
-//                                       "Title: | " + news.get(i).title + " | by '" + 
-//                                        news.get(i).autor + " | at | " + 
-//                                        news.get(i).date + " |  in | " + 
-//                                        news.get(i).time + " | tegs: | " + 
-//                                        news.get(i).tegs + " | ");
-//        }
-        
-//        frameController.soFrame.news = news;
+        for (int i = 0; i < coments.size(); i++) {
+            if (index+1 != Integer.parseInt(coments.get(i).news)) {
+            listModelNumber.addElement("index: " + 
+                            coments.get(i).id + 
+                            ", " + 
+                            "text: " + 
+                            coments.get(i).text + 
+                            " ,by: '" + 
+                            coments.get(i).autor + 
+                            " ,at: " + 
+                            coments.get(i).data + 
+                            " ,in " + 
+                            coments.get(i).time + 
+                            " ,likes: " + 
+                            coments.get(i).like + 
+                            " ,country: " 
+                            + coments.get(i).country);
+            }
+        }
     }
     
-    private void createNodes(DefaultMutableTreeNode top) {
-        ArrayList<DefaultMutableTreeNode> comentsArr = new ArrayList<DefaultMutableTreeNode>();
+    private void createNodes(DefaultMutableTreeNode top, int index) {
+        ArrayList<DefaultMutableTreeNode> categoryArr = new ArrayList<DefaultMutableTreeNode>();
         
 //        DefaultMutableTreeNode
 //        DefaultMutableTreeNode book = null;
@@ -168,50 +170,52 @@ public class Controller {
 //        category.add(book);
         
         ArrayList<classes.Coments> coments = load_coments_from_db();
-        
+        DefaultMutableTreeNode category, podCat;
         for (int i = 0; i < coments.size(); i++) {
-            if (!coments.get(i).answer.equals("-1")) {
-                DefaultMutableTreeNode category = new DefaultMutableTreeNode();
-                category.add(new DefaultMutableTreeNode("index: " + 
-                        coments.get(i).id + 
-                        ", " + 
-                        "     text: " + 
-                        coments.get(i).text + 
-                        "     ,by: '" + 
-                        coments.get(i).autor + 
-                        "     ,at: " + 
-                        coments.get(i).data + 
-                        "    ,in " + 
-                        coments.get(i).time + 
-                        "     ,likes: " + 
-                        coments.get(i).like + 
-                        "     ,country: " 
-                        + coments.get(i).like));
-                comentsArr.add(top);
+            if (index+1 != Integer.parseInt(coments.get(i).news)) {
                 
-            } else {
-                DefaultMutableTreeNode category = new DefaultMutableTreeNode();
-                category.add(new DefaultMutableTreeNode("index: " + 
-                        coments.get(i).id + 
-                        ", " + 
-                        "     text: " + 
-                        coments.get(i).text + 
-                        "     ,by: '" + 
-                        coments.get(i).autor + 
-                        "     ,at: " + 
-                        coments.get(i).data + 
-                        "    ,in " + 
-                        coments.get(i).time + 
-                        "     ,likes: " + 
-                        coments.get(i).like + 
-                        "     ,country: " 
-                        + coments.get(i).like));
-                comentsArr.get(i).add(category);
+                if (!coments.get(i).answer.equals("-1")) {
+                    category = new DefaultMutableTreeNode("index: " + 
+                            coments.get(i).id + 
+                            ", " + 
+                            "     text: " + 
+                            coments.get(i).text + 
+                            "     ,by: '" + 
+                            coments.get(i).autor + 
+                            "     ,at: " + 
+                            coments.get(i).data + 
+                            "    ,in " + 
+                            coments.get(i).time + 
+                            "     ,likes: " + 
+                            coments.get(i).like + 
+                            "     ,country: " 
+                            + coments.get(i).like);
+                    categoryArr.add(category);
+                } else {
+                    category = new DefaultMutableTreeNode("index: " + 
+                            coments.get(i).id + 
+                            ", " + 
+                            "text: " + 
+                            coments.get(i).text + 
+                            " ,by: '" + 
+                            coments.get(i).autor + 
+                            " ,at: " + 
+                            coments.get(i).data + 
+                            " ,in " + 
+                            coments.get(i).time + 
+                            " ,likes: " + 
+                            coments.get(i).like + 
+                            " ,country: " 
+                            + coments.get(i).like);
+                    
+                    categoryArr.get(Integer.parseInt(coments.get(i).answer)).add(category);
+                    top.add(category);
+                }
             }
         }
         
-        for (int i = 0; i < comentsArr.size(); i++) {
-            top.add(comentsArr.get(i));
+        for (int i = 0; i < categoryArr.size(); i++) {
+            top.add(categoryArr.get(i));
         }
             
         
