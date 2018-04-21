@@ -5,7 +5,16 @@
         <group>
             <file>file:/D:/java/2017_Project/News-DB/NewsDB/src/frames/SelectOpenNewsFrame.java</file>
             <file>file:/D:/java/2017_Project/News-DB/NewsDB/src/newsdb/Controller.java</file>
-            <file>file:/D:/java/2017_Project/News-DB/NewsDB/src/newsdb/NewsDB.java</file>
+            <file>file:/D:/java/2017_Project/News-DB/NewsDB/src/frames/OtherInformationFrame.java</file>
+            <file>file:/D:/java/2017_Project/News-DB/NewsDB/src/frames/OprosFrame.java</file>
+            <file>file:/D:/java/2017_Project/News-DB/NewsDB/src/frames/PartnerNewsFrame.java</file>
+            <file>file:/D:/java/2017_Project/News-DB/NewsDB/src/frames/General.java</file>
+            <file>file:/D:/java/2017_Project/News-DB/NewsDB/src/frames/FrameController.java</file>
+            <file>file:/D:/java/2017_Project/News-DB/NewsDB/src/frames/OpenNewsFrame.java</file>
+            <file>file:/D:/java/2017_Project/News-DB/NewsDB/src/classes/Account.java</file>
+            <file>file:/D:/java/2017_Project/News-DB/NewsDB/src/frames/AutorsFrame.java</file>
+            <file>file:/D:/java/2017_Project/News-DB/NewsDB/src/classes/News.java</file>
+            <file>file:/D:/java/2017_Project/News-DB/NewsDB/src/frames/AddNewsFrame.java</file>
         </group>
     </open-files>
 </project-private>
