@@ -370,7 +370,7 @@ public class General extends javax.swing.JFrame {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         controller.update_conect(AutorsTableName);
-        System.err.println("au");
+//        System.err.println("au");
         controller.frameController.show_open_autors_frame();
         controller.load_autors();
     }//GEN-LAST:event_jButton8ActionPerformed

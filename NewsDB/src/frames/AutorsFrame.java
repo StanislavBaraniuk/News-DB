@@ -22,8 +22,8 @@ import newsdb.Controller;
  */
 public class AutorsFrame extends javax.swing.JFrame {
     static Controller controller;
-    public ArrayList<Account> autors;
-    public String SelectIndex;
+//    public ArrayList<Account> autors;
+//    public String SelectIndex;
     /**
      * Creates new form AddNewsFrame
      * @param controller

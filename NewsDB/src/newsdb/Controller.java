@@ -422,19 +422,26 @@ public class Controller {
     
     public void add_autors_auto(ArrayList<classes.Account> accounts, String index) {
         SQL.delAll();
+
         //id, name, surname, avatar, burthday, sex, country, speciality, about, email, password;
         for (int i = 0; i < accounts.size(); i++) {
             if(index.equals(accounts.get(i).id)) {
                 accounts.get(i).name = frameController.soaFrame.nameTextField.getText();
                 accounts.get(i).surname = frameController.soaFrame.surnameField.getText();
-                accounts.get(i).avatar = null;
-                accounts.get(i).burthday = null;
-                accounts.get(i).sex = null;
-                accounts.get(i).country = null;
-                accounts.get(i).speciality = null;
-                accounts.get(i).about = null;
+                accounts.get(i).avatar = frameController.soaFrame.fotoField.getText().length() > 0 ? frameController.soaFrame.fotoField.getText() : null;
+                String date = frameController.soaFrame.ricComboBox.getItemAt(frameController.soaFrame.ricComboBox.getSelectedIndex()) + 
+                        "-" + 
+                        frameController.soaFrame.monthComboBox2.getSelectedIndex() + 
+                        "-" + 
+                        frameController.soaFrame.chisloComboBox.getItemAt(frameController.soaFrame.chisloComboBox.getSelectedIndex());
+                String dateS[] = date.split("-");
+                accounts.get(i).burthday = dateS.length == 3 ? date : null;
+                accounts.get(i).sex = frameController.soaFrame.sexComboBox.getSelectedIndex() != 0 ? String.valueOf(frameController.soaFrame.sexComboBox.getSelectedIndex()) : null;
+                accounts.get(i).country = frameController.soaFrame.countryComboBox.getSelectedIndex() != 0 ? String.valueOf(frameController.soaFrame.countryComboBox.getSelectedIndex()) : null;
+                accounts.get(i).speciality = frameController.soaFrame.profTextField.getText().length() > 0 ? frameController.soaFrame.profTextField.getText() : null;
+                accounts.get(i).about = frameController.soaFrame.aboutTextPane.getText().length() > 0 ? frameController.soaFrame.aboutTextPane.getText() : null;
                 accounts.get(i).email = frameController.soaFrame.emailField.getText();
-                accounts.get(i).password = null;
+                accounts.get(i).password = frameController.soaFrame.passwordjTextField.getText();
             }
         }
 
@@ -517,14 +524,23 @@ public class Controller {
                 frameController.soaFrame.nameTextField.setText(autors.get(i).name);
                 frameController.soaFrame.surnameField.setText(autors.get(i).surname);
                 frameController.soaFrame.emailField.setText(autors.get(i).email);
-                frameController.soaFrame.fotoField.setText(autors.get(i).avatar);
-                frameController.soaFrame.profTextField.setText(autors.get(i).speciality);
-                frameController.soaFrame.aboutTextPane.setText(autors.get(i).about);
-//                frameController.soaFrame.dataLabel.setText(autors.get(i).date);
-//                frameController.soaFrame.timeLabel.setText(autors.get(i).time);
-//                frameController.soaFrame.autorTextPane.setText(autors.get(i).autor);
-//                frameController.soaFrame.photoTextPane.setText(autors.get(i).photo);
-//                frameController.soaFrame.photoTitleTextPane.setText(autors.get(i).photoTitle);
+                frameController.soaFrame.passwordjTextField.setText(autors.get(i).password);
+                frameController.soaFrame.fotoField.setText(autors.get(i).avatar != null ? autors.get(i).avatar : "");
+                frameController.soaFrame.profTextField.setText(autors.get(i).speciality != null ? autors.get(i).speciality : "");
+                frameController.soaFrame.aboutTextPane.setText(autors.get(i).about != null ? autors.get(i).about : "");
+                frameController.soaFrame.sexComboBox.setSelectedIndex(autors.get(i).sex != null ? Integer.parseInt(autors.get(i).sex) : 0);
+                if (autors.get(i).burthday != null) {
+                    String date[] = autors.get(i).burthday.split("-");
+                    frameController.soaFrame.chisloComboBox.setSelectedItem(date[2]);
+                    frameController.soaFrame.monthComboBox2.setSelectedItem(date[1]);
+                    frameController.soaFrame.ricComboBox.setSelectedItem(date[0]);
+                } else {
+                    frameController.soaFrame.chisloComboBox.setSelectedIndex(0);
+                    frameController.soaFrame.monthComboBox2.setSelectedIndex(0);
+                    frameController.soaFrame.ricComboBox.setSelectedIndex(0);
+                }
+                frameController.soaFrame.countryComboBox.setSelectedItem(autors.get(i).country != null ? autors.get(i).country : "-");
+                frameController.soaFrame.profTextField.setText(autors.get(i).speciality != null? autors.get(i).speciality : "");
             }
         }
     }
@@ -653,7 +669,6 @@ public class Controller {
         listModelNumber.removeAllElements();
         frameController.oaFrame.jList1.setModel(listModelNumber);
         ArrayList<classes.Account> autors = load_autors_from_db();
-//        System.out.println("\t\tload_autors_from_db");
         for (int i = 0; i < autors.size(); i++) {
             listModelNumber.addElement("index: " + autors.get(i).id +
                                        " name: " + autors.get(i).name  + 
@@ -661,16 +676,9 @@ public class Controller {
                                         " country: " + autors.get(i).country + 
                                         " speciality: " + autors.get(i).speciality + 
                                         " email: " + autors.get(i).email);
-//            System.out.println("index: " + autors.get(i).id +
-//                                       " name: " + autors.get(i).name  + 
-//                                        " surname: " + autors.get(i).surname  + 
-//                                        " country: " + autors.get(i).country + 
-//                                        " speciality: " + autors.get(i).speciality + 
-//                                        " email: " + autors.get(i).email);
         }
-        
-        frameController.saFrame.autors = autors;
-        System.out.println("dsgsdgdfhhfghsh" + frameController.saFrame.autors );
+ 
+        frameController.soaFrame.accounts = autors;
     }
     
     public void add_element() {
