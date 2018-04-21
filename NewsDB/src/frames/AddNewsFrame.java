@@ -17,7 +17,7 @@ import newsdb.*;
  * @author stanislaw
  */
 public class AddNewsFrame extends javax.swing.JFrame {
-    private static Controller controller;
+    static Controller controller;
     /**
      * Creates new form AddNewsFrame
      * @param controller
