@@ -88,10 +88,9 @@ public class AddCityFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(numberTextField))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -125,8 +124,10 @@ public class AddCityFrame extends javax.swing.JFrame {
                  Integer.parseInt(numberTextField.getText().replaceAll("\\D", "")) > -1) {
                 String temperatura = (String) jComboBox1.getSelectedItem() + numberTextField.getText().replaceAll("\\D", "");
                 controller.add_city(jTextField1.getText(), temperatura);
+                controller.load_cities();
                 jTextField1.setText("");
                 numberTextField.setText("");
+                controller.load_cities();
                 jButton1.setForeground(Color.green);
             } else jButton1.setForeground(Color.red);
         } catch (NumberFormatException e) {

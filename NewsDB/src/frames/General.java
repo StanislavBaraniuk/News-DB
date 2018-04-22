@@ -374,12 +374,12 @@ public class General extends javax.swing.JFrame {
         controller.frameController.show_other_information_frame();
         ArrayList<classes.Pogoda> c = controller.load_cities();
         ArrayList<classes.Valute> v = controller.load_valutes();
-        for (int i = 0; i < c.size(); i++) {
-            controller.frameController.oiFrame.jComboBox1.addItem(c.get(i).cities);
-        }
-        for (int i = 0; i < v.size(); i++) {
-            controller.frameController.oiFrame.jComboBox2.addItem(v.get(i).valuta);
-        }
+//        for (int i = 0; i < c.size(); i++) {
+//            controller.frameController.oiFrame.jComboBox1.addItem(c.get(i).cities);
+//        }
+//        for (int i = 0; i < v.size(); i++) {
+//            controller.frameController.oiFrame.jComboBox2.addItem(v.get(i).valuta);
+//        }
         controller.frameController.oiFrame.jLabel1.setText(c.get(controller.frameController.oiFrame.jComboBox1.getSelectedIndex()).temperature);
         controller.frameController.oiFrame.cities = c;
         controller.frameController.oiFrame.valutes = v;

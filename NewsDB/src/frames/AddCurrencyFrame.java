@@ -80,7 +80,7 @@ public class AddCurrencyFrame extends javax.swing.JFrame {
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(numberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -110,13 +110,13 @@ public class AddCurrencyFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             if ( jTextField1.getText().length() > 0 &&
-                 numberTextField.getText().length() > 0 &&
-                 Double.parseDouble(numberTextField.getText().replaceAll("\\D", "")) > -1) {
-                String curs = (String) jComboBox1.getSelectedItem() + numberTextField.getText().replaceAll("\\D", "");
+                 numberTextField.getText().length() > 0) {
+                String curs = (String) jComboBox1.getSelectedItem() + numberTextField.getText();
                 controller.add_currency(jTextField1.getText(), curs);
                 jTextField1.setText("");
                 numberTextField.setText("");
                 jButton1.setForeground(Color.green);
+                controller.load_valutes();
             } else jButton1.setForeground(Color.red);
         } catch (NumberFormatException e) {
             jButton1.setForeground(Color.red);

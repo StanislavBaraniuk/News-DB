@@ -189,7 +189,9 @@ public class Controller {
         ArrayList<classes.Pogoda> pogoda = new ArrayList<classes.Pogoda>();
         listModelNumber.removeAllElements();
         ArrayList<classes.Pogoda> cities = load_cities_from_db();
+        frameController.oiFrame.jComboBox1.removeAllItems();
         for (int i = 0; i < cities.size(); i++) {
+                frameController.oiFrame.jComboBox1.addItem(cities.get(i).cities);
                 pogoda.add(cities.get(i));
             }
         return pogoda;
@@ -200,7 +202,9 @@ public class Controller {
         ArrayList<classes.Valute> valutes = new ArrayList<classes.Valute>();
         listModelNumber.removeAllElements();
         ArrayList<classes.Valute> valutess = load_valute_from_db();
+        frameController.oiFrame.jComboBox2.removeAllItems();
         for (int i = 0; i < valutess.size(); i++) {
+                frameController.oiFrame.jComboBox2.addItem(valutess.get(i).valuta);
                 valutes.add(valutess.get(i));
             }
         return valutes;
