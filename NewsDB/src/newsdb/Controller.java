@@ -25,7 +25,7 @@ import javax.swing.table.DefaultTableModel;
  * @author stanislaw
  */
 public class Controller {
-    private String func[] = {"add element", "search element", "delete element", "sample element"};   
+    private String func[] = {"add element", "delete element"};   
     public FrameController frameController = new FrameController(this);
     public mySQL SQL = new mySQL(frameController.gFrame);
     private String user = "rootor", password="root", DBName, SERVER = "127.0.0.1";
@@ -89,11 +89,8 @@ public class Controller {
                 add_element();
                 break;
             case 1: 
-//                search_elements();
-                break;
-            case 2: 
                 delete_element(frameController.gFrame.jTable1.getSelectedRow());
-                break;    
+                break;   
         }
     }
     

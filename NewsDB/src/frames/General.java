@@ -343,15 +343,15 @@ public class General extends javax.swing.JFrame {
             jButton1.setText("Показати таблицю");
             w1 = jScrollPane1.getHeight();
             w2 = jScrollPane2.getHeight();
-            this.setSize(641, 440);
-            this.setSize(641, this.getHeight()-jScrollPane1.getHeight()-jScrollPane2.getHeight());
+            this.setSize(830, 476);
+            this.setSize(830, this.getHeight()-jScrollPane1.getHeight()-jScrollPane2.getHeight());
             this.setResizable(false);
             jButton3.setEnabled(false);
         } else {
             jScrollPane1.setVisible(true);
             jScrollPane2.setVisible(true);
             jButton1.setText("Приховати таблицю");
-            this.setSize(641, 440);
+            this.setSize(830, 476);
             this.setResizable(true);
             jButton3.setEnabled(true);
         }
