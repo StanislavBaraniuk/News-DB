@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -53,7 +54,8 @@ public class Controller {
         write_to_table();
     }
     
-    public void update_conect(String table) {
+    public String update_conect(String table) {
+        try{
         SQL.set_table(table);
         SQL.set_connect_info(SERVER, PORT, DBName, user, password);
         try {
@@ -66,6 +68,12 @@ public class Controller {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
         write_to_table();
+         } catch(IndexOutOfBoundsException e) {
+                        JOptionPane.showMessageDialog(null, "CONECTION ERROR", "Error box: " + "CONECTION", JOptionPane.INFORMATION_MESSAGE);
+                        return e.getLocalizedMessage();
+
+        }
+        return null;
     }
     
     public void load_fanctions() {
@@ -866,43 +874,50 @@ public class Controller {
         connect_db();
     }
     
-    public void write_to_table() {
-        ArrayList list = SQL.GetData();
-        System.out.println(list);
-        String[] columns = new String[(int)list.get(0)];
+    public String write_to_table() {
+        try {
+            ArrayList list = SQL.GetData();
+            System.out.println(list);
+            String[] columns = new String[(int)list.get(0)];
 
-        list.remove(0);
-        
-        for (int i = 0; i < columns.length; i++) { 
-            columns[i] = (String) list.get(i);
-            System.out.println(columns[i]);
-        }
-        
-        
-        
-        for (int i = 0; i < columns.length; i++) { 
             list.remove(0);
-        }
-        
-        String[][] data = new String[][]{};
-        String[][] data2 = new String[1][1];
-        
-        frameController.gFrame.jTable1.setModel(new DefaultTableModel(data,columns));
-        frameController.gFrame.jTable2.setModel(new DefaultTableModel(data2,columns));
-        DefaultTableModel model = (DefaultTableModel) frameController.gFrame.jTable1.getModel();
-        ArrayList s = new ArrayList();
-        for (Object strings : list) {
-            s.add(strings);
-        }
-        for (int i = 0; i < list.size()/columns.length; i++) {
-            model.addRow(new String[columns.length]);
-            for (int j = 0; j < columns.length; j++) {
-                frameController.gFrame.jTable1.setValueAt(s.get(j), i, j);
+
+            for (int i = 0; i < columns.length; i++) { 
+                columns[i] = (String) list.get(i);
+                System.out.println(columns[i]);
             }
-            for (int k = 0; k < columns.length; k++) { 
-                s.remove(0);
+
+
+
+            for (int i = 0; i < columns.length; i++) { 
+                list.remove(0);
             }
-        }   
+
+            String[][] data = new String[][]{};
+            String[][] data2 = new String[1][1];
+
+            frameController.gFrame.jTable1.setModel(new DefaultTableModel(data,columns));
+            frameController.gFrame.jTable2.setModel(new DefaultTableModel(data2,columns));
+            DefaultTableModel model = (DefaultTableModel) frameController.gFrame.jTable1.getModel();
+            ArrayList s = new ArrayList();
+            for (Object strings : list) {
+                s.add(strings);
+            }
+            for (int i = 0; i < list.size()/columns.length; i++) {
+                model.addRow(new String[columns.length]);
+                for (int j = 0; j < columns.length; j++) {
+                    frameController.gFrame.jTable1.setValueAt(s.get(j), i, j);
+                }
+                for (int k = 0; k < columns.length; k++) { 
+                    s.remove(0);
+                }
+            }   
+        } catch(IndexOutOfBoundsException e) {
+                        JOptionPane.showMessageDialog(null, "CONECTION ERROR", "Error box: " + "CONECTION", JOptionPane.INFORMATION_MESSAGE);
+                        return e.getLocalizedMessage();
+
+        }
+        return null;
     }
     
     public void check_available_table() {

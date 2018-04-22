@@ -50,6 +50,7 @@ class mySQL{
     }
     
     public void set_table(String TBL) {
+        
         tbl = TBL;
         System.out.println(tbl);
     }
