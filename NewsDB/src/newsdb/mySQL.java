@@ -95,7 +95,7 @@ class mySQL{
 //            System.err.println ("Cannot connect to database server");
             return e.getLocalizedMessage();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "ERROR", "InfoBox: " + "ERROR", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "CONECTION ERROR", "Error box: " + "CONECTION", JOptionPane.INFORMATION_MESSAGE);
             return ex.getLocalizedMessage();
         }
        
