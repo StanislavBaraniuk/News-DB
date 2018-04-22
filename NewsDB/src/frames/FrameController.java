@@ -33,6 +33,7 @@ public class FrameController {
     public OpenAutorsFrame oaFrame;
     public SelectOpenAutorsFrame soaFrame;
     public AddComentFrame acFrame;
+    public AddCategoryFrame acatFrame;
     
     public FrameController(Controller controller) {
         this.controller = controller;
@@ -51,6 +52,7 @@ public class FrameController {
         this.oaFrame = new OpenAutorsFrame(controller);
         this.soaFrame = new SelectOpenAutorsFrame(controller);
         this.acFrame = new AddComentFrame(controller);
+        this.acatFrame = new AddCategoryFrame(controller);
     }
     
     public ImageIcon createIcon(String path) {
@@ -61,6 +63,14 @@ public class FrameController {
             System.err.println("File not found " + path);
             return null;
         }
+    }
+    
+    public void show_add_category_frame() {
+        acatFrame.setVisible(true);
+    }
+    
+    public void hide_add_category_frame() {
+        acatFrame.setVisible(false);
     }
     
     public void show_general_frame() {

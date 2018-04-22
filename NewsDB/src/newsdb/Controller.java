@@ -40,14 +40,30 @@ public class Controller {
     public void connect_db() {
         SQL.set_table(frameController.gFrame.jComboBox1.getSelectedItem().toString());
         SQL.set_connect_info(SERVER, PORT, DBName, user, password);
-        System.out.println(SQL.Conect());
+        try {
+            System.out.println(SQL.Conect());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
         write_to_table();
     }
     
     public void update_conect(String table) {
         SQL.set_table(table);
         SQL.set_connect_info(SERVER, PORT, DBName, user, password);
-        System.out.println(SQL.Conect());
+        try {
+            System.out.println(SQL.Conect());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
         write_to_table();
     }
     
@@ -94,15 +110,15 @@ public class Controller {
                         (String)comentsString.get(l+6),
                         (String)comentsString.get(l+7),
                         (String)comentsString.get(l+8));
-            System.out.println("answer: '" + coment.answer + 
-                               "' by '" + coment.autor + 
-                               "' country '" + coment.country + 
-                               "' in '" + coment.time + 
-                               "' data: '" + coment.data +
-                                "' id: '" + coment.id + 
-                                "' like: '" + coment.like +
-                                "' news: '" + coment.news +
-                                "' text: '" + coment.text);
+//            System.out.println("answer: '" + coment.answer + 
+//                               "' by '" + coment.autor + 
+//                               "' country '" + coment.country + 
+//                               "' in '" + coment.time + 
+//                               "' data: '" + coment.data +
+//                                "' id: '" + coment.id + 
+//                                "' like: '" + coment.like +
+//                                "' news: '" + coment.news +
+//                                "' text: '" + coment.text);
             coments.add(coment);
             l+=8;
         }
@@ -144,6 +160,49 @@ public class Controller {
             
         }
         return c;
+    }
+    
+    public ArrayList<classes.Category> load_categorys_from_db() {
+        update_conect("kategori");
+        ArrayList categoryString = SQL.GetData();
+        
+        int col = (int) categoryString.get(0);
+        
+        for (int i =0; i < col+1; i++) {
+            categoryString.remove(0);
+        }
+        
+        ArrayList<classes.Category> categorys = new ArrayList<classes.Category>();
+        
+        for (int l = 0; l < categoryString.size(); l++) {
+            classes.Category category = new classes.Category((String)categoryString.get(l),
+                                                             (String)categoryString.get(l+1),
+                                                             (String)categoryString.get(l+2));
+            categorys.add(category);
+            l+=2;
+        }
+        return categorys;
+    }
+    
+    public ArrayList<classes.Category> load_categorys() {
+        update_conect("kategori");
+        DefaultListModel listModelNumber = new DefaultListModel();
+        listModelNumber.removeAllElements();
+        frameController.cFrame.jList.setModel(listModelNumber);
+        ArrayList<classes.Category> category = load_categorys_from_db();
+        
+        for (int i = 0; i < category.size(); i++) {
+            if (category.get(i).home == null) {
+                listModelNumber.addElement("id: " + category.get(i).id + " | " + 
+                                       " " + category.get(i).title);
+            } else {
+               listModelNumber.addElement(category.get(Integer.parseInt(category.get(i).home)-1).title + ": " + "id: " + category.get(i).id + " | " + 
+                                       " " + category.get(i).title); 
+            }
+        }
+        
+        frameController.cFrame.categorys = category;
+        return category;
     }
     
     public void delete_element(int selected) {
@@ -314,8 +373,14 @@ public class Controller {
         }
     }
     
-    public void consecrate_id(ArrayList<classes.Account> news) {
-        
+    public void consecrate_id(ArrayList<classes.Category> category) {
+        SQL.delAll();
+
+        for (int i = 0 ; i < category.size(); i++) {
+            add_category(category.get(i).title, 
+                     category.get(i).home);
+                     
+        }
     }
     
     public void add_news_auto(ArrayList<classes.News> news, String index) {
@@ -503,6 +568,36 @@ public class Controller {
         } 
 
 //        consecrate_id(load_news_from_db());
+        connect_db();
+    }
+    
+    public void add_category(String title, String home) {
+        update_conect("kategori");
+        ArrayList columnArr = new ArrayList();
+        for (int i = 0; i < frameController.gFrame.jTable2.getModel().getColumnCount(); i++) {
+            columnArr.add(frameController.gFrame.jTable2.getModel().getColumnName(i));
+        }
+        
+        String value[] = new String[3];
+        value[0] = "0";
+        value[1] = title;
+        value[2] = home;
+        
+        
+        try {
+            
+            PreparedStatement X = SQL.insert(columnArr);
+
+            for (int i = 0; i < 3; i++) {
+                X.setString(i+1, value[i]);
+            }
+
+            X.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+
+//        consecrate_id();
         connect_db();
     }
     
