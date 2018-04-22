@@ -5,6 +5,7 @@
  */
 package frames;
 
+//import static frames.SelectOpenNewsFrame.controller;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import newsdb.*;
@@ -141,8 +142,9 @@ public class OpenNewsFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String value[] = jList1.getSelectedValue().replaceAll("\\W", " ").split(" ");
-        String index = value[1];
-//        controller.delete_element(index);
+        String index = value[2];
+        controller.delete_element(Integer.parseInt(index)-1);
+        controller.load_news();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased

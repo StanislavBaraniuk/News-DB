@@ -17,6 +17,12 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+<<<<<<< HEAD
+=======
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTree;
+>>>>>>> 710f98501a99c8f62d8f04e823249056860ff4de
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -34,14 +40,30 @@ public class Controller {
     public void connect_db() {
         SQL.set_table(frameController.gFrame.jComboBox1.getSelectedItem().toString());
         SQL.set_connect_info(SERVER, PORT, DBName, user, password);
-        System.out.println(SQL.Conect());
+        try {
+            System.out.println(SQL.Conect());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
         write_to_table();
     }
     
     public void update_conect(String table) {
         SQL.set_table(table);
         SQL.set_connect_info(SERVER, PORT, DBName, user, password);
-        System.out.println(SQL.Conect());
+        try {
+            System.out.println(SQL.Conect());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
         write_to_table();
     }
     
@@ -88,132 +110,99 @@ public class Controller {
                         (String)comentsString.get(l+6),
                         (String)comentsString.get(l+7),
                         (String)comentsString.get(l+8));
-            System.out.println("answer: '" + coment.answer + 
-                               "' by '" + coment.autor + 
-                               "' country '" + coment.country + 
-                               "' in '" + coment.time + 
-                               "' data: '" + coment.data +
-                                "' id: '" + coment.id + 
-                                "' like: '" + coment.like +
-                                "' news: '" + coment.news +
-                                "' text: '" + coment.text);
+//            System.out.println("answer: '" + coment.answer + 
+//                               "' by '" + coment.autor + 
+//                               "' country '" + coment.country + 
+//                               "' in '" + coment.time + 
+//                               "' data: '" + coment.data +
+//                                "' id: '" + coment.id + 
+//                                "' like: '" + coment.like +
+//                                "' news: '" + coment.news +
+//                                "' text: '" + coment.text);
             coments.add(coment);
             l+=8;
         }
         return coments;
     }
     
-    public void load_coments(int index, String title) {
+//    public void enter(int index) {
+    
+    public ArrayList<classes.Coments> load_coments(int index) {
+        frameController.cvFrame.index = String.valueOf(index);
         DefaultListModel listModelNumber = new DefaultListModel();
+        ArrayList<classes.Coments> c = new ArrayList<classes.Coments>();
         listModelNumber.removeAllElements();
         frameController.cvFrame.List.setModel(listModelNumber);
         ArrayList<classes.Coments> coments = load_coments_from_db();
         
         for (int i = 0; i < coments.size(); i++) {
-            if (index != Integer.parseInt(coments.get(i).news)) {
-            listModelNumber.addElement("index: " + 
-                            coments.get(i).id + 
-                            ", " + 
-                            "text: " + 
-                            coments.get(i).text + 
-                            " ,by: '" + 
-                            coments.get(i).autor + 
-                            " ,at: " + 
-                            coments.get(i).data + 
-                            " ,in " + 
-                            coments.get(i).time + 
-                            " ,likes: " + 
-                            coments.get(i).like + 
-                            " ,country: " 
-                            + coments.get(i).country);
+            if (index == Integer.parseInt(coments.get(i).news)) {
+                String otvet = !coments.get(i).answer.equals("-1") ? "Answer to '"+coments.get(Integer.parseInt(coments.get(i).answer)).autor+"': " : "";
+                String el = otvet + "index: " + 
+                                coments.get(i).id + 
+                                ", " + 
+                                "text: " + 
+                                coments.get(i).text + 
+                                " ,by: '" + 
+                                coments.get(i).autor + 
+                                " ,at: " + 
+                                coments.get(i).data + 
+                                " ,in " + 
+                                coments.get(i).time + 
+                                " ,likes: " + 
+                                coments.get(i).like + 
+                                " ,country: " 
+                                + coments.get(i).country;
+                listModelNumber.addElement(el);
+                c.add(coments.get(i));
+            
             }
+            
         }
+        return c;
     }
     
-    private void createNodes(DefaultMutableTreeNode top, int index) {
-        ArrayList<DefaultMutableTreeNode> categoryArr = new ArrayList<DefaultMutableTreeNode>();
+    public ArrayList<classes.Category> load_categorys_from_db() {
+        update_conect("kategori");
+        ArrayList categoryString = SQL.GetData();
         
-//        DefaultMutableTreeNode
-//        DefaultMutableTreeNode book = null;
-//
-//        category = new DefaultMutableTreeNode("Books for Java Programmers");
-//        top.add(category);
-//
-//        //original Tutorial
-//        book = new DefaultMutableTreeNode("The Java Tutorial: A Short Course on the Basics");
-//        category.add(book);
-//
-//        //Tutorial Continued
-//        book = new DefaultMutableTreeNode("The Java Tutorial Continued: The Rest of the JDK");
-//        category.add(book);
-//
-//        //Swing Tutorial
-//        book = new DefaultMutableTreeNode("The Swing Tutorial: A Guide to Constructing GUIs");
-//        category.add(book);
-//
-//        //...add more books for programmers...
-//
-//        category = new DefaultMutableTreeNode("Books for Java Implementers");
-//        top.add(category);
-//
-//        //VM
-//        book = new DefaultMutableTreeNode("The Java Virtual Machine Specification");
-//        category.add(book);
-//
-//        //Language Spec
-//        book = new DefaultMutableTreeNode("The Java Language Specification");
-//        category.add(book);
+        int col = (int) categoryString.get(0);
         
-        ArrayList<classes.Coments> coments = load_coments_from_db();
-        DefaultMutableTreeNode category, podCat;
-        for (int i = 0; i < coments.size(); i++) {
-            if (index+1 != Integer.parseInt(coments.get(i).news)) {
-                
-                if (!coments.get(i).answer.equals("-1")) {
-                    category = new DefaultMutableTreeNode("index: " + 
-                            coments.get(i).id + 
-                            ", " + 
-                            "     text: " + 
-                            coments.get(i).text + 
-                            "     ,by: '" + 
-                            coments.get(i).autor + 
-                            "     ,at: " + 
-                            coments.get(i).data + 
-                            "    ,in " + 
-                            coments.get(i).time + 
-                            "     ,likes: " + 
-                            coments.get(i).like + 
-                            "     ,country: " 
-                            + coments.get(i).like);
-                    categoryArr.add(category);
-                } else {
-                    category = new DefaultMutableTreeNode("index: " + 
-                            coments.get(i).id + 
-                            ", " + 
-                            "text: " + 
-                            coments.get(i).text + 
-                            " ,by: '" + 
-                            coments.get(i).autor + 
-                            " ,at: " + 
-                            coments.get(i).data + 
-                            " ,in " + 
-                            coments.get(i).time + 
-                            " ,likes: " + 
-                            coments.get(i).like + 
-                            " ,country: " 
-                            + coments.get(i).like);
-                    
-                    categoryArr.get(Integer.parseInt(coments.get(i).answer)).add(category);
-                    top.add(category);
-                }
+        for (int i =0; i < col+1; i++) {
+            categoryString.remove(0);
+        }
+        
+        ArrayList<classes.Category> categorys = new ArrayList<classes.Category>();
+        
+        for (int l = 0; l < categoryString.size(); l++) {
+            classes.Category category = new classes.Category((String)categoryString.get(l),
+                                                             (String)categoryString.get(l+1),
+                                                             (String)categoryString.get(l+2));
+            categorys.add(category);
+            l+=2;
+        }
+        return categorys;
+    }
+    
+    public ArrayList<classes.Category> load_categorys() {
+        update_conect("kategori");
+        DefaultListModel listModelNumber = new DefaultListModel();
+        listModelNumber.removeAllElements();
+        frameController.cFrame.jList.setModel(listModelNumber);
+        ArrayList<classes.Category> category = load_categorys_from_db();
+        
+        for (int i = 0; i < category.size(); i++) {
+            if (category.get(i).home == null) {
+                listModelNumber.addElement("id: " + category.get(i).id + " | " + 
+                                       " " + category.get(i).title);
+            } else {
+               listModelNumber.addElement(category.get(Integer.parseInt(category.get(i).home)-1).title + ": " + "id: " + category.get(i).id + " | " + 
+                                       " " + category.get(i).title); 
             }
         }
         
-        for (int i = 0; i < categoryArr.size(); i++) {
-            top.add(categoryArr.get(i));
-        }
-            
-        
+        frameController.cFrame.categorys = category;
+        return category;
     }
     
     public void delete_element(int selected) {
@@ -384,8 +373,14 @@ public class Controller {
         }
     }
     
-    public void consecrate_id(ArrayList<classes.Account> news) {
-        
+    public void consecrate_id(ArrayList<classes.Category> category) {
+        SQL.delAll();
+
+        for (int i = 0 ; i < category.size(); i++) {
+            add_category(category.get(i).title, 
+                     category.get(i).home);
+                     
+        }
     }
     
     public void add_news_auto(ArrayList<classes.News> news, String index) {
@@ -548,7 +543,6 @@ public class Controller {
             columnArr.add(frameController.gFrame.jTable2.getModel().getColumnName(i));
         }
         
-        classes.News news = new classes.News("0", title, date, time, txt, autor, tegs, photo, photoTitle);
         String value[] = new String[columnArr.size()];
         value[0] = "0";
         value[1] = title;
@@ -577,24 +571,41 @@ public class Controller {
         connect_db();
     }
     
+<<<<<<< HEAD
     public void add_city(String city, String temperatura) {
         update_conect("cities_pogoda");
+=======
+    public void add_category(String title, String home) {
+        update_conect("kategori");
+>>>>>>> 710f98501a99c8f62d8f04e823249056860ff4de
         ArrayList columnArr = new ArrayList();
         for (int i = 0; i < frameController.gFrame.jTable2.getModel().getColumnCount(); i++) {
             columnArr.add(frameController.gFrame.jTable2.getModel().getColumnName(i));
         }
         
+<<<<<<< HEAD
         classes.Pogoda pogoda = new classes.Pogoda("0", city, temperatura);
         String value[] = new String[columnArr.size()];
         value[0] = "0";
         value[1] = city;
         value[2] = temperatura;
+=======
+        String value[] = new String[3];
+        value[0] = "0";
+        value[1] = title;
+        value[2] = home;
+        
+>>>>>>> 710f98501a99c8f62d8f04e823249056860ff4de
         
         try {
             
             PreparedStatement X = SQL.insert(columnArr);
 
+<<<<<<< HEAD
             for (int i = 0; i < columnArr.size(); i++) {
+=======
+            for (int i = 0; i < 3; i++) {
+>>>>>>> 710f98501a99c8f62d8f04e823249056860ff4de
                 X.setString(i+1, value[i]);
             }
 
@@ -603,16 +614,28 @@ public class Controller {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         } 
 
+<<<<<<< HEAD
 //        consecrate_id(load_news_from_db());
         connect_db();
     }
     
     public void add_currency(String valute, String curs) {
         update_conect("kurse_valute");
+=======
+//        consecrate_id();
+        connect_db();
+    }
+    
+    public void add_coments(String text, String autor, String data, 
+                         String time, String like, String answer, String country, String news) {
+        //id, text, autor, data, time, like, answer, country, news;
+        update_conect("coments");
+>>>>>>> 710f98501a99c8f62d8f04e823249056860ff4de
         ArrayList columnArr = new ArrayList();
         for (int i = 0; i < frameController.gFrame.jTable2.getModel().getColumnCount(); i++) {
             columnArr.add(frameController.gFrame.jTable2.getModel().getColumnName(i));
         }
+<<<<<<< HEAD
         classes.Valute value = new classes.Valute("0", valute, curs);
         String values[] = new String[columnArr.size()];
         values[0] = "0";
@@ -623,12 +646,36 @@ public class Controller {
             PreparedStatement X = SQL.insert(columnArr);
             for (int i = 0; i < columnArr.size(); i++) {
                 X.setString(i+1, values[i]);
+=======
+        
+        String value[] = new String[columnArr.size()];
+        value[0] = "0";
+        value[1] = text;
+        value[2] = autor;
+        value[3] = data;
+        value[4] = time;
+        value[5] = like;
+        value[6] = answer;
+        value[7] = country;
+        value[8] = news;
+        
+        try {
+            
+            PreparedStatement X = SQL.insert(columnArr);
+
+            for (int i = 0; i < columnArr.size(); i++) {
+                X.setString(i+1, value[i]);
+>>>>>>> 710f98501a99c8f62d8f04e823249056860ff4de
             }
 
             X.execute();
         } catch (SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         } 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 710f98501a99c8f62d8f04e823249056860ff4de
 //        consecrate_id(load_news_from_db());
         connect_db();
     }
@@ -640,9 +687,7 @@ public class Controller {
         for (int i = 0; i < frameController.gFrame.jTable2.getModel().getColumnCount(); i++) {
             columnArr.add(frameController.gFrame.jTable2.getModel().getColumnName(i));
         }
-        
-        classes.Account account = new classes.Account("0", name, surname, avatar, burthday, sex, 
-                                                      country, speciality, about, email, password);
+
         String value[] = new String[columnArr.size()];
         value[0] = "0";
         value[1] = name;

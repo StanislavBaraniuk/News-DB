@@ -15,8 +15,8 @@ public class NewsDB {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Controller controller = new Controller();
-        controller.frameController.show_general_frame();
+            Controller controller = new Controller();
+            controller.frameController.show_general_frame();
     }
     
 }

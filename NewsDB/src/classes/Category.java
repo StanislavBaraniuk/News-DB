@@ -12,19 +12,19 @@ import java.util.ArrayList;
  * @author stanislaw
  */
 public class Category {
-    private String id;
-    private String title;
-    private ArrayList<Integer> news = new ArrayList<Integer>();
+    public String id, title, home;
+//    private ArrayList<Integer> news = new ArrayList<Integer>();
     
-    public Category(String id, String title){
+    public Category(String id, String title, String home){
         this.id=id;
         this.title=title;
+        this.home = home;
     }
     
-    public void setNews(String cat) {
-        String n[] = cat.split(",");
-        for (int i = 0; i < n.length; i++) {
-            this.news.add(Integer.parseInt(n[i]));
-        }
-    }
+//    public void setNews(String cat) {
+//        String n[] = cat.split(",");
+//        for (int i = 0; i < n.length; i++) {
+//            this.news.add(Integer.parseInt(n[i]));
+//        }
+//    }
 }
