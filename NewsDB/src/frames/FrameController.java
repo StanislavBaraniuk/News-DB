@@ -32,6 +32,7 @@ public class FrameController {
     public AutorsFrame saFrame;
     public OpenAutorsFrame oaFrame;
     public SelectOpenAutorsFrame soaFrame;
+    public AddComentFrame acFrame;
     
     public FrameController(Controller controller) {
         this.controller = controller;
@@ -49,6 +50,7 @@ public class FrameController {
         this.saFrame = new AutorsFrame(controller);
         this.oaFrame = new OpenAutorsFrame(controller);
         this.soaFrame = new SelectOpenAutorsFrame(controller);
+        this.acFrame = new AddComentFrame(controller);
     }
     
     public ImageIcon createIcon(String path) {
@@ -165,6 +167,14 @@ public class FrameController {
     public void hide_open_autors_frame() {
         oaFrame.setVisible(false);
         gFrame.setVisible(true);
+    }
+    
+    public void show_add_coments_frame() {
+        acFrame.setVisible(true);
+    }
+    
+    public void hide_add_coments_frame() {
+        acFrame.setVisible(false);
     }
     
 }

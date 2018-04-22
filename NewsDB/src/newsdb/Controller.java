@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.table.DefaultTableModel;
@@ -108,117 +109,41 @@ public class Controller {
         return coments;
     }
     
-    public void load_coments(int index, String title) {
+//    public void enter(int index) {
+    
+    public ArrayList<classes.Coments> load_coments(int index) {
+        frameController.cvFrame.index = String.valueOf(index);
         DefaultListModel listModelNumber = new DefaultListModel();
+        ArrayList<classes.Coments> c = new ArrayList<classes.Coments>();
         listModelNumber.removeAllElements();
         frameController.cvFrame.List.setModel(listModelNumber);
         ArrayList<classes.Coments> coments = load_coments_from_db();
         
         for (int i = 0; i < coments.size(); i++) {
-            if (index != Integer.parseInt(coments.get(i).news)) {
-            listModelNumber.addElement("index: " + 
-                            coments.get(i).id + 
-                            ", " + 
-                            "text: " + 
-                            coments.get(i).text + 
-                            " ,by: '" + 
-                            coments.get(i).autor + 
-                            " ,at: " + 
-                            coments.get(i).data + 
-                            " ,in " + 
-                            coments.get(i).time + 
-                            " ,likes: " + 
-                            coments.get(i).like + 
-                            " ,country: " 
-                            + coments.get(i).country);
-            }
-        }
-    }
-    
-    private void createNodes(DefaultMutableTreeNode top, int index) {
-        ArrayList<DefaultMutableTreeNode> categoryArr = new ArrayList<DefaultMutableTreeNode>();
-        
-//        DefaultMutableTreeNode
-//        DefaultMutableTreeNode book = null;
-//
-//        category = new DefaultMutableTreeNode("Books for Java Programmers");
-//        top.add(category);
-//
-//        //original Tutorial
-//        book = new DefaultMutableTreeNode("The Java Tutorial: A Short Course on the Basics");
-//        category.add(book);
-//
-//        //Tutorial Continued
-//        book = new DefaultMutableTreeNode("The Java Tutorial Continued: The Rest of the JDK");
-//        category.add(book);
-//
-//        //Swing Tutorial
-//        book = new DefaultMutableTreeNode("The Swing Tutorial: A Guide to Constructing GUIs");
-//        category.add(book);
-//
-//        //...add more books for programmers...
-//
-//        category = new DefaultMutableTreeNode("Books for Java Implementers");
-//        top.add(category);
-//
-//        //VM
-//        book = new DefaultMutableTreeNode("The Java Virtual Machine Specification");
-//        category.add(book);
-//
-//        //Language Spec
-//        book = new DefaultMutableTreeNode("The Java Language Specification");
-//        category.add(book);
-        
-        ArrayList<classes.Coments> coments = load_coments_from_db();
-        DefaultMutableTreeNode category, podCat;
-        for (int i = 0; i < coments.size(); i++) {
-            if (index+1 != Integer.parseInt(coments.get(i).news)) {
-                
-                if (!coments.get(i).answer.equals("-1")) {
-                    category = new DefaultMutableTreeNode("index: " + 
-                            coments.get(i).id + 
-                            ", " + 
-                            "     text: " + 
-                            coments.get(i).text + 
-                            "     ,by: '" + 
-                            coments.get(i).autor + 
-                            "     ,at: " + 
-                            coments.get(i).data + 
-                            "    ,in " + 
-                            coments.get(i).time + 
-                            "     ,likes: " + 
-                            coments.get(i).like + 
-                            "     ,country: " 
-                            + coments.get(i).like);
-                    categoryArr.add(category);
-                } else {
-                    category = new DefaultMutableTreeNode("index: " + 
-                            coments.get(i).id + 
-                            ", " + 
-                            "text: " + 
-                            coments.get(i).text + 
-                            " ,by: '" + 
-                            coments.get(i).autor + 
-                            " ,at: " + 
-                            coments.get(i).data + 
-                            " ,in " + 
-                            coments.get(i).time + 
-                            " ,likes: " + 
-                            coments.get(i).like + 
-                            " ,country: " 
-                            + coments.get(i).like);
-                    
-                    categoryArr.get(Integer.parseInt(coments.get(i).answer)).add(category);
-                    top.add(category);
-                }
-            }
-        }
-        
-        for (int i = 0; i < categoryArr.size(); i++) {
-            top.add(categoryArr.get(i));
-        }
+            if (index == Integer.parseInt(coments.get(i).news)) {
+                String otvet = !coments.get(i).answer.equals("-1") ? "Answer to '"+coments.get(Integer.parseInt(coments.get(i).answer)).autor+"': " : "";
+                String el = otvet + "index: " + 
+                                coments.get(i).id + 
+                                ", " + 
+                                "text: " + 
+                                coments.get(i).text + 
+                                " ,by: '" + 
+                                coments.get(i).autor + 
+                                " ,at: " + 
+                                coments.get(i).data + 
+                                " ,in " + 
+                                coments.get(i).time + 
+                                " ,likes: " + 
+                                coments.get(i).like + 
+                                " ,country: " 
+                                + coments.get(i).country;
+                listModelNumber.addElement(el);
+                c.add(coments.get(i));
             
-        
+            }
+            
+        }
+        return c;
     }
     
     public void delete_element(int selected) {
@@ -553,7 +478,6 @@ public class Controller {
             columnArr.add(frameController.gFrame.jTable2.getModel().getColumnName(i));
         }
         
-        classes.News news = new classes.News("0", title, date, time, txt, autor, tegs, photo, photoTitle);
         String value[] = new String[columnArr.size()];
         value[0] = "0";
         value[1] = title;
@@ -582,6 +506,43 @@ public class Controller {
         connect_db();
     }
     
+    public void add_coments(String text, String autor, String data, 
+                         String time, String like, String answer, String country, String news) {
+        //id, text, autor, data, time, like, answer, country, news;
+        update_conect("coments");
+        ArrayList columnArr = new ArrayList();
+        for (int i = 0; i < frameController.gFrame.jTable2.getModel().getColumnCount(); i++) {
+            columnArr.add(frameController.gFrame.jTable2.getModel().getColumnName(i));
+        }
+        
+        String value[] = new String[columnArr.size()];
+        value[0] = "0";
+        value[1] = text;
+        value[2] = autor;
+        value[3] = data;
+        value[4] = time;
+        value[5] = like;
+        value[6] = answer;
+        value[7] = country;
+        value[8] = news;
+        
+        try {
+            
+            PreparedStatement X = SQL.insert(columnArr);
+
+            for (int i = 0; i < columnArr.size(); i++) {
+                X.setString(i+1, value[i]);
+            }
+
+            X.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+
+//        consecrate_id(load_news_from_db());
+        connect_db();
+    }
+    
     public void add_autors(String name, String surname, String avatar, String burthday, String sex, 
                            String country, String speciality, String about, String email, String password) {
         update_conect("autors");
@@ -589,9 +550,7 @@ public class Controller {
         for (int i = 0; i < frameController.gFrame.jTable2.getModel().getColumnCount(); i++) {
             columnArr.add(frameController.gFrame.jTable2.getModel().getColumnName(i));
         }
-        
-        classes.Account account = new classes.Account("0", name, surname, avatar, burthday, sex, 
-                                                      country, speciality, about, email, password);
+
         String value[] = new String[columnArr.size()];
         value[0] = "0";
         value[1] = name;

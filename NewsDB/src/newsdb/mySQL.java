@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import frames.General;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -52,36 +53,53 @@ class mySQL{
     }
     
     public ArrayList get_available_table(){
-        ArrayList s = new ArrayList();
-        System.out.println(Conect());
         try {
+            ArrayList s = new ArrayList();
+            System.out.println(Conect());
             try {
-                DatabaseMetaData md = conn.getMetaData();
-                ResultSet rs = md.getTables(null, null, "%", null);
-                while (rs.next()) {
-                    s.add(rs.getString(3));
+                try {
+                    DatabaseMetaData md = conn.getMetaData();
+                    ResultSet rs = md.getTables(null, null, "%", null);
+                    while (rs.next()) {
+                        s.add(rs.getString(3));
+                    }
+                    
+                    return s;
+                } catch (NullPointerException ex) {
+                    return null;
                 }
-
-                return s;
-            } catch (NullPointerException ex) {
+            } catch (Exception ex) {
                 return null;
             }
-        } catch (Exception ex) {
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(mySQL.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (InstantiationException ex) {
+            Logger.getLogger(mySQL.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(mySQL.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+        
     }
 
-    public String Conect(){
+    public String Conect() throws ClassNotFoundException, InstantiationException, IllegalAccessException{
         try {
             Class.forName ("com.mysql.jdbc.Driver").newInstance ();
             conn = DriverManager.getConnection (dbUrl, user,password);
             gFrame.jTextField1.setBackground(Color.green);
             return "Ok";
-        } catch (Exception e) {
+        } catch (IndexOutOfBoundsException e) {
             gFrame.jTextField1.setBackground(Color.white);
 //            System.err.println ("Cannot connect to database server");
             return e.getLocalizedMessage();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERROR", "InfoBox: " + "ERROR", JOptionPane.INFORMATION_MESSAGE);
+            return ex.getLocalizedMessage();
         }
+       
+        
     }
     public Statement getStatement(){
         try {
