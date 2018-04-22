@@ -111,11 +111,11 @@ public class Controller {
     public void load_coments(int index, String title) {
         DefaultListModel listModelNumber = new DefaultListModel();
         listModelNumber.removeAllElements();
-        frameController.cvFrame.jList1.setModel(listModelNumber);
+        frameController.cvFrame.List.setModel(listModelNumber);
         ArrayList<classes.Coments> coments = load_coments_from_db();
         
         for (int i = 0; i < coments.size(); i++) {
-            if (index+1 != Integer.parseInt(coments.get(i).news)) {
+            if (index != Integer.parseInt(coments.get(i).news)) {
             listModelNumber.addElement("index: " + 
                             coments.get(i).id + 
                             ", " + 
@@ -532,7 +532,7 @@ public class Controller {
                 if (autors.get(i).burthday != null) {
                     String date[] = autors.get(i).burthday.split("-");
                     frameController.soaFrame.chisloComboBox.setSelectedItem(date[2]);
-                    frameController.soaFrame.monthComboBox2.setSelectedItem(date[1]);
+                    frameController.soaFrame.monthComboBox2.setSelectedIndex(Integer.parseInt(date[1]));
                     frameController.soaFrame.ricComboBox.setSelectedItem(date[0]);
                 } else {
                     frameController.soaFrame.chisloComboBox.setSelectedIndex(0);
