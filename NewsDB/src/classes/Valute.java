@@ -10,11 +10,11 @@ package classes;
  * @author stanislaw
  */
 public class Valute {
-    String id, cities, value;
+    String id, valuta, value;
 
-    public Valute(String id, String cities, String value) {
+    public Valute(String id, String valuta, String value) {
         this.id = id;
-        this.cities = cities;
+        this.valuta = valuta;
         this.value = value;
     }
 }

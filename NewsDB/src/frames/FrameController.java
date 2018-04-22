@@ -32,6 +32,8 @@ public class FrameController {
     public AutorsFrame saFrame;
     public OpenAutorsFrame oaFrame;
     public SelectOpenAutorsFrame soaFrame;
+    public AddCityFrame acFrame;
+    public AddCurrencyFrame avFrame;
     
     public FrameController(Controller controller) {
         this.controller = controller;
@@ -49,6 +51,8 @@ public class FrameController {
         this.saFrame = new AutorsFrame(controller);
         this.oaFrame = new OpenAutorsFrame(controller);
         this.soaFrame = new SelectOpenAutorsFrame(controller);
+        this.acFrame = new AddCityFrame(controller);
+        this.avFrame = new AddCurrencyFrame(controller);
     }
     
     public ImageIcon createIcon(String path) {
@@ -167,4 +171,23 @@ public class FrameController {
         gFrame.setVisible(true);
     }
     
+    public void show_add_city_frame() {
+        acFrame.setVisible(true);
+        oiFrame.setVisible(false);
+    }
+    
+    public void hide_add_city_frame() {
+        acFrame.setVisible(false);
+        oiFrame.setVisible(true);
+    }
+    
+    public void show_add_currency_frame() {
+        avFrame.setVisible(true);
+        oiFrame.setVisible(false);
+    }
+    
+    public void hide_add_currency_frame() {
+        avFrame.setVisible(false);
+        oiFrame.setVisible(true);
+    }
 }

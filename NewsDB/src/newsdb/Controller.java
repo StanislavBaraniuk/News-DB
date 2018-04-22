@@ -12,18 +12,13 @@ import com.mysql.jdbc.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
-import javax.swing.JScrollPane;
-import javax.swing.JTree;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
 
 /**
  *
@@ -33,7 +28,7 @@ public class Controller {
     private String func[] = {"add element", "search element", "delete element", "sample element"};   
     public FrameController frameController = new FrameController(this);
     private mySQL SQL = new mySQL(frameController.gFrame);
-    private String user = "rootor", password="root", DBName, SERVER = "127.0.0.1";
+    private String user = "root", password="", DBName, SERVER = "127.0.0.1";
     private String PORT = "3306";
     
     public void connect_db() {
@@ -578,6 +573,62 @@ public class Controller {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         } 
 
+//        consecrate_id(load_news_from_db());
+        connect_db();
+    }
+    
+    public void add_city(String city, String temperatura) {
+        update_conect("cities_pogoda");
+        ArrayList columnArr = new ArrayList();
+        for (int i = 0; i < frameController.gFrame.jTable2.getModel().getColumnCount(); i++) {
+            columnArr.add(frameController.gFrame.jTable2.getModel().getColumnName(i));
+        }
+        
+        classes.Pogoda pogoda = new classes.Pogoda("0", city, temperatura);
+        String value[] = new String[columnArr.size()];
+        value[0] = "0";
+        value[1] = city;
+        value[2] = temperatura;
+        
+        try {
+            
+            PreparedStatement X = SQL.insert(columnArr);
+
+            for (int i = 0; i < columnArr.size(); i++) {
+                X.setString(i+1, value[i]);
+            }
+
+            X.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+
+//        consecrate_id(load_news_from_db());
+        connect_db();
+    }
+    
+    public void add_currency(String valute, String curs) {
+        update_conect("kurse_valute");
+        ArrayList columnArr = new ArrayList();
+        for (int i = 0; i < frameController.gFrame.jTable2.getModel().getColumnCount(); i++) {
+            columnArr.add(frameController.gFrame.jTable2.getModel().getColumnName(i));
+        }
+        classes.Valute value = new classes.Valute("0", valute, curs);
+        String values[] = new String[columnArr.size()];
+        values[0] = "0";
+        values[1] = valute;
+        values[2] = curs;
+        
+        try {
+            PreparedStatement X = SQL.insert(columnArr);
+            for (int i = 0; i < columnArr.size(); i++) {
+                X.setString(i+1, values[i]);
+            }
+
+            X.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        } 
 //        consecrate_id(load_news_from_db());
         connect_db();
     }
