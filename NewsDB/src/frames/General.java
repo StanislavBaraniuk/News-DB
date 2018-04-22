@@ -369,14 +369,20 @@ public class General extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-       controller.frameController.oiFrame.jComboBox1.removeAllItems();
+        controller.frameController.oiFrame.jComboBox1.removeAllItems();
+        controller.frameController.oiFrame.jComboBox2.removeAllItems();
         controller.frameController.show_other_information_frame();
         ArrayList<classes.Pogoda> c = controller.load_cities();
+        ArrayList<classes.Valute> v = controller.load_valutes();
         for (int i = 0; i < c.size(); i++) {
             controller.frameController.oiFrame.jComboBox1.addItem(c.get(i).cities);
         }
+        for (int i = 0; i < v.size(); i++) {
+            controller.frameController.oiFrame.jComboBox2.addItem(v.get(i).valuta);
+        }
         controller.frameController.oiFrame.jLabel1.setText(c.get(controller.frameController.oiFrame.jComboBox1.getSelectedIndex()).temperature);
         controller.frameController.oiFrame.cities = c;
+        controller.frameController.oiFrame.valutes = v;
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed

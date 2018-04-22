@@ -17,6 +17,7 @@ import newsdb.*;
 public class OtherInformationFrame extends javax.swing.JFrame {
     private static Controller controller;
     public ArrayList<classes.Pogoda> cities;
+    public ArrayList<classes.Valute> valutes;
     /**
      * Creates new form OtherInformationFrame
      */
@@ -92,6 +93,11 @@ public class OtherInformationFrame extends javax.swing.JFrame {
             }
         });
 
+        jComboBox2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox2ItemStateChanged(evt);
+            }
+        });
         jComboBox2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jComboBox2MouseClicked(evt);
@@ -350,6 +356,14 @@ public class OtherInformationFrame extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    private void jComboBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox2ItemStateChanged
+         try {
+            controller.frameController.oiFrame.jLabel2.setText(valutes.get(controller.frameController.oiFrame.jComboBox2.getSelectedIndex()).value);
+        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+            
+        }
+    }//GEN-LAST:event_jComboBox2ItemStateChanged
 
     /**
      * @param args the command line arguments

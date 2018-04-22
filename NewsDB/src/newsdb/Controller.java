@@ -133,6 +133,26 @@ public class Controller {
         return pogodas;
     }
     
+    public ArrayList<classes.Valute> load_valute_from_db() {
+        update_conect("kurse_valute");
+        ArrayList pogodaString = SQL.GetData();
+        
+        int col = (int) pogodaString.get(0);
+        
+        for (int i =0; i < col+1; i++) {
+            pogodaString.remove(0);
+        }
+        
+        ArrayList<classes.Valute> valutes = new ArrayList<classes.Valute>();
+        
+        for (int l = 0; l < pogodaString.size(); l++) {
+            classes.Valute valute = new classes.Valute((String)pogodaString.get(l),(String)pogodaString.get(l+1),(String)pogodaString.get(l+2));
+            valutes.add(valute);
+            l+=2;
+        }
+        return valutes;
+    }
+    
     public ArrayList<classes.Coments> load_coments(int index) {
         frameController.cvFrame.index = String.valueOf(index);
         DefaultListModel listModelNumber = new DefaultListModel();
@@ -177,6 +197,17 @@ public class Controller {
                 pogoda.add(cities.get(i));
             }
         return pogoda;
+    }
+    
+    public ArrayList<classes.Valute> load_valutes() {
+        DefaultListModel listModelNumber = new DefaultListModel();
+        ArrayList<classes.Valute> valutes = new ArrayList<classes.Valute>();
+        listModelNumber.removeAllElements();
+        ArrayList<classes.Valute> valutess = load_valute_from_db();
+        for (int i = 0; i < valutess.size(); i++) {
+                valutes.add(valutess.get(i));
+            }
+        return valutes;
     }
     
     

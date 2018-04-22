@@ -10,7 +10,7 @@ package classes;
  * @author stanislaw
  */
 public class Valute {
-    String id, valuta, value;
+    public String id, valuta, value;
 
     public Valute(String id, String valuta, String value) {
         this.id = id;
