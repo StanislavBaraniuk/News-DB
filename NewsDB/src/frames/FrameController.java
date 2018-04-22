@@ -32,14 +32,11 @@ public class FrameController {
     public AutorsFrame saFrame;
     public OpenAutorsFrame oaFrame;
     public SelectOpenAutorsFrame soaFrame;
-<<<<<<< HEAD
-    public AddCityFrame acFrame;
-    public AddCurrencyFrame avFrame;
-=======
+    public AddCityFrame aciFrame;
+    public AddCurrencyFrame acuFrame;
     public AddComentFrame acFrame;
     public AddCategoryFrame acatFrame;
->>>>>>> 710f98501a99c8f62d8f04e823249056860ff4de
-    
+
     public FrameController(Controller controller) {
         this.controller = controller;
         this.gFrame = new General(controller);
@@ -56,13 +53,10 @@ public class FrameController {
         this.saFrame = new AutorsFrame(controller);
         this.oaFrame = new OpenAutorsFrame(controller);
         this.soaFrame = new SelectOpenAutorsFrame(controller);
-<<<<<<< HEAD
-        this.acFrame = new AddCityFrame(controller);
-        this.avFrame = new AddCurrencyFrame(controller);
-=======
+        this.aciFrame = new AddCityFrame(controller);
+        this.acuFrame = new AddCurrencyFrame(controller);
         this.acFrame = new AddComentFrame(controller);
         this.acatFrame = new AddCategoryFrame(controller);
->>>>>>> 710f98501a99c8f62d8f04e823249056860ff4de
     }
     
     public ImageIcon createIcon(String path) {
@@ -189,27 +183,26 @@ public class FrameController {
         gFrame.setVisible(true);
     }
     
-<<<<<<< HEAD
     public void show_add_city_frame() {
-        acFrame.setVisible(true);
+        aciFrame.setVisible(true);
         oiFrame.setVisible(false);
     }
     
     public void hide_add_city_frame() {
-        acFrame.setVisible(false);
+        aciFrame.setVisible(false);
         oiFrame.setVisible(true);
     }
     
     public void show_add_currency_frame() {
-        avFrame.setVisible(true);
+        acuFrame.setVisible(true);
         oiFrame.setVisible(false);
     }
     
     public void hide_add_currency_frame() {
-        avFrame.setVisible(false);
+        acuFrame.setVisible(false);
         oiFrame.setVisible(true);
     }
-=======
+
     public void show_add_coments_frame() {
         acFrame.setVisible(true);
     }
@@ -217,6 +210,5 @@ public class FrameController {
     public void hide_add_coments_frame() {
         acFrame.setVisible(false);
     }
-    
->>>>>>> 710f98501a99c8f62d8f04e823249056860ff4de
+
 }

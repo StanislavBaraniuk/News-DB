@@ -10,7 +10,7 @@ package classes;
  * @author stanislaw
  */
 public class Pogoda {
-    String id, cities, temperature;
+    public String id, cities, temperature;
 
     public Pogoda(String id, String cities, String temperature) {
         this.id = id;
