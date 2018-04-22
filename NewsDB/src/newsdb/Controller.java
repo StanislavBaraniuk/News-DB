@@ -26,9 +26,17 @@ import javax.swing.table.DefaultTableModel;
 public class Controller {
     private String func[] = {"add element", "search element", "delete element", "sample element"};   
     public FrameController frameController = new FrameController(this);
-    private mySQL SQL = new mySQL(frameController.gFrame);
+    public mySQL SQL = new mySQL(frameController.gFrame);
     private String user = "rootor", password="root", DBName, SERVER = "127.0.0.1";
     private String PORT = "3306";
+    
+    Controller() {
+        
+    }
+    
+    public ArrayList<String>  get_DB() {
+        return SQL.executeMySQLQuery(user, password);
+    } 
     
     public void connect_db() {
         SQL.set_table(frameController.gFrame.jComboBox1.getSelectedItem().toString());
@@ -921,11 +929,12 @@ public class Controller {
             frameController.sFrame.jTextField4.setText(this.password);
     }
     
-    public void set_connect_info(String user, String password, String SERVER, String PORT) {
+    public void set_connect_info(String user, String password, String SERVER, String PORT, String DB) {
         this.user = user;
         this.password = password;
         this.SERVER = SERVER;
         this.PORT = PORT;
+        this.DBName = DB;
     }
     
     public void set_user(String user){

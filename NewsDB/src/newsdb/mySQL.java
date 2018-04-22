@@ -19,7 +19,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import frames.General;
 import javax.swing.JOptionPane;
-
+import java.sql.*;
+import java.util.Properties;
 /**
  *
  * @author DX
@@ -34,6 +35,7 @@ class mySQL{
     private Connection conn = null;
     private String tbl="test";//ТАБЛИЦЯ З ЯКОЮ БУДЕМО ПРАЦЮВАТИ
     private Statement s=null;
+    private Connection con = null;
     
     public mySQL(General gFrame) {
         this.gFrame = gFrame;
@@ -83,15 +85,78 @@ class mySQL{
         }
         
     }
+    
+    public void getConnection(String user, String pas){
+        Properties connectionProps = new Properties();
+        connectionProps.put("user", user);
+        connectionProps.put("password", pas);
+        try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            con = DriverManager.getConnection(
+                        dbUrl,
+                    connectionProps);
+        } catch (SQLException ex) {
+            // handle any errors
+            ex.printStackTrace();
+        } catch (Exception ex) {
+            // handle any errors
+            ex.printStackTrace();
+        }
+    }
+    
+    public ArrayList<String>  executeMySQLQuery(String user, String pas){
+        ArrayList<String>  db = new ArrayList();
+        getConnection(user, pas);
+        
+        Statement stmt = null;
+        ResultSet resultset = null;
+ 
+        try {
+            stmt = (Statement) con.createStatement();
+            resultset = stmt.executeQuery("SHOW DATABASES;");
+ 
+            if (stmt.execute("SHOW DATABASES;")) {
+                resultset = stmt.getResultSet();
+            }
+ 
+            while (resultset.next()) {
+                db.add(resultset.getString("Database"));
+            }
+            return db;
+        }
+        catch (SQLException ex){
+            // handle any errors
+            ex.printStackTrace();
+            return null;
+        }
+        finally {
+            // release resources
+            if (resultset != null) {
+                try {
+                    resultset.close();
+                } catch (SQLException sqlEx) { }
+                resultset = null;
+            }
+ 
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException sqlEx) { }
+                stmt = null;
+            }
+            
+        }
+    }
 
     public String Conect() throws ClassNotFoundException, InstantiationException, IllegalAccessException{
         try {
             Class.forName ("com.mysql.jdbc.Driver").newInstance ();
             conn = DriverManager.getConnection (dbUrl, user,password);
-            gFrame.jTextField1.setBackground(Color.green);
+//            gFrame.jTextField1.setBackground(Color.green);
+            gFrame.jComboBox3.getSelectedItem();
             return "Ok";
         } catch (IndexOutOfBoundsException e) {
-            gFrame.jTextField1.setBackground(Color.white);
+//            gFrame.jTextField1.setBackground(Color.white);
 //            System.err.println ("Cannot connect to database server");
             return e.getLocalizedMessage();
         } catch (SQLException ex) {
@@ -109,6 +174,7 @@ class mySQL{
         }
         return null;
     }
+    
     public ArrayList GetData() {// метод повертає всі записи з таблиці у вигляді
                              // великого рядка
 //        String rez="Помилка!!!";

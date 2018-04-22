@@ -148,7 +148,7 @@ public class AddComentFrame extends javax.swing.JFrame {
                                 dateY,
                                 dateT,
                                 likeTextField.getText(), 
-                                String.valueOf(answerComboBox.getSelectedIndex() > 0 ? answerComboBox.getItemAt(answerComboBox.getSelectedIndex()).split(" ")[1] : ""), 
+                                String.valueOf(answerComboBox.getSelectedIndex() > 0 ? answerComboBox.getItemAt(answerComboBox.getSelectedIndex()).split(" ")[1] : "-1"), 
                                 countryTextField.getText(),
                                 index);
             txtTextField.setText("");
